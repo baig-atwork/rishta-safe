@@ -1,0 +1,217 @@
+# Closure texts, English. Same keys in closure.ar.yaml and closure.ur.yaml.
+# Rules (enforced by tests/journey): no typed digits (numbers arrive through {denominator} or the
+# data file), no banned word, same keys in every locale, no marriage-decision wording anywhere.
+# Status: needs_clinician_signoff: true; language_status: draft (nobody has reviewed this wording).
+meta:
+  schema_version: 1
+  locale: en
+  direction: ltr
+  language_status: draft
+  needs_clinician_signoff: true
+  authoring: "Static text drafted at authoring time with an LLM assistant (no personal data); no runtime LLM. Items are original wording; no standard instrument is copied."
+
+notices:
+  not_run: "This is the instrument and the protocol only. The comprehension test with people has not been run."
+  synthetic: "Answers here are for made-up (synthetic) people only. Do not enter real health or family details."
+  draft: "This text is a draft. The clinical lead's sign-off is pending."
+  item_level_only: "Answers are reported item by item. No total score is calculated."
+  optional_stratifier: "This question is optional. It only helps to compare groups. It is not a test of reading ability."
+
+answer_labels:
+  "true": "True"
+  "false": "False"
+  not_sure: "Not sure"
+  prefer_not_to_say: "Prefer not to say"
+
+scale_labels:
+  likert_low: "Strongly disagree"
+  likert_high: "Strongly agree"
+
+proforma:
+  encounter: {label: "Visit", help: "Date, mode, length, language of the session, and whether an interpreter was used. The system fills in the times; you confirm."}
+  risk_signal: {label: "When the result was released", help: "Filled in by the system from the pathway record."}
+  findings_discussed: {label: "Findings discussed", help: "Tick each finding that was discussed. Mark whether it was explained as a chance and not a diagnosis, and whether it was uncertain."}
+  information_given: {label: "Information given", help: "Tick each point that was explained."}
+  options_discussed: {label: "Choices discussed", help: "Tick each choice that was described. Choices are listed in a fixed neutral order. None is recommended."}
+  teach_back: {label: "Teach-back", help: "Did the couple explain the result back in their own words? Record how accurate it was."}
+  patient_questions: {label: "Questions", help: "Were questions invited, and were they answered?"}
+  plan: {label: "Plan", help: "Each action has an owner and a due date."}
+  referral_task: {label: "Referral tasks", help: "Filled in by the system from the referral tasks."}
+  service_preference: {label: "Future services", help: "The person's own opt-in answer. Filled in by the person, not by you."}
+  sharing_and_consent: {label: "Sharing and consent", help: "Whether a copy was given to the patient. The system adds the consent record."}
+  completed_by: {label: "Completed by", help: "Filled in by the system: your role and the time."}
+
+proforma_options:
+  encounter_modes:
+    in_person: "In person"
+    virtual: "Virtual"
+  information_ticks:
+    carrier_vs_disease: "A carrier is not ill, and a result is not a diagnosis"
+    couple_numbers: "The couple numbers out of one hundred pregnancies"
+    test_limits: "What the test can and cannot find"
+    options_neutral_order: "Choices that exist, in a neutral order"
+    right_not_to_know: "The right not to know"
+    who_can_see_result: "Who can see the result"
+    how_to_reach_us: "How to reach the counselling service"
+  options:
+    prenatal_diagnosis: "Testing during a pregnancy"
+    preimplantation_testing: "Testing before a pregnancy begins, at a licensed centre"
+    specialist_discussion: "Talking with a specialist"
+  next_step_status:
+    decided: "The next clinical step is decided"
+    still_deciding: "Still deciding"
+    declined_to_discuss: "Chose not to discuss it now"
+  teach_back_results:
+    accurate: "Accurate"
+    partly: "Partly accurate"
+    repeat_needed: "Another explanation is needed"
+  plan_actions:
+    confirmatory_test: "Confirmatory test"
+    partner_testing: "Testing for a partner or relative"
+    referral: "Referral"
+    recontact: "Get in touch again"
+
+patient_items:
+  own_words:
+    prompt: "In your own words, what does this result mean for the two of you?"
+  out_of_100:
+    prompt: "Out of {denominator} pregnancies of couples with this same result, about how many children would have the condition?"
+  carrier_is_disease:
+    prompt: "Being a carrier means the person has the disease."
+  negative_means_none:
+    prompt: "If the test found nothing shared, our children cannot have any inherited condition."
+  next_step:
+    prompt: "What is the next step, and who is responsible for it?"
+    options:
+      counsellor_explains: "A counsellor or doctor explains the result and the choices to us"
+      centre_decides: "The screening centre decides for us"
+      nothing_more: "Nothing more happens"
+      find_lab_yourself: "We find a laboratory ourselves"
+  values_clarity:
+    prompt: "I know what matters most to us when choosing what to do next."
+  felt_free:
+    prompt: "I felt free to choose. Nobody pushed us in a direction."
+  who_can_see:
+    prompt: "Who can see our result?"
+    options:
+      only_me: "Only me"
+      me_and_partner: "Me and my partner"
+      family_i_choose: "Family members I choose"
+      nobody_else: "Nobody else"
+
+sils:
+  prompt: "How often do you need to have someone help you when you read instructions, pamphlets, or other written material from your doctor or pharmacy?"
+  options:
+    never: "Never"
+    rarely: "Rarely"
+    sometimes: "Sometimes"
+    often: "Often"
+    always: "Always"
+  attribution: "Question from the Single Item Literacy Screener (Morris and others), used under a CC BY licence. This wording is an unvalidated draft."
+
+service_interest:
+  prompt: "Would you like information about services for planning a pregnancy?"
+  consent_text: "We can send you information about services for planning a pregnancy when you are ready. For example: counselling before pregnancy, testing for a partner or relatives, and options for starting a family. This is your choice. Your answer does not change your result. It is not shown to your partner, family, employer or insurer through this service, and we do not record whether you plan to marry. You can say not now or no thank you, and you can change your mind at any time. If you say yes, we use only the contact method you choose, and only to send this information."
+  values:
+    yes_now: "Yes, now"
+    yes_later: "Yes, later (remind me)"
+    no_thanks: "No thank you"
+    prefer_not_to_say: "Prefer not to say"
+  reminder_prompt: "When would you like a reminder? (months from now)"
+  topics_prompt: "Which topics interest you?"
+  topics:
+    preconception_counselling: "Counselling before pregnancy"
+    partner_or_relative_testing: "Testing for a partner or relatives"
+    conception_options_information: "Information about options for starting a family"
+    prenatal_testing_information: "Information about testing during pregnancy"
+    talk_to_counsellor_again: "Talk with a counsellor again"
+
+teachback:
+  intro: "Five short questions to check that the explanation was clear. They test the explanation, not you."
+  results_note: "Your answers are shown with a short explanation. There is no cut-off."
+  items:
+    sr1:
+      prompt: "What does a shared result mean?"
+      options:
+        a: "The two of you share a result that points to a chance of a child with a condition"
+        b: "One of you is ill now"
+        c: "A marriage is not allowed"
+      explanation: "A shared result points to a chance for a child. It is not a diagnosis of either partner, and it is not a ruling on a marriage."
+    sr2:
+      prompt: "Being a carrier means a person is ill."
+      explanation: "A carrier has one changed copy of a gene. Most carriers have no symptoms."
+    sr3:
+      prompt: "The chart shows {denominator} figures. What do they stand for?"
+      options:
+        a: "{denominator} pregnancies of couples who have this same result"
+        b: "{denominator} couples in the country"
+        c: "{denominator} children you will have"
+      explanation: "The chart is out of {denominator} pregnancies. It describes the chance for a pregnancy. It does not say how many children you will have."
+    sr4:
+      prompt: "Who decides what to do next?"
+      options:
+        a: "The screening centre decides for you"
+        b: "You decide, with support from a counsellor if you want it"
+        c: "Your relatives decide"
+      explanation: "The choice is yours. A counsellor explains the choices that exist and does not tell you what to decide."
+    sr5:
+      prompt: "What is a next step that is offered?"
+      options:
+        a: "Talk with a genetic counsellor or a trained physician"
+        b: "Wait and tell nobody"
+        c: "Repeat the test at home"
+      explanation: "A counsellor can explain the result and the choices. Screening is done at licensed centres, not at home."
+    ns1:
+      prompt: "What does no shared change found mean?"
+      options:
+        a: "On this test, no change was found in a gene that both of you carry"
+        b: "Your children cannot have any inherited condition"
+        c: "Neither of you carries any gene change"
+      explanation: "It describes this test only. The test looks at a chosen list of genes and cannot find every change. Most people carry some gene change."
+    ns2:
+      prompt: "No shared change found means a child cannot have any inherited condition."
+      explanation: "No test finds every change, so this result is not a promise."
+    ns3:
+      prompt: "Why can a test miss a change?"
+      options:
+        a: "It checks only a chosen list of genes and cannot find every change"
+        b: "A test never misses a change"
+        c: "Only because of a laboratory mistake"
+      explanation: "Every test has limits. That is why the detection rate is shown."
+    ns4:
+      prompt: "If partners are related, a negative test lowers the chance in the same way as for partners who are not related."
+      explanation: "Related partners can both receive the same change from a shared ancestor, so a test that misses it misses it in both. This is why no smaller number is shown."
+    ns5:
+      prompt: "Who can see your result?"
+      options:
+        a: "You, and your partner only if you agree"
+        b: "Your employer"
+        c: "Your insurer"
+      explanation: "Employers and insurers may not ask for genetic results or use them. Your partner sees details only if you agree."
+    mi1:
+      prompt: "What does more information is needed mean?"
+      options:
+        a: "The report cannot give a clear answer yet, and more testing or review is needed"
+        b: "Something serious was found"
+        c: "Nothing was found"
+      explanation: "It is not a result in either direction. It means the answer is not clear yet."
+    mi2:
+      prompt: "More information is needed is a shared result."
+      explanation: "It is not a shared result. It is not a result in either direction."
+    mi3:
+      prompt: "What is a variant of uncertain significance?"
+      options:
+        a: "A gene change that doctors cannot yet call harmful or harmless"
+        b: "A gene change that always causes illness"
+        c: "A gene change that is always harmless"
+      explanation: "Its meaning is not known yet. It is not counted as a result and may be understood better later."
+    mi4:
+      prompt: "What happens next?"
+      options:
+        a: "A qualified professional explains which extra test or review is needed"
+        b: "Nothing, the case is finished"
+        c: "The test is repeated at home"
+      explanation: "A qualified professional goes through the report with you and explains the next step."
+    mi5:
+      prompt: "Needing more information means that someone is ill."
+      explanation: "It means the answer is not clear yet. It does not say that anyone is ill."

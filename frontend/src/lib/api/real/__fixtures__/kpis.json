@@ -1,0 +1,31 @@
+{
+  "n_cases": 10,
+  "n_closed": 0,
+  "n_flagged": 7,
+  "time_to_result": {
+    "n": 10,
+    "median_hours": 267,
+    "p90_hours": 269.4
+  },
+  "time_to_referral": {
+    "n": 5,
+    "median_hours": 48,
+    "p90_hours": 301.8
+  },
+  "counselling_booked": 5,
+  "counselling_completed": 3,
+  "counselling_declined": 0,
+  "counselling_uptake_booked_share": 0.7143,
+  "counselling_uptake_completed_share": 0.4286,
+  "share_referred": 0.7143,
+  "referral_target_share": 0.9,
+  "meets_referral_target": false,
+  "share_referred_within_standard": 0.5714,
+  "referral_standard_days": 14,
+  "referral_standard_is_illustrative": true,
+  "open_tasks": 4,
+  "stale_tasks": 0,
+  "basis": "Computed from the stored synthetic cases only. A figure with no cases behind it is empty, never invented. Event times come from the injected clock, so any timing shown is simulated, not a measured wait.",
+  "simulated": true,
+  "synthetic": true
+}

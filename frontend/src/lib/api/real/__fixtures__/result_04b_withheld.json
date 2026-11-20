@@ -1,0 +1,125 @@
+{
+  "couple_id": "cpl-demo-04",
+  "locale": "en",
+  "disclosed": {
+    "couple_id": "cpl-demo-04",
+    "viewer_role": "couple_member",
+    "viewer_person_id": "prs-04b",
+    "policy": "dubai",
+    "category": null,
+    "withheld_reason_key": "awaiting_partner_consent",
+    "shared": [],
+    "own_findings": [
+      {
+        "gene": "HBA1/HBA2",
+        "condition_id": "alpha_thalassaemia_alpha0",
+        "zygosity": "carrier",
+        "inheritance": "AR",
+        "classification": "pathogenic",
+        "variant_label": null
+      }
+    ],
+    "partner_finding_scope": "none",
+    "partner_findings": [],
+    "detection": [
+      {
+        "panel_id": "uae_demo_panel_v1",
+        "statement_key": "detection.panel_rate_assumed",
+        "detection_rate_label": "about 9 in 10 of the known changes in these genes (assumed and illustrative, not a measured rate; see limits)",
+        "assumed": true,
+        "related_couple_caveat": false
+      },
+      {
+        "panel_id": "uae_demo_panel_v1",
+        "statement_key": "detection.alpha_globin_locus_limit",
+        "detection_rate_label": "about 8 in 10 for the alpha-globin genes (assumed and illustrative; this locus is technically complex to assess)",
+        "assumed": true,
+        "related_couple_caveat": false
+      }
+    ],
+    "relationship": "unrelated",
+    "review_priority": null,
+    "staff_trace": [],
+    "boundary_notice_key": "boundary.education_decision_support",
+    "certificate_note_key": "certificate_note.dubai",
+    "ruleset_version": "rishta-safe-couple-1.0+b682d63abbf0",
+    "partner_gene_names": [],
+    "member_findings": [],
+    "synthetic": true
+  },
+  "document": {
+    "locale": "en",
+    "language_status": "draft",
+    "blocks": [
+      {
+        "kind": "callout",
+        "text": "This explanation is a draft. The clinical lead's sign-off is pending.",
+        "items": [],
+        "icon_array": null,
+        "tone": "info",
+        "numbers": []
+      },
+      {
+        "kind": "heading",
+        "text": "Your result is not shown here yet",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "paragraph",
+        "text": "Part of this result needs your partner's agreement before it can be shown. This is part of the privacy rules that apply. Your counsellor can explain the next step.",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      }
+    ],
+    "glossary_keys": [],
+    "numbers_used": [
+      {
+        "key": "const.law_number",
+        "value": 49,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.law_year",
+        "value": 2023,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.art_19",
+        "value": 19,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.art_21",
+        "value": 21,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.art_26",
+        "value": 26,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.art_26_para",
+        "value": 2,
+        "origin": "template_constant"
+      }
+    ],
+    "template_ids": [
+      "status.draft_notice",
+      "withheld.heading",
+      "withheld.awaiting_partner_consent"
+    ],
+    "check": {
+      "ok": true,
+      "numeric_fidelity": true,
+      "polarity": true,
+      "banned_words_absent": true,
+      "messages": []
+    }
+  }
+}

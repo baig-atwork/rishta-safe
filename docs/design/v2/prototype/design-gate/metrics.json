@@ -1,0 +1,1206 @@
+{
+  "url": "http://localhost:8787/landing.html",
+  "when": "2026-11-20T04:46:09.976Z",
+  "source": {
+    "gate": 0,
+    "advisory": 0,
+    "byRule": {}
+  },
+  "renders": [
+    {
+      "theme": "light",
+      "width": 390,
+      "screenshot": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\light-390.png",
+      "viewportShot": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\light-390-viewport.png",
+      "metrics": {
+        "overflowX": false,
+        "overflowCulprits": [],
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollLocked": false,
+        "fontSizes": [
+          {
+            "px": 11,
+            "n": 17
+          },
+          {
+            "px": 12,
+            "n": 33
+          },
+          {
+            "px": 13,
+            "n": 1
+          },
+          {
+            "px": 14,
+            "n": 81
+          },
+          {
+            "px": 16,
+            "n": 6
+          },
+          {
+            "px": 20,
+            "n": 3
+          },
+          {
+            "px": 28,
+            "n": 10
+          },
+          {
+            "px": 40,
+            "n": 1
+          }
+        ],
+        "distinctFontSizes": 8,
+        "fontFamilies": [
+          "Archivo",
+          "Noto Kufi Arabic",
+          "Noto Naskh Arabic",
+          "Red Hat Mono"
+        ],
+        "distinctRadii": 3,
+        "radii": [
+          {
+            "v": "4px",
+            "n": 8
+          },
+          {
+            "v": "2px",
+            "n": 3
+          },
+          {
+            "v": "6px",
+            "n": 2
+          }
+        ],
+        "distinctShadows": 1,
+        "offscaleSpacing": [
+          {
+            "px": 10,
+            "n": 35
+          },
+          {
+            "px": 6,
+            "n": 16
+          },
+          {
+            "px": 7,
+            "n": 2
+          },
+          {
+            "px": 165,
+            "n": 1
+          },
+          {
+            "px": 25,
+            "n": 1
+          },
+          {
+            "px": 14,
+            "n": 1
+          }
+        ],
+        "offscaleSpacingTotal": 56,
+        "smallTargets": [
+          {
+            "sel": "a.brand",
+            "w": 78,
+            "h": 22,
+            "text": "Bayanبيان"
+          },
+          {
+            "sel": "a.btn",
+            "w": 132,
+            "h": 22,
+            "text": "See the evidence →"
+          }
+        ],
+        "smallTargetCount": 2,
+        "ghostText": [],
+        "ghostTextCount": 0,
+        "title": "Rishta Safe",
+        "lang": "en"
+      },
+      "axe": {
+        "violations": [
+          {
+            "id": "scrollable-region-focusable",
+            "impact": "serious",
+            "nodes": 2,
+            "sample": "Element should have focusable content"
+          }
+        ]
+      },
+      "perception": {
+        "file": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\light-390-viewport.png",
+        "dimensions": {
+          "w": 390,
+          "h": 581
+        },
+        "grid": {
+          "w": 72,
+          "h": 107
+        },
+        "ground": {
+          "luminance": 0.05,
+          "coveragePct": 56.2
+        },
+        "squint": {
+          "masses": 1,
+          "competitors": 1,
+          "dominance": 1,
+          "top": [
+            {
+              "cells": 611,
+              "weight": 575.56,
+              "cx": 0.475,
+              "cy": 0.042,
+              "bbox": [
+                0,
+                0,
+                0.986,
+                0.084
+              ]
+            }
+          ]
+        },
+        "equilibrium": 0.226,
+        "centroid": {
+          "x": 0.467,
+          "y": 0.276
+        },
+        "colourfulness": 10.9,
+        "luminanceSpread": 0.943,
+        "chromaProxy": 0.033,
+        "hierarchyByHueOnly": false,
+        "inkPct": 43,
+        "findings": []
+      },
+      "consoleErrors": []
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "screenshot": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\light-768.png",
+      "viewportShot": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\light-768-viewport.png",
+      "metrics": {
+        "overflowX": false,
+        "overflowCulprits": [],
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "scrollLocked": false,
+        "fontSizes": [
+          {
+            "px": 11,
+            "n": 19
+          },
+          {
+            "px": 12,
+            "n": 33
+          },
+          {
+            "px": 13,
+            "n": 1
+          },
+          {
+            "px": 14,
+            "n": 82
+          },
+          {
+            "px": 16,
+            "n": 6
+          },
+          {
+            "px": 20,
+            "n": 3
+          },
+          {
+            "px": 28,
+            "n": 10
+          },
+          {
+            "px": 46,
+            "n": 1
+          }
+        ],
+        "distinctFontSizes": 8,
+        "fontFamilies": [
+          "Archivo",
+          "Noto Kufi Arabic",
+          "Noto Naskh Arabic",
+          "Red Hat Mono"
+        ],
+        "distinctRadii": 3,
+        "radii": [
+          {
+            "v": "4px",
+            "n": 8
+          },
+          {
+            "v": "2px",
+            "n": 3
+          },
+          {
+            "v": "6px",
+            "n": 2
+          }
+        ],
+        "distinctShadows": 1,
+        "offscaleSpacing": [
+          {
+            "px": 10,
+            "n": 35
+          },
+          {
+            "px": 6,
+            "n": 15
+          },
+          {
+            "px": 7,
+            "n": 2
+          },
+          {
+            "px": 57,
+            "n": 1
+          },
+          {
+            "px": 14,
+            "n": 1
+          }
+        ],
+        "offscaleSpacingTotal": 54,
+        "smallTargets": [
+          {
+            "sel": "a.brand",
+            "w": 113,
+            "h": 22,
+            "text": "Bayanبيان"
+          },
+          {
+            "sel": "a.btn",
+            "w": 132,
+            "h": 22,
+            "text": "See the evidence →"
+          }
+        ],
+        "smallTargetCount": 2,
+        "ghostText": [],
+        "ghostTextCount": 0,
+        "title": "Rishta Safe",
+        "lang": "en"
+      },
+      "axe": {
+        "violations": []
+      },
+      "perception": {
+        "file": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\light-768-viewport.png",
+        "dimensions": {
+          "w": 768,
+          "h": 853
+        },
+        "grid": {
+          "w": 72,
+          "h": 80
+        },
+        "ground": {
+          "luminance": 0.05,
+          "coveragePct": 51
+        },
+        "squint": {
+          "masses": 0,
+          "competitors": 0,
+          "dominance": 0,
+          "top": []
+        },
+        "equilibrium": 0.1,
+        "centroid": {
+          "x": 0.452,
+          "y": 0.588
+        },
+        "colourfulness": 12.3,
+        "luminanceSpread": 0.943,
+        "chromaProxy": 0.039,
+        "hierarchyByHueOnly": false,
+        "inkPct": 48.5,
+        "findings": [
+          {
+            "id": "blank",
+            "severity": "blocker",
+            "detail": "no visual mass survives the squint — the page reads as empty"
+          }
+        ]
+      },
+      "consoleErrors": []
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "screenshot": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\light-1440.png",
+      "viewportShot": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\light-1440-viewport.png",
+      "metrics": {
+        "overflowX": false,
+        "overflowCulprits": [],
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "scrollLocked": false,
+        "fontSizes": [
+          {
+            "px": 11,
+            "n": 19
+          },
+          {
+            "px": 12,
+            "n": 33
+          },
+          {
+            "px": 13,
+            "n": 1
+          },
+          {
+            "px": 14,
+            "n": 82
+          },
+          {
+            "px": 16,
+            "n": 6
+          },
+          {
+            "px": 20,
+            "n": 3
+          },
+          {
+            "px": 28,
+            "n": 10
+          },
+          {
+            "px": 56,
+            "n": 1
+          }
+        ],
+        "distinctFontSizes": 8,
+        "fontFamilies": [
+          "Archivo",
+          "Noto Kufi Arabic",
+          "Noto Naskh Arabic",
+          "Red Hat Mono"
+        ],
+        "distinctRadii": 3,
+        "radii": [
+          {
+            "v": "4px",
+            "n": 8
+          },
+          {
+            "v": "2px",
+            "n": 3
+          },
+          {
+            "v": "6px",
+            "n": 2
+          }
+        ],
+        "distinctShadows": 1,
+        "offscaleSpacing": [
+          {
+            "px": 10,
+            "n": 35
+          },
+          {
+            "px": 6,
+            "n": 15
+          },
+          {
+            "px": 7,
+            "n": 2
+          },
+          {
+            "px": 569,
+            "n": 1
+          },
+          {
+            "px": 377,
+            "n": 1
+          },
+          {
+            "px": 14,
+            "n": 1
+          }
+        ],
+        "offscaleSpacingTotal": 55,
+        "smallTargets": [
+          {
+            "sel": "a.brand",
+            "w": 113,
+            "h": 22,
+            "text": "Bayanبيان"
+          },
+          {
+            "sel": "a.btn",
+            "w": 132,
+            "h": 22,
+            "text": "See the evidence →"
+          }
+        ],
+        "smallTargetCount": 2,
+        "ghostText": [],
+        "ghostTextCount": 0,
+        "title": "Rishta Safe",
+        "lang": "en"
+      },
+      "axe": {
+        "violations": []
+      },
+      "perception": {
+        "file": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\light-1440-viewport.png",
+        "dimensions": {
+          "w": 1440,
+          "h": 1337
+        },
+        "grid": {
+          "w": 72,
+          "h": 67
+        },
+        "ground": {
+          "luminance": 0.975,
+          "coveragePct": 34
+        },
+        "squint": {
+          "masses": 0,
+          "competitors": 0,
+          "dominance": 0,
+          "top": []
+        },
+        "equilibrium": 0.208,
+        "centroid": {
+          "x": 0.426,
+          "y": 0.306
+        },
+        "colourfulness": 7.4,
+        "luminanceSpread": 0.943,
+        "chromaProxy": 0.023,
+        "hierarchyByHueOnly": false,
+        "inkPct": 46.7,
+        "findings": [
+          {
+            "id": "blank",
+            "severity": "blocker",
+            "detail": "no visual mass survives the squint — the page reads as empty"
+          }
+        ]
+      },
+      "consoleErrors": []
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "screenshot": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\dark-390.png",
+      "viewportShot": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\dark-390-viewport.png",
+      "metrics": {
+        "overflowX": false,
+        "overflowCulprits": [],
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollLocked": false,
+        "fontSizes": [
+          {
+            "px": 11,
+            "n": 17
+          },
+          {
+            "px": 12,
+            "n": 33
+          },
+          {
+            "px": 13,
+            "n": 1
+          },
+          {
+            "px": 14,
+            "n": 81
+          },
+          {
+            "px": 16,
+            "n": 6
+          },
+          {
+            "px": 20,
+            "n": 3
+          },
+          {
+            "px": 28,
+            "n": 10
+          },
+          {
+            "px": 40,
+            "n": 1
+          }
+        ],
+        "distinctFontSizes": 8,
+        "fontFamilies": [
+          "Archivo",
+          "Noto Kufi Arabic",
+          "Noto Naskh Arabic",
+          "Red Hat Mono"
+        ],
+        "distinctRadii": 3,
+        "radii": [
+          {
+            "v": "4px",
+            "n": 8
+          },
+          {
+            "v": "2px",
+            "n": 3
+          },
+          {
+            "v": "6px",
+            "n": 2
+          }
+        ],
+        "distinctShadows": 1,
+        "offscaleSpacing": [
+          {
+            "px": 10,
+            "n": 35
+          },
+          {
+            "px": 6,
+            "n": 16
+          },
+          {
+            "px": 7,
+            "n": 2
+          },
+          {
+            "px": 165,
+            "n": 1
+          },
+          {
+            "px": 25,
+            "n": 1
+          },
+          {
+            "px": 14,
+            "n": 1
+          }
+        ],
+        "offscaleSpacingTotal": 56,
+        "smallTargets": [
+          {
+            "sel": "a.brand",
+            "w": 78,
+            "h": 22,
+            "text": "Bayanبيان"
+          },
+          {
+            "sel": "a.btn",
+            "w": 132,
+            "h": 22,
+            "text": "See the evidence →"
+          }
+        ],
+        "smallTargetCount": 2,
+        "ghostText": [],
+        "ghostTextCount": 0,
+        "title": "Rishta Safe",
+        "lang": "en"
+      },
+      "axe": {
+        "violations": [
+          {
+            "id": "scrollable-region-focusable",
+            "impact": "serious",
+            "nodes": 2,
+            "sample": "Element should have focusable content"
+          }
+        ]
+      },
+      "perception": {
+        "file": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\dark-390-viewport.png",
+        "dimensions": {
+          "w": 390,
+          "h": 581
+        },
+        "grid": {
+          "w": 72,
+          "h": 107
+        },
+        "ground": {
+          "luminance": 0.025,
+          "coveragePct": 59.2
+        },
+        "squint": {
+          "masses": 26,
+          "competitors": 4,
+          "dominance": 0.122,
+          "top": [
+            {
+              "cells": 86,
+              "weight": 53.2,
+              "cx": 0.756,
+              "cy": 0.344,
+              "bbox": [
+                0.583,
+                0.318,
+                0.917,
+                0.374
+              ]
+            },
+            {
+              "cells": 77,
+              "weight": 47.99,
+              "cx": 0.23,
+              "cy": 0.488,
+              "bbox": [
+                0.042,
+                0.458,
+                0.403,
+                0.505
+              ]
+            },
+            {
+              "cells": 71,
+              "weight": 41.63,
+              "cx": 0.666,
+              "cy": 0.563,
+              "bbox": [
+                0.542,
+                0.542,
+                0.806,
+                0.589
+              ]
+            },
+            {
+              "cells": 57,
+              "weight": 37.4,
+              "cx": 0.174,
+              "cy": 0.34,
+              "bbox": [
+                0.056,
+                0.318,
+                0.292,
+                0.355
+              ]
+            },
+            {
+              "cells": 40,
+              "weight": 28.34,
+              "cx": 0.723,
+              "cy": 0.041,
+              "bbox": [
+                0.681,
+                0.019,
+                0.764,
+                0.065
+              ]
+            }
+          ]
+        },
+        "equilibrium": 0.052,
+        "centroid": {
+          "x": 0.452,
+          "y": 0.48
+        },
+        "colourfulness": 10.9,
+        "luminanceSpread": 0.583,
+        "chromaProxy": 0.034,
+        "hierarchyByHueOnly": false,
+        "inkPct": 38.6,
+        "findings": [
+          {
+            "id": "everything-shouts",
+            "severity": "major",
+            "detail": "4 masses within 70% of the heaviest; across 20 shipped products the 95th percentile is 2. No single focal point survives the squint (dominance 0.122)."
+          },
+          {
+            "id": "no-dominant-mass",
+            "severity": "major",
+            "detail": "heaviest mass holds only 12% of visual weight (corpus p05 19%) — nothing leads the eye"
+          }
+        ]
+      },
+      "consoleErrors": []
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "screenshot": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\dark-768.png",
+      "viewportShot": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\dark-768-viewport.png",
+      "metrics": {
+        "overflowX": false,
+        "overflowCulprits": [],
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "scrollLocked": false,
+        "fontSizes": [
+          {
+            "px": 11,
+            "n": 19
+          },
+          {
+            "px": 12,
+            "n": 33
+          },
+          {
+            "px": 13,
+            "n": 1
+          },
+          {
+            "px": 14,
+            "n": 82
+          },
+          {
+            "px": 16,
+            "n": 6
+          },
+          {
+            "px": 20,
+            "n": 3
+          },
+          {
+            "px": 28,
+            "n": 10
+          },
+          {
+            "px": 46,
+            "n": 1
+          }
+        ],
+        "distinctFontSizes": 8,
+        "fontFamilies": [
+          "Archivo",
+          "Noto Kufi Arabic",
+          "Noto Naskh Arabic",
+          "Red Hat Mono"
+        ],
+        "distinctRadii": 3,
+        "radii": [
+          {
+            "v": "4px",
+            "n": 8
+          },
+          {
+            "v": "2px",
+            "n": 3
+          },
+          {
+            "v": "6px",
+            "n": 2
+          }
+        ],
+        "distinctShadows": 1,
+        "offscaleSpacing": [
+          {
+            "px": 10,
+            "n": 35
+          },
+          {
+            "px": 6,
+            "n": 15
+          },
+          {
+            "px": 7,
+            "n": 2
+          },
+          {
+            "px": 57,
+            "n": 1
+          },
+          {
+            "px": 14,
+            "n": 1
+          }
+        ],
+        "offscaleSpacingTotal": 54,
+        "smallTargets": [
+          {
+            "sel": "a.brand",
+            "w": 113,
+            "h": 22,
+            "text": "Bayanبيان"
+          },
+          {
+            "sel": "a.btn",
+            "w": 132,
+            "h": 22,
+            "text": "See the evidence →"
+          }
+        ],
+        "smallTargetCount": 2,
+        "ghostText": [],
+        "ghostTextCount": 0,
+        "title": "Rishta Safe",
+        "lang": "en"
+      },
+      "axe": {
+        "violations": []
+      },
+      "perception": {
+        "file": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\dark-768-viewport.png",
+        "dimensions": {
+          "w": 768,
+          "h": 853
+        },
+        "grid": {
+          "w": 72,
+          "h": 80
+        },
+        "ground": {
+          "luminance": 0.025,
+          "coveragePct": 52.3
+        },
+        "squint": {
+          "masses": 25,
+          "competitors": 1,
+          "dominance": 0.289,
+          "top": [
+            {
+              "cells": 149,
+              "weight": 82.56,
+              "cx": 0.754,
+              "cy": 0.901,
+              "bbox": [
+                0.667,
+                0.85,
+                0.861,
+                0.975
+              ]
+            },
+            {
+              "cells": 64,
+              "weight": 36.31,
+              "cx": 0.134,
+              "cy": 0.681,
+              "bbox": [
+                0.028,
+                0.662,
+                0.236,
+                0.7
+              ]
+            },
+            {
+              "cells": 33,
+              "weight": 16.2,
+              "cx": 0.141,
+              "cy": 0.366,
+              "bbox": [
+                0.028,
+                0.35,
+                0.236,
+                0.375
+              ]
+            },
+            {
+              "cells": 31,
+              "weight": 14.87,
+              "cx": 0.25,
+              "cy": 0.425,
+              "bbox": [
+                0.181,
+                0.412,
+                0.319,
+                0.45
+              ]
+            },
+            {
+              "cells": 30,
+              "weight": 14.64,
+              "cx": 0.107,
+              "cy": 0.25,
+              "bbox": [
+                0.028,
+                0.237,
+                0.181,
+                0.263
+              ]
+            }
+          ]
+        },
+        "equilibrium": 0.116,
+        "centroid": {
+          "x": 0.405,
+          "y": 0.566
+        },
+        "colourfulness": 12.4,
+        "luminanceSpread": 0.495,
+        "chromaProxy": 0.038,
+        "hierarchyByHueOnly": false,
+        "inkPct": 44.4,
+        "findings": []
+      },
+      "consoleErrors": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "screenshot": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\dark-1440.png",
+      "viewportShot": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\dark-1440-viewport.png",
+      "metrics": {
+        "overflowX": false,
+        "overflowCulprits": [],
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "scrollLocked": false,
+        "fontSizes": [
+          {
+            "px": 11,
+            "n": 19
+          },
+          {
+            "px": 12,
+            "n": 33
+          },
+          {
+            "px": 13,
+            "n": 1
+          },
+          {
+            "px": 14,
+            "n": 82
+          },
+          {
+            "px": 16,
+            "n": 6
+          },
+          {
+            "px": 20,
+            "n": 3
+          },
+          {
+            "px": 28,
+            "n": 10
+          },
+          {
+            "px": 56,
+            "n": 1
+          }
+        ],
+        "distinctFontSizes": 8,
+        "fontFamilies": [
+          "Archivo",
+          "Noto Kufi Arabic",
+          "Noto Naskh Arabic",
+          "Red Hat Mono"
+        ],
+        "distinctRadii": 3,
+        "radii": [
+          {
+            "v": "4px",
+            "n": 8
+          },
+          {
+            "v": "2px",
+            "n": 3
+          },
+          {
+            "v": "6px",
+            "n": 2
+          }
+        ],
+        "distinctShadows": 1,
+        "offscaleSpacing": [
+          {
+            "px": 10,
+            "n": 35
+          },
+          {
+            "px": 6,
+            "n": 15
+          },
+          {
+            "px": 7,
+            "n": 2
+          },
+          {
+            "px": 569,
+            "n": 1
+          },
+          {
+            "px": 377,
+            "n": 1
+          },
+          {
+            "px": 14,
+            "n": 1
+          }
+        ],
+        "offscaleSpacingTotal": 55,
+        "smallTargets": [
+          {
+            "sel": "a.brand",
+            "w": 113,
+            "h": 22,
+            "text": "Bayanبيان"
+          },
+          {
+            "sel": "a.btn",
+            "w": 132,
+            "h": 22,
+            "text": "See the evidence →"
+          }
+        ],
+        "smallTargetCount": 2,
+        "ghostText": [],
+        "ghostTextCount": 0,
+        "title": "Rishta Safe",
+        "lang": "en"
+      },
+      "axe": {
+        "violations": []
+      },
+      "perception": {
+        "file": "D:\\dev\\bayan\\docs\\design\\v2\\prototype\\design-gate\\dark-1440-viewport.png",
+        "dimensions": {
+          "w": 1440,
+          "h": 1337
+        },
+        "grid": {
+          "w": 72,
+          "h": 67
+        },
+        "ground": {
+          "luminance": 0.05,
+          "coveragePct": 30.5
+        },
+        "squint": {
+          "masses": 28,
+          "competitors": 2,
+          "dominance": 0.149,
+          "top": [
+            {
+              "cells": 50,
+              "weight": 23.03,
+              "cx": 0.811,
+              "cy": 0.226,
+              "bbox": [
+                0.764,
+                0.194,
+                0.861,
+                0.284
+              ]
+            },
+            {
+              "cells": 56,
+              "weight": 17.6,
+              "cx": 0.168,
+              "cy": 0.958,
+              "bbox": [
+                0.069,
+                0.925,
+                0.306,
+                0.985
+              ]
+            },
+            {
+              "cells": 48,
+              "weight": 14.08,
+              "cx": 0.182,
+              "cy": 0.647,
+              "bbox": [
+                0.069,
+                0.627,
+                0.333,
+                0.687
+              ]
+            },
+            {
+              "cells": 32,
+              "weight": 12.54,
+              "cx": 0.26,
+              "cy": 0.296,
+              "bbox": [
+                0.167,
+                0.284,
+                0.361,
+                0.313
+              ]
+            },
+            {
+              "cells": 26,
+              "weight": 10.28,
+              "cx": 0.123,
+              "cy": 0.465,
+              "bbox": [
+                0.069,
+                0.448,
+                0.181,
+                0.478
+              ]
+            }
+          ]
+        },
+        "equilibrium": 0.109,
+        "centroid": {
+          "x": 0.415,
+          "y": 0.431
+        },
+        "colourfulness": 7.7,
+        "luminanceSpread": 0.308,
+        "chromaProxy": 0.02,
+        "hierarchyByHueOnly": false,
+        "inkPct": 28.5,
+        "findings": [
+          {
+            "id": "no-dominant-mass",
+            "severity": "major",
+            "detail": "heaviest mass holds only 15% of visual weight (corpus p05 19%) — nothing leads the eye"
+          }
+        ]
+      },
+      "consoleErrors": []
+    }
+  ],
+  "verdict": {
+    "pass": false,
+    "blockers": [
+      {
+        "rule": "a11y",
+        "detail": "light@390: scrollable-region-focusable (serious) ×2 — Element should have focusable content"
+      },
+      {
+        "rule": "touch-target",
+        "detail": "light@390: 2 interactive target(s) under 24px"
+      },
+      {
+        "rule": "touch-target",
+        "detail": "light@768: 2 interactive target(s) under 24px"
+      },
+      {
+        "rule": "touch-target",
+        "detail": "light@1440: 2 interactive target(s) under 24px"
+      },
+      {
+        "rule": "a11y",
+        "detail": "dark@390: scrollable-region-focusable (serious) ×2 — Element should have focusable content"
+      },
+      {
+        "rule": "touch-target",
+        "detail": "dark@390: 2 interactive target(s) under 24px"
+      },
+      {
+        "rule": "touch-target",
+        "detail": "dark@768: 2 interactive target(s) under 24px"
+      },
+      {
+        "rule": "touch-target",
+        "detail": "dark@1440: 2 interactive target(s) under 24px"
+      }
+    ]
+  },
+  "composition": [
+    {
+      "at": "light@1440",
+      "id": "blank",
+      "severity": "blocker",
+      "detail": "no visual mass survives the squint — the page reads as empty"
+    },
+    {
+      "at": "dark@1440",
+      "id": "no-dominant-mass",
+      "severity": "major",
+      "detail": "heaviest mass holds only 15% of visual weight (corpus p05 19%) — nothing leads the eye"
+    }
+  ],
+  "compositionNote": "composition judged only at 1440px — the perception baseline is calibrated there"
+}

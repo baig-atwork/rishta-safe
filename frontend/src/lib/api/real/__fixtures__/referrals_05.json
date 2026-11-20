@@ -1,0 +1,41 @@
+[
+  {
+    "resource_type": "Task",
+    "id": "task-cpl-demo-05-001",
+    "status": "accepted",
+    "status_reason": null,
+    "intent": "order",
+    "priority": "routine",
+    "code": "counselling",
+    "for_reference": "Couple/cpl-demo-05",
+    "authored_on": "2026-10-31T16:27:27.037091Z",
+    "last_modified": "2026-11-20T07:27:38.058548Z",
+    "requester_role": "clinician",
+    "owner_role": "counsellor",
+    "milestones": {
+      "t0_risk_signal": "2026-10-31T16:27:27.037091Z",
+      "t1_authored": "2026-10-31T16:27:27.037091Z",
+      "t2_brief_generated": null,
+      "t3_booked": "2026-11-20T07:27:38.058548Z",
+      "t4_attended": null,
+      "t5_completed": null
+    },
+    "replaces": null,
+    "stale": false,
+    "history": [
+      {
+        "status": "requested",
+        "at": "2026-10-31T16:27:27.037091Z",
+        "reason": null,
+        "by_role": "clinician"
+      },
+      {
+        "status": "accepted",
+        "at": "2026-11-20T07:27:38.058548Z",
+        "reason": null,
+        "by_role": "couple_member"
+      }
+    ],
+    "simulated": true
+  }
+]

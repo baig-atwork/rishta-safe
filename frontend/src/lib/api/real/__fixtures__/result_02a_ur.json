@@ -1,0 +1,605 @@
+{
+  "couple_id": "cpl-demo-02",
+  "locale": "ur",
+  "disclosed": {
+    "couple_id": "cpl-demo-02",
+    "viewer_role": "couple_member",
+    "viewer_person_id": "prs-02a",
+    "policy": "abu_dhabi",
+    "category": "shared_result_found",
+    "withheld_reason_key": null,
+    "shared": [
+      {
+        "condition_id": "usher_syndrome_type_2a",
+        "gene": "USH2A",
+        "inheritance": "AR",
+        "basis": "both_carriers",
+        "outcomes": [
+          {
+            "label": "affected",
+            "per_100": 25,
+            "applies_to": "any_child"
+          },
+          {
+            "label": "carrier",
+            "per_100": 50,
+            "applies_to": "any_child"
+          },
+          {
+            "label": "neither",
+            "per_100": 25,
+            "applies_to": "any_child"
+          }
+        ]
+      }
+    ],
+    "own_findings": [
+      {
+        "gene": "USH2A",
+        "condition_id": "usher_syndrome_type_2a",
+        "zygosity": "carrier",
+        "inheritance": "AR",
+        "classification": "pathogenic",
+        "variant_label": null
+      }
+    ],
+    "partner_finding_scope": "none",
+    "partner_findings": [],
+    "detection": [
+      {
+        "panel_id": "uae_demo_panel_v1",
+        "statement_key": "detection.panel_rate_assumed",
+        "detection_rate_label": "about 9 in 10 of the known changes in these genes (assumed and illustrative, not a measured rate; see limits)",
+        "assumed": true,
+        "related_couple_caveat": true
+      },
+      {
+        "panel_id": "uae_demo_panel_v1",
+        "statement_key": "detection.alpha_globin_locus_limit",
+        "detection_rate_label": "about 8 in 10 for the alpha-globin genes (assumed and illustrative; this locus is technically complex to assess)",
+        "assumed": true,
+        "related_couple_caveat": true
+      },
+      {
+        "panel_id": "uae_demo_panel_v1",
+        "statement_key": "detection.related_couple_shared_misses",
+        "detection_rate_label": "about 9 in 10 (assumed); because the partners are related, a change this test misses is likely to be missed in both of them",
+        "assumed": true,
+        "related_couple_caveat": true
+      }
+    ],
+    "relationship": "first_cousin",
+    "review_priority": null,
+    "staff_trace": [],
+    "boundary_notice_key": "boundary.education_decision_support",
+    "certificate_note_key": "certificate_note.abu_dhabi",
+    "ruleset_version": "rishta-safe-couple-1.0+b682d63abbf0",
+    "partner_gene_names": [],
+    "member_findings": [],
+    "synthetic": true
+  },
+  "document": {
+    "locale": "ur",
+    "language_status": "draft",
+    "blocks": [
+      {
+        "kind": "callout",
+        "text": "یہ وضاحت ایک مسودہ ہے۔ کلینیکل سربراہ کی منظوری ابھی باقی ہے۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "info",
+        "numbers": []
+      },
+      {
+        "kind": "heading",
+        "text": "مشترک نتیجہ ملا ہے",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "paragraph",
+        "text": "اسکریننگ رپورٹ میں ایسا نتیجہ جو آپ دونوں میں مشترک ہے سامنے آیا ہے۔ اس سے موروثی بیماری والے بچے کے امکان کا اشارہ ملتا ہے۔ یہ امکان کی بات ہے۔ یہ آپ دونوں میں سے کسی کی تشخیص نہیں ہے۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "paragraph",
+        "text": "آپ دونوں ⁨USH2A⁩ جین کی تبدیلی کے کیریئر ہیں۔ کیریئر کے پاس جین کی ایک بدلی ہوئی کاپی ہوتی ہے۔ زیادہ تر کیریئر افراد میں کوئی علامت نہیں ہوتی۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "paragraph",
+        "text": "حمل کے لیے اس نتیجے کا کیا مطلب ہو سکتا ہے، وہ نیچے دیا گیا ہے۔ نیچے ہر گروپ 100 حمل میں سے گنا گیا ہے۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": [
+          {
+            "key": "const.denominator",
+            "value": 100,
+            "origin": "template_constant"
+          }
+        ]
+      },
+      {
+        "kind": "icon_array",
+        "text": "اوسطاً، اس نتیجے والے 100 حمل میں سے تقریباً 25 میں بچے کو یہ بیماری ہوتی ہے، تقریباً 50 میں بچہ کیریئر ہوتا ہے، اور تقریباً 25 میں نہ بیماری ہوتی ہے اور نہ بچہ کیریئر ہوتا ہے۔",
+        "items": [],
+        "icon_array": {
+          "total": 100,
+          "affected": 25,
+          "carrier": 50,
+          "neither": 25,
+          "caption": "اوسطاً، اس نتیجے والے 100 حمل میں سے تقریباً 25 میں بچے کو یہ بیماری ہوتی ہے، تقریباً 50 میں بچہ کیریئر ہوتا ہے، اور تقریباً 25 میں نہ بیماری ہوتی ہے اور نہ بچہ کیریئر ہوتا ہے۔"
+        },
+        "tone": "neutral",
+        "numbers": [
+          {
+            "key": "const.denominator",
+            "value": 100,
+            "origin": "template_constant"
+          },
+          {
+            "key": "shared.0.any_child.affected",
+            "value": 25,
+            "origin": "engine"
+          },
+          {
+            "key": "shared.0.any_child.carrier",
+            "value": 50,
+            "origin": "engine"
+          },
+          {
+            "key": "shared.0.any_child.neither",
+            "value": 25,
+            "origin": "engine"
+          }
+        ]
+      },
+      {
+        "kind": "list",
+        "text": "",
+        "items": [
+          "100 حمل میں سے 25 میں: بچے کو یہ بیماری ہوتی ہے۔",
+          "100 حمل میں سے 50 میں: بچہ کیریئر ہوتا ہے۔ زیادہ تر کیریئر افراد میں کوئی علامت نہیں ہوتی۔",
+          "100 حمل میں سے 25 میں: بچے کو یہ بیماری نہیں ہوتی اور وہ کیریئر بھی نہیں ہوتا۔"
+        ],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": [
+          {
+            "key": "const.denominator",
+            "value": 100,
+            "origin": "template_constant"
+          },
+          {
+            "key": "shared.0.any_child.affected",
+            "value": 25,
+            "origin": "engine"
+          },
+          {
+            "key": "const.denominator",
+            "value": 100,
+            "origin": "template_constant"
+          },
+          {
+            "key": "shared.0.any_child.carrier",
+            "value": 50,
+            "origin": "engine"
+          },
+          {
+            "key": "const.denominator",
+            "value": 100,
+            "origin": "template_constant"
+          },
+          {
+            "key": "shared.0.any_child.neither",
+            "value": 25,
+            "origin": "engine"
+          }
+        ]
+      },
+      {
+        "kind": "paragraph",
+        "text": "ہر حمل کے امکانات ایک جیسے ہوتے ہیں۔ پہلے کے حمل ان امکانات کو نہیں بدلتے۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "paragraph",
+        "text": "اگلا قدم کسی جینیاتی کونسلر یا تربیت یافتہ ڈاکٹر سے بات کرنا ہو سکتا ہے۔ وہ نتیجہ سمجھا سکتے ہیں، آپ کے سوالوں کے جواب دے سکتے ہیں، اور بتا سکتے ہیں کہ کون سے اختیارات موجود ہیں۔ آپ جو بھی فیصلہ کریں، وہ آپ کی اپنی مرضی ہے۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "heading",
+        "text": "آپ کی اپنی رپورٹ",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "list",
+        "text": "",
+        "items": [
+          "آپ کی رپورٹ میں ⁨USH2A⁩ جین کی ایک بدلی ہوئی کاپی درج ہے۔ اس کا مطلب ہے کہ آپ اس جین کے کیریئر ہیں۔"
+        ],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "heading",
+        "text": "آپ کے ساتھی کی رپورٹ",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "paragraph",
+        "text": "آپ جوڑے کا نتیجہ دیکھ سکتے ہیں۔ آپ کے ساتھی کی اپنی رپورٹ آپ کو تب تک نہیں دکھائی جاتی جب تک آپ کے ساتھی رضامند نہ ہوں۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "heading",
+        "text": "نتیجے کا کیا مطلب ہے اور کیا نہیں",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "paragraph",
+        "text": "اسکریننگ کا نتیجہ امکان کے بارے میں ہوتا ہے۔ یہ تشخیص نہیں ہے۔ اس کا مطلب یہ نہیں کہ کوئی فرد بیمار ہے۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "paragraph",
+        "text": "کیریئر کے پاس جین کی ایک بدلی ہوئی کاپی ہوتی ہے۔ کیریئر ہونا کوئی بیماری نہیں ہے۔ زیادہ تر کیریئر افراد میں کوئی علامت نہیں ہوتی۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "paragraph",
+        "text": "زیادہ تر لوگوں میں جین کی کم از کم ایک تبدیلی ہوتی ہے اور انہیں کبھی پتا نہیں چلتا۔ اصل بات یہ ہے کہ دو ساتھیوں میں ایک ہی جین میں تبدیلی ہے یا نہیں۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "heading",
+        "text": "یہ ٹیسٹ کیا ڈھونڈ سکتا ہے اور کیا نہیں",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "paragraph",
+        "text": "یہ ٹیسٹ جینز کی ایک منتخب فہرست دیکھتا ہے۔ یہ ہر جین کی ہر تبدیلی نہیں ڈھونڈتا، اور ہر موروثی بیماری کا احاطہ بھی نہیں کرتا۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "paragraph",
+        "text": "اس ٹیسٹ کی شناخت کی شرح: ان جینز میں معلوم تبدیلیوں میں سے تقریباً 10 میں سے 9۔ یہ شرح فرضی اور مثالی ہے۔ یہ ناپی ہوئی شرح نہیں ہے۔ کوئی ٹیسٹ ہر تبدیلی نہیں ڈھونڈ سکتا۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": [
+          {
+            "key": "detection.0.rate_den",
+            "value": 10,
+            "origin": "engine"
+          },
+          {
+            "key": "detection.0.rate_num",
+            "value": 9,
+            "origin": "engine"
+          }
+        ]
+      },
+      {
+        "kind": "paragraph",
+        "text": "الفا گلوبن جینز کے لیے شناخت کی شرح تقریباً 10 میں سے 8 ہے۔ یہ شرح فرضی اور مثالی ہے، ناپی ہوئی نہیں۔ ڈی این اے کا یہ حصہ تکنیکی طور پر جانچنا مشکل ہے۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": [
+          {
+            "key": "detection.1.rate_den",
+            "value": 10,
+            "origin": "engine"
+          },
+          {
+            "key": "detection.1.rate_num",
+            "value": 8,
+            "origin": "engine"
+          }
+        ]
+      },
+      {
+        "kind": "paragraph",
+        "text": "شناخت کی شرح تقریباً 10 میں سے 9 ہے (فرضی)۔ چونکہ آپ دونوں آپس میں رشتہ دار ہیں، اس لیے امکان ہے کہ جو تبدیلی یہ ٹیسٹ نہ پکڑ سکے وہ آپ دونوں میں نہ پکڑی جائے۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": [
+          {
+            "key": "detection.2.rate_den",
+            "value": 10,
+            "origin": "engine"
+          },
+          {
+            "key": "detection.2.rate_num",
+            "value": 9,
+            "origin": "engine"
+          }
+        ]
+      },
+      {
+        "kind": "paragraph",
+        "text": "یہ شرح اس پروٹوٹائپ میں ایک مفروضے کے طور پر استعمال ہوئی ہے۔ کلینیکل سربراہ کی منظوری ابھی باقی ہے۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "heading",
+        "text": "کون دیکھ سکتا ہے",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "paragraph",
+        "text": "آپ اپنا نتیجہ دیکھ سکتے ہیں۔ آپ کے ساتھی تفصیلات تب ہی دیکھ سکتے ہیں جب آپ رضامند ہوں۔ ملازمت دینے والے ادارے اور انشورنس کمپنیاں جینیاتی نتائج مانگ نہیں سکتیں اور انہیں استعمال بھی نہیں کر سکتیں (وفاقی فرمانِ قانون نمبر 49/2023، دفعہ 19 سے 21 تک)۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": [
+          {
+            "key": "const.law_number",
+            "value": 49,
+            "origin": "template_constant"
+          },
+          {
+            "key": "const.law_year",
+            "value": 2023,
+            "origin": "template_constant"
+          },
+          {
+            "key": "const.art_19",
+            "value": 19,
+            "origin": "template_constant"
+          },
+          {
+            "key": "const.art_21",
+            "value": 21,
+            "origin": "template_constant"
+          }
+        ]
+      },
+      {
+        "kind": "paragraph",
+        "text": "ابوظہبی میں، جب کسی نتیجے میں کوئی بات سامنے آئے تو ڈاکٹر ساتھی کو بتانے سے پہلے اس شخص سے پوچھتے ہیں جس کا وہ نتیجہ ہے۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "paragraph",
+        "text": "قانون اسکریننگ سینٹرز سے تقاضا کرتا ہے کہ وہ اسکریننگ کا ڈیٹا قومی جینوم ڈیٹا بیس کو بھیجیں (دفعہ 26 کی ذیلی شق 2)۔ یہ ٹول ڈیٹا کو صحت کے حکام سے نہیں چھپاتا۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": [
+          {
+            "key": "const.art_26",
+            "value": 26,
+            "origin": "template_constant"
+          },
+          {
+            "key": "const.art_26_para",
+            "value": 2,
+            "origin": "template_constant"
+          }
+        ]
+      },
+      {
+        "kind": "callout",
+        "text": "ابوظہبی اور دبئی میں، اگر کوئی ایک ساتھی نتیجہ بتانے یا اقرار نامے پر دستخط کرنے سے انکار کرے تو شادی کے معاہدے کے لیے درکار رپورٹ جاری نہیں کی جا سکتی۔ اس طرح آپ کی رازداری کے انتخاب اور سرٹیفکیٹ آپس میں جڑے ہوئے ہیں۔ کونسلر سمجھا سکتے ہیں کہ آپ کے لیے اس کا کیا مطلب ہے۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "care",
+        "numbers": []
+      },
+      {
+        "kind": "paragraph",
+        "text": "“موجود اختیارات” کے نام سے ایک صفحہ ان اختیارات کی وضاحت کرتا ہے جن کی قانون اجازت دیتا ہے۔ یہ انہیں ترجیح کی کسی ترتیب کے بغیر دکھاتا ہے۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "neutral",
+        "numbers": []
+      },
+      {
+        "kind": "disclaimer",
+        "text": "یہ صفحہ معلومات اور فیصلے میں مدد کے لیے ہے۔ یہ طبی مشورہ نہیں ہے۔ پیچیدہ یا بڑے اثر والے نتائج کی وضاحت کوئی تسلیم شدہ ماہرِ صحت کرتے ہیں، جیسے جینیاتی کونسلر یا تربیت یافتہ ڈاکٹر۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "care",
+        "numbers": []
+      },
+      {
+        "kind": "callout",
+        "text": "یہ ایک نمونہ (پروٹوٹائپ) ہے جس میں فرضی (synthetic) ڈیٹا استعمال ہوا ہے۔ یہ کوئی طبی آلہ نہیں ہے اور نہ ہی کوئی طبی خدمت۔",
+        "items": [],
+        "icon_array": null,
+        "tone": "info",
+        "numbers": []
+      }
+    ],
+    "glossary_keys": [
+      "shared_result",
+      "carrier",
+      "gene",
+      "natural_frequency",
+      "genetic_counselling",
+      "risk",
+      "diagnosis",
+      "panel",
+      "detection_rate"
+    ],
+    "numbers_used": [
+      {
+        "key": "const.denominator",
+        "value": 100,
+        "origin": "template_constant"
+      },
+      {
+        "key": "shared.0.any_child.affected",
+        "value": 25,
+        "origin": "engine"
+      },
+      {
+        "key": "shared.0.any_child.carrier",
+        "value": 50,
+        "origin": "engine"
+      },
+      {
+        "key": "shared.0.any_child.neither",
+        "value": 25,
+        "origin": "engine"
+      },
+      {
+        "key": "detection.0.rate_den",
+        "value": 10,
+        "origin": "engine"
+      },
+      {
+        "key": "detection.0.rate_num",
+        "value": 9,
+        "origin": "engine"
+      },
+      {
+        "key": "detection.1.rate_den",
+        "value": 10,
+        "origin": "engine"
+      },
+      {
+        "key": "detection.1.rate_num",
+        "value": 8,
+        "origin": "engine"
+      },
+      {
+        "key": "detection.2.rate_den",
+        "value": 10,
+        "origin": "engine"
+      },
+      {
+        "key": "detection.2.rate_num",
+        "value": 9,
+        "origin": "engine"
+      },
+      {
+        "key": "const.law_number",
+        "value": 49,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.law_year",
+        "value": 2023,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.art_19",
+        "value": 19,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.art_21",
+        "value": 21,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.art_26",
+        "value": 26,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.art_26_para",
+        "value": 2,
+        "origin": "template_constant"
+      }
+    ],
+    "template_ids": [
+      "status.draft_notice",
+      "result.shared.heading",
+      "result.shared.summary",
+      "shared.basis.both_carriers",
+      "shared.outcomes.intro",
+      "icon_array.caption.any_child",
+      "outcome.affected.any_child",
+      "outcome.carrier.any_child",
+      "outcome.neither.any_child",
+      "shared.outcomes.each_pregnancy",
+      "shared.next",
+      "own.heading",
+      "own.finding.carrier",
+      "partner.heading",
+      "partner.none",
+      "meaning.heading",
+      "meaning.risk_not_diagnosis",
+      "meaning.carrier_not_illness",
+      "meaning.most_people_carry",
+      "limits.heading",
+      "limits.panel_not_complete",
+      "limits.detection.panel_rate_assumed",
+      "limits.detection.alpha_globin_locus_limit",
+      "limits.detection.related_couple_shared_misses",
+      "limits.detection.assumed_note",
+      "privacy.heading",
+      "privacy.who_can_see",
+      "policy.abu_dhabi",
+      "privacy.state_recipient",
+      "certificate.refusal_tension",
+      "options.pointer",
+      "boundary.education_decision_support",
+      "status.synthetic_notice"
+    ],
+    "check": {
+      "ok": true,
+      "numeric_fidelity": true,
+      "polarity": true,
+      "banned_words_absent": true,
+      "messages": []
+    }
+  }
+}

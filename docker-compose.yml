@@ -1,0 +1,56 @@
+# Local web plus api, built from the same Dockerfiles Azure uses (infra/docker/).
+#
+#   docker compose up --build        web on http://localhost:3000, api on http://127.0.0.1:8000
+#   docker compose down
+#
+# Synthetic-data prototype: state is in memory and resets when the api container restarts. The api is published on the
+# loopback interface only, for curl and debugging; the web container reaches it on the compose network.
+name: bayan
+
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: ../infra/docker/backend.Dockerfile
+    image: bayan-api:local
+    environment:
+      BAYAN_ENV: demo
+      BAYAN_DEMO_MODE: "true"
+      BAYAN_LOG_JSON: "true"
+      # Local only. Azure gets a generated secret (infra/scripts/deploy.ps1). Override with: $env:BAYAN_SESSION_SECRET=...
+      BAYAN_SESSION_SECRET: ${BAYAN_SESSION_SECRET:-local-compose-only-not-a-secret}
+    ports:
+      - "127.0.0.1:8000:8000"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    # The image's own HEALTHCHECK (GET /healthz) applies; the web service waits for it.
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: ../infra/docker/frontend.Dockerfile
+      args:
+        BAYAN_API_URL: http://api:8000
+    image: bayan-web:local
+    environment:
+      BAYAN_API_URL: http://api:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /app/.next/cache
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped

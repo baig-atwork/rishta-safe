@@ -1,0 +1,142 @@
+# Pathway texts, English. Same keys in pathway.ar.yaml and pathway.ur.yaml.
+# Every external system is labelled simulated in every language. No digits are typed in the
+# text (numbers come from pathway.yaml and the case record). No banned word (templates.banned.yaml).
+# Status: needs_clinician_signoff: true; language_status: draft (nobody has reviewed this wording).
+meta:
+  schema_version: 1
+  locale: en
+  direction: ltr
+  language_status: draft
+  needs_clinician_signoff: true
+  authoring: "Static text drafted at authoring time with an LLM assistant (no personal data); no runtime LLM."
+
+notices:
+  simulated: "Every outside system shown on this page is simulated. Nothing is booked, sent or issued."
+  synthetic: "All people and results in this prototype are made up (synthetic)."
+  draft: "These labels are a draft. The clinical lead's sign-off is pending."
+  certificate_expired: "The certificate dates shown here are over. A new one would be needed."
+  certificate_valid_until: "Valid until"
+  preliminary_risk_off: "A preliminary estimate was not requested."
+  preliminary_risk_unavailable: "A preliminary estimate was requested, but this build has no source for it. Nothing is shown."
+  stale_task: "This task has had no change for a long time. It is shown here so it is not lost."
+  standard_illustrative: "This time limit is illustrative. No published standard states one."
+
+steps:
+  registered:
+    label: "Book a screening visit"
+    description: "Choose a licensed screening centre and a time. In this prototype the booking is simulated and nothing is booked."
+  consult_completed:
+    label: "Consent and doctor's visit"
+    description: "You sign the agreement and meet a doctor, each partner on their own. The doctor asks about your health and family."
+  sample_collected:
+    label: "Blood sample"
+    description: "A trained person takes blood at the centre, during the same visit. Samples go to the laboratories."
+  lab_started:
+    label: "Laboratory work starts"
+    description: "The laboratory receives the sample and starts the tests."
+  joint_report_ready:
+    label: "Joint report is ready"
+    description: "One joint report is prepared for the couple and sent to the doctor. The genetic part takes longer than the other tests."
+  result_communicated:
+    label: "Result is explained"
+    description: "The doctor shares the result. Partners may be contacted separately."
+  counselling_booked:
+    label: "Counselling is booked"
+    description: "If the result needs it, a counselling visit is booked. You can also say no thank you."
+  counselling_completed:
+    label: "Counselling is done"
+    description: "A trained professional explains the result and the choices that exist. They do not tell you what to decide."
+  declaration_signed:
+    label: "Declaration is signed"
+    description: "You sign a statement that the result was explained to you."
+  certificate_issued:
+    label: "Certificate is issued"
+    description: "The screening report that is needed for the marriage contract is issued. It is valid for a limited time."
+  judicial_handoff_sent:
+    label: "Report goes to the judicial department"
+    description: "The report is made available to the judicial department. In this prototype the hand-off is simulated."
+  case_closed:
+    label: "Case is closed"
+    description: "The follow-up steps are finished or have been declined, and the case is closed."
+
+events:
+  consult_completed: "Mark the consent and doctor's visit as done"
+  sample_collected: "Mark the blood sample as taken"
+  lab_started: "Record that the laboratory has started"
+  joint_report_ready: "Record that the joint report is ready"
+  result_communicated: "Record that the result was explained"
+  counselling_booked: "Book counselling"
+  counselling_missed: "Record a missed counselling visit"
+  counselling_completed: "Record that counselling is done"
+  counselling_declined: "Record that counselling was declined"
+  referral_rejected: "Record that a referral was rejected"
+  partner_declined_to_share: "Record that a partner chose not to share"
+  declaration_signed: "Record the signed declaration"
+  certificate_issued: "Record that the certificate was issued"
+  judicial_handoff_sent: "Record the hand-off to the judicial department"
+  case_closed: "Close the case"
+  brief_generated: "Record that the counsellor brief was prepared"
+  confirmatory_test_ordered: "Order a confirmatory test"
+  confirmatory_test_resulted: "Record the confirmatory test result"
+  specialist_referral_requested: "Request a specialist referral"
+  specialist_referral_completed: "Record the specialist visit"
+
+external_systems:
+  licensed_centre: "Licensed screening centre (simulated)"
+  standard_lab: "Laboratory for the standard tests (simulated)"
+  genomic_lab: "Genomic laboratory (simulated)"
+  result_feed: "Report feed between laboratory and doctor (simulated)"
+  certificate_service: "Digital certificate service (simulated)"
+  judicial_department: "Judicial department hand-off (simulated)"
+  national_genomic_database: "National genomic database feed (simulated)"
+
+sla_status:
+  on_time: "On time"
+  at_risk: "At risk of being late"
+  breached: "Late"
+
+step_status:
+  done: "Done"
+  current: "Now"
+  upcoming: "Later"
+  not_applicable: "Not needed"
+  skipped: "Declined"
+  blocked: "On hold"
+
+task_codes:
+  counselling: "Genetic counselling"
+  confirmatory_testing: "Confirmatory test"
+  specialist_referral: "Specialist referral"
+
+task_status:
+  requested: "Requested"
+  accepted: "Accepted"
+  in-progress: "In progress"
+  on-hold: "On hold"
+  completed: "Completed"
+  rejected: "Rejected"
+  failed: "Could not be completed"
+  cancelled: "Stopped"
+
+status_reasons:
+  patient_declined: "The person chose not to go ahead"
+  no_show: "The visit did not take place"
+  provider_unavailable: "The service was not available"
+  timeout: "No answer in the time allowed"
+  wrong_destination: "Sent to the wrong service"
+
+family_history:
+  blood_disease_in_family: "A blood condition in the family"
+  thalassaemia_in_family: "Thalassaemia in the family"
+  sickle_cell_disease_in_family: "Sickle cell disease in the family"
+  childhood_death_in_family: "A child in the family who died young"
+  previous_child_with_inherited_condition: "A previous child with an inherited condition"
+  known_carrier_in_family: "A relative known to be a carrier"
+  developmental_or_neurological_condition_in_family: "A developmental or nerve condition in the family"
+  hearing_or_vision_loss_in_family: "Hearing or sight loss from an early age in the family"
+  none_declared: "None that I know of"
+
+id_types:
+  emirates_id: "Emirates ID (type only; no number is stored)"
+  cnic: "CNIC (type only; no number is stored)"
+  none: "No identity document"

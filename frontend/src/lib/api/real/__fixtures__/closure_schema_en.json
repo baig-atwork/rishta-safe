@@ -1,0 +1,282 @@
+{
+  "locale": "en",
+  "language_status": "draft",
+  "clinician_fields": [
+    {
+      "no": 1,
+      "id": "encounter",
+      "label": "Visit",
+      "help": "Date, mode, length, language of the session, and whether an interpreter was used. The system fills in the times; you confirm.",
+      "filled_by": "system_clinician_confirms",
+      "anchor": "PRSB Outpatient Letter Standards 2017, 'Attendance details' (section 6.1.4)",
+      "challenge_items": [
+        5
+      ],
+      "measure": "equity by language; time to counselling"
+    },
+    {
+      "no": 2,
+      "id": "risk_signal",
+      "label": "When the result was released",
+      "help": "Filled in by the system from the pathway record.",
+      "filled_by": "system",
+      "anchor": "PRSB 'Clinical summary' (our coding)",
+      "challenge_items": [
+        5
+      ],
+      "measure": "start of the time-from-risk-signal chain (t0)"
+    },
+    {
+      "no": 3,
+      "id": "findings_discussed",
+      "label": "Findings discussed",
+      "help": "Tick each finding that was discussed. Mark whether it was explained as a chance and not a diagnosis, and whether it was uncertain.",
+      "filled_by": "clinician",
+      "anchor": "PRSB 9.5.3: unconfirmed or excluded diagnoses are not coded as diagnoses",
+      "challenge_items": [
+        1,
+        5
+      ],
+      "measure": "links the result to the counselling"
+    },
+    {
+      "no": 4,
+      "id": "information_given",
+      "label": "Information given",
+      "help": "Tick each point that was explained.",
+      "filled_by": "clinician",
+      "anchor": "PRSB 'Information and advice given'",
+      "challenge_items": [
+        1,
+        5
+      ],
+      "measure": "proof of what was explained"
+    },
+    {
+      "no": 5,
+      "id": "options_discussed",
+      "label": "Choices discussed",
+      "help": "Tick each choice that was described. Choices are listed in a fixed neutral order. None is recommended.",
+      "filled_by": "clinician",
+      "anchor": "PRSB 9.15.3 shared decision making; challenge item 2",
+      "challenge_items": [
+        2
+      ],
+      "measure": "informed choice; options in a neutral order"
+    },
+    {
+      "no": 6,
+      "id": "teach_back",
+      "label": "Teach-back",
+      "help": "Did the couple explain the result back in their own words? Record how accurate it was.",
+      "filled_by": "clinician",
+      "anchor": "teach-back method (AHRQ Health Literacy Universal Precautions Toolkit, Tool 5; secondary source)",
+      "challenge_items": [
+        6
+      ],
+      "measure": "clinician-observed comprehension"
+    },
+    {
+      "no": 7,
+      "id": "patient_questions",
+      "label": "Questions",
+      "help": "Were questions invited, and were they answered?",
+      "filled_by": "clinician",
+      "anchor": "PRSB 'Patient and carer wishes' (adapted)",
+      "challenge_items": [
+        3
+      ],
+      "measure": "counselling-quality indicator"
+    },
+    {
+      "no": 8,
+      "id": "plan",
+      "label": "Plan",
+      "help": "Each action has an owner and a due date.",
+      "filled_by": "clinician",
+      "anchor": "PRSB 9.15.1: the plan names who owns each action",
+      "challenge_items": [
+        5
+      ],
+      "measure": "the actions that become referral tasks"
+    },
+    {
+      "no": 9,
+      "id": "referral_task",
+      "label": "Referral tasks",
+      "help": "Filled in by the system from the referral tasks.",
+      "filled_by": "system",
+      "anchor": "FHIR R5 Task",
+      "challenge_items": [
+        5,
+        6
+      ],
+      "measure": "completion; time to referral; lost-task count"
+    },
+    {
+      "no": 10,
+      "id": "service_preference",
+      "label": "Future services",
+      "help": "The person's own opt-in answer. Filled in by the person, not by you.",
+      "filled_by": "patient",
+      "anchor": "challenge item 2",
+      "challenge_items": [
+        2
+      ],
+      "measure": "access without a marriage field"
+    },
+    {
+      "no": 11,
+      "id": "sharing_and_consent",
+      "label": "Sharing and consent",
+      "help": "Whether a copy was given to the patient. The system adds the consent record.",
+      "filled_by": "system_clinician_confirms",
+      "anchor": "PRSB 9.14.3 patient copy; challenge item 4",
+      "challenge_items": [
+        4
+      ],
+      "measure": "privacy protection"
+    },
+    {
+      "no": 12,
+      "id": "completed_by",
+      "label": "Completed by",
+      "help": "Filled in by the system: your role and the time.",
+      "filled_by": "system",
+      "anchor": "PRSB 'Person completing the record'",
+      "challenge_items": [],
+      "measure": "accountability"
+    }
+  ],
+  "information_ticks": {
+    "carrier_vs_disease": "A carrier is not ill, and a result is not a diagnosis",
+    "couple_numbers": "The couple numbers out of one hundred pregnancies",
+    "test_limits": "What the test can and cannot find",
+    "options_neutral_order": "Choices that exist, in a neutral order",
+    "right_not_to_know": "The right not to know",
+    "who_can_see_result": "Who can see the result",
+    "how_to_reach_us": "How to reach the counselling service"
+  },
+  "patient_items": [
+    {
+      "id": "own_words",
+      "no": 1,
+      "format": "free_text",
+      "prompt": "In your own words, what does this result mean for the two of you?",
+      "options": {},
+      "scoring": "none",
+      "measures": "teach-back comprehension (to be coded 0, 1 or 2 against a fixed rubric by two raters in a later study)"
+    },
+    {
+      "id": "out_of_100",
+      "no": 2,
+      "format": "integer",
+      "prompt": "Out of 100 pregnancies of couples with this same result, about how many children would have the condition?",
+      "options": {},
+      "scoring": "tolerance_against_engine",
+      "measures": "numeric comprehension"
+    },
+    {
+      "id": "carrier_is_disease",
+      "no": 3,
+      "format": "true_false_not_sure",
+      "prompt": "Being a carrier means the person has the disease.",
+      "options": {},
+      "scoring": "key",
+      "measures": "risk versus diagnosis"
+    },
+    {
+      "id": "negative_means_none",
+      "no": 4,
+      "format": "true_false_not_sure",
+      "prompt": "If the test found nothing shared, our children cannot have any inherited condition.",
+      "options": {},
+      "scoring": "key",
+      "measures": "false reassurance"
+    },
+    {
+      "id": "next_step",
+      "no": 5,
+      "format": "single_choice",
+      "prompt": "What is the next step, and who is responsible for it?",
+      "options": {
+        "counsellor_explains": "A counsellor or doctor explains the result and the choices to us",
+        "centre_decides": "The screening centre decides for us",
+        "nothing_more": "Nothing more happens",
+        "find_lab_yourself": "We find a laboratory ourselves"
+      },
+      "scoring": "none",
+      "measures": "next-step knowledge"
+    },
+    {
+      "id": "values_clarity",
+      "no": 6,
+      "format": "likert_1_5",
+      "prompt": "I know what matters most to us when choosing what to do next.",
+      "options": {},
+      "scoring": "none",
+      "measures": "values clarity"
+    },
+    {
+      "id": "felt_free",
+      "no": 7,
+      "format": "likert_1_5",
+      "prompt": "I felt free to choose. Nobody pushed us in a direction.",
+      "options": {},
+      "scoring": "none",
+      "measures": "non-coercion"
+    },
+    {
+      "id": "who_can_see",
+      "no": 8,
+      "format": "single_choice",
+      "prompt": "Who can see our result?",
+      "options": {
+        "only_me": "Only me",
+        "me_and_partner": "Me and my partner",
+        "family_i_choose": "Family members I choose",
+        "nobody_else": "Nobody else"
+      },
+      "scoring": "none",
+      "measures": "privacy comprehension"
+    }
+  ],
+  "sils_prompt": "How often do you need to have someone help you when you read instructions, pamphlets, or other written material from your doctor or pharmacy?",
+  "sils_options": {
+    "never": "Never",
+    "rarely": "Rarely",
+    "sometimes": "Sometimes",
+    "often": "Often",
+    "always": "Always"
+  },
+  "sils_attribution": "Question from the Single Item Literacy Screener (Morris and others), used under a CC BY licence. This wording is an unvalidated draft.",
+  "service_interest_prompt": "Would you like information about services for planning a pregnancy?",
+  "service_interest_consent_text": "We can send you information about services for planning a pregnancy when you are ready. For example: counselling before pregnancy, testing for a partner or relatives, and options for starting a family. This is your choice. Your answer does not change your result. It is not shown to your partner, family, employer or insurer through this service, and we do not record whether you plan to marry. You can say not now or no thank you, and you can change your mind at any time. If you say yes, we use only the contact method you choose, and only to send this information.",
+  "service_interest_values": {
+    "yes_now": "Yes, now",
+    "yes_later": "Yes, later (remind me)",
+    "no_thanks": "No thank you",
+    "prefer_not_to_say": "Prefer not to say"
+  },
+  "service_interest_topics": {
+    "preconception_counselling": "Counselling before pregnancy",
+    "partner_or_relative_testing": "Testing for a partner or relatives",
+    "conception_options_information": "Information about options for starting a family",
+    "prenatal_testing_information": "Information about testing during pregnancy",
+    "talk_to_counsellor_again": "Talk with a counsellor again"
+  },
+  "reminder_months": [
+    3,
+    6,
+    12
+  ],
+  "notices": {
+    "not_run": "This is the instrument and the protocol only. The comprehension test with people has not been run.",
+    "synthetic": "Answers here are for made-up (synthetic) people only. Do not enter real health or family details.",
+    "draft": "This text is a draft. The clinical lead's sign-off is pending.",
+    "item_level_only": "Answers are reported item by item. No total score is calculated.",
+    "optional_stratifier": "This question is optional. It only helps to compare groups. It is not a test of reading ability."
+  },
+  "marriage_decision_field": false,
+  "human_comprehension_test_run": false
+}

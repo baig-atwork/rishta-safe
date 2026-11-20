@@ -1,0 +1,9 @@
+{
+  "type": "https://bayan.invalid/problems/forbidden",
+  "title": "Forbidden",
+  "status": 403,
+  "detail": "This record belongs to another couple.",
+  "code": "forbidden",
+  "instance": "/v1/couples/cpl-demo-03/result",
+  "correlation_id": "4d5b1a8d0291494894198b452d9d65d3"
+}

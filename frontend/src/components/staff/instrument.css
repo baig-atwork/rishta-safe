@@ -1,0 +1,381 @@
+/*
+ * The staff instrument (queue, brief, trace) and the haematology instrument share these classes. Tokens only, logical
+ * properties only, no shadow, no gradient. The comp is docs/design/v2/prototype/staff.html (pages.css, "staff instrument").
+ * The panes sit inside the folio width (the layout's <main> owns the page padding).
+ */
+@layer components {
+.inst {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr) minmax(0, 3fr);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-1);
+  background: var(--surface);
+  min-block-size: 36rem;
+}
+.inst-pane {
+  min-inline-size: 0;
+  padding: 20px;
+}
+.inst-q {
+  border-inline-end: 1px solid var(--line);
+}
+.inst-b {
+  border-inline-end: 1px solid var(--line);
+  background: var(--surface-raised);
+}
+.inst-t {
+  background: var(--surface-sunken);
+}
+.inst-h {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-block-end: 16px;
+}
+.inst-h > h1,
+.inst-h > h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.inst-h > .inst-meta {
+  margin-inline-start: auto;
+}
+.inst-meta {
+  font-family: var(--stack-mono);
+  font-size: var(--text-label);
+  color: var(--fg-3);
+}
+:lang(ar) .inst-meta,
+:lang(ur) .inst-meta {
+  font-family: var(--stack-ui);
+}
+.inst-keys {
+  margin-block: 12px 0;
+  font-size: 11px;
+  color: var(--fg-3);
+}
+
+/* queue table: 36 px rows, the cursor row is aria-selected */
+.inst-q .tbl td {
+  padding: 4px 8px;
+  block-size: auto;
+  min-block-size: 36px;
+  font-size: var(--text-sm);
+}
+.inst-q .tbl th {
+  padding-inline: 8px;
+}
+.inst-q .tbl tbody th {
+  padding: 4px 8px;
+  border-block-end: 1px solid var(--line);
+  font-family: var(--stack-mono);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--fg);
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+.inst-q .tbl tr[aria-selected="true"] th {
+  background: var(--accent-soft);
+  border-inline-start: 3px solid var(--accent);
+}
+.inst-q .tbl td,
+.inst-q .tbl th {
+  vertical-align: middle;
+}
+.inst-t .inst-h > h2 {
+  font-size: var(--text-label);
+}
+.inst-sec .data-table th,
+.inst-sec .data-table td {
+  padding: 6px 8px;
+}
+.inst-sec .data-table .tag {
+  white-space: nowrap;
+}
+.inst-sec .data-table .inst-id {
+  display: block;
+  font-family: var(--stack-mono);
+  font-size: 11px;
+  color: var(--fg-3);
+  overflow-wrap: anywhere;
+}
+.inst-q .tbl td.num,
+.inst-q .tbl th.num {
+  text-align: end;
+  white-space: nowrap;
+  font-family: var(--stack-mono);
+}
+.inst-case {
+  font-family: var(--stack-mono);
+  color: var(--fg);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 24px;
+}
+.inst-case:hover {
+  text-decoration: underline;
+}
+.inst-rule {
+  font-family: var(--stack-mono);
+  overflow-wrap: anywhere;
+}
+.inst-more {
+  color: var(--fg-3);
+}
+.inst-pri {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--stack-mono);
+  font-size: var(--text-label);
+  font-weight: 600;
+  text-transform: var(--text-transform-caps);
+  letter-spacing: var(--tracking-label);
+  white-space: nowrap;
+}
+.inst-pri[data-priority="urgent"] {
+  color: var(--attention-fg);
+}
+.inst-pri[data-priority="priority"] {
+  color: var(--fg);
+}
+.inst-pri[data-priority="routine"] {
+  color: var(--fg-3);
+}
+:lang(ar) .inst-pri,
+:lang(ur) .inst-pri {
+  font-family: var(--stack-ui);
+  font-size: 13px;
+}
+
+/* brief: key/value block, then ruled sections */
+.inst-kv {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 6px 12px;
+  margin: 0 0 16px;
+  padding-block-end: 16px;
+  border-block-end: 1px solid var(--line);
+  font-size: var(--text-sm);
+}
+.inst-kv dt {
+  padding-block-start: 2px;
+  font-family: var(--stack-mono);
+  font-size: 11px;
+  text-transform: var(--text-transform-caps);
+  letter-spacing: var(--tracking-label);
+  color: var(--fg-3);
+}
+:lang(ar) .inst-kv dt,
+:lang(ur) .inst-kv dt {
+  font-family: var(--stack-ui);
+  font-size: 12px;
+}
+.inst-kv dd {
+  margin: 0;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+.inst-lang-link {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 24px;
+  margin-inline-end: 12px;
+  color: var(--link);
+}
+.inst-lang-link[aria-current="true"] {
+  color: var(--fg);
+  font-weight: 600;
+  text-decoration: none;
+}
+.inst-sec {
+  padding-block: 10px;
+  border-block-end: 1px solid var(--line);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+.inst-sec > h3 {
+  margin: 0 0 4px;
+  font-family: var(--stack-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: var(--text-transform-caps);
+  letter-spacing: var(--tracking-label);
+  color: var(--fg-3);
+}
+:lang(ar) .inst-sec > h3,
+:lang(ur) .inst-sec > h3 {
+  font-family: var(--stack-ui);
+  font-size: 12px;
+}
+.inst-sec > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.inst-sec > ul[data-many="true"] {
+  padding-inline-start: 18px;
+  list-style: disc;
+}
+.inst-sec p {
+  margin: 0;
+}
+.inst-sec li + li {
+  margin-block-start: 4px;
+}
+.inst-sec .data-table {
+  margin-block-start: 6px;
+  font-size: 13px;
+}
+
+/* trace chip: a boxed id that jumps to its trace entry (24 px target) */
+.trace-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 24px;
+  min-inline-size: 24px;
+  margin-inline-start: 6px;
+  padding-inline: 6px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-1);
+  font-family: var(--stack-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--link);
+  text-decoration: none;
+  vertical-align: 1px;
+}
+.trace-chip:hover {
+  background: var(--accent-soft);
+}
+
+.inst-act {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-block-start: 20px;
+}
+.inst-status {
+  margin-block-start: 12px;
+  font-size: var(--text-sm);
+}
+
+/* trace pane */
+.inst-trace {
+  display: grid;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+}
+.inst-trace > li {
+  display: grid;
+  gap: 4px;
+  padding-block: 10px;
+  border-block-end: 1px solid var(--line);
+  scroll-margin-block: calc(var(--header-h) + var(--rail-h) + 16px);
+}
+.inst-trace > li:target {
+  background: var(--accent-soft);
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.inst-trace b {
+  font-family: var(--stack-mono);
+  color: var(--fg);
+}
+.inst-trace .src {
+  color: var(--fg-2);
+}
+.inst-trace .stamp {
+  justify-self: start;
+}
+.inst-stamps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.inst-fine {
+  max-inline-size: 72ch;
+  margin-block-start: 12px;
+  font-size: var(--text-label);
+  line-height: 1.5;
+  color: var(--fg-3);
+}
+
+/* haematology: inputs on the reading start, the reading on the reading end */
+.haem-inst {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-1);
+  background: var(--surface);
+}
+.haem-inst > .inst-pane:first-child {
+  border-inline-end: 1px solid var(--line);
+  background: var(--surface-raised);
+}
+.haem-inst > .inst-pane:last-child {
+  background: var(--surface-sunken);
+}
+.haem-trace {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.haem-trace th,
+.haem-trace td {
+  padding: 8px 10px;
+  text-align: start;
+  vertical-align: top;
+  border-block-end: 1px solid var(--line);
+}
+.haem-trace thead th {
+  font-family: var(--stack-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: var(--text-transform-caps);
+  letter-spacing: var(--tracking-label);
+  color: var(--fg-3);
+  border-block-end-color: var(--line-strong);
+}
+.haem-trace tbody th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) {
+  .inst {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .inst-q,
+  .inst-b {
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--line);
+  }
+  .haem-inst {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .haem-inst > .inst-pane:first-child {
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--line);
+  }
+}
+@media (max-width: 640px) {
+  .inst-pane {
+    padding: 16px 12px;
+  }
+  .inst-kv {
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+  }
+}
+
+}

@@ -1,0 +1,217 @@
+{
+  "sharing": {
+    "eyebrow": "Sharing and audit",
+    "title": "Who can see your report, and who has looked",
+    "standfirst": "You choose what your partner and your counsellor can see of your own screening report. Every change is written to a log you can check.",
+    "partial": {
+      "sharing": "The sharing ledger could not be loaded:",
+      "audit": "The audit trail could not be loaded:",
+      "retry": "Try again"
+    },
+    "intro": {
+      "heading": "How sharing works here",
+      "partner": "Each person controls what their partner sees of their own report. You decide about yours; your partner decides about theirs. You can grant or revoke a share at any time.",
+      "state": "The state is a statutory recipient of screening data (<ltr>Decree-Law 49/2023, Art. 26(2)</ltr>). Nothing on this page hides your data from the state, and this product never claims to. These choices are about your partner and your counsellor.",
+      "notToKnow": "You also have the right not to know your own results (<ltr>Art. 9(2)</ltr>). That right is separate from the sharing choices on this page."
+    },
+    "ledger": {
+      "heading": "Sharing ledger",
+      "caption": "Every sharing choice recorded for this couple. You can revoke only the rows that are about you; the other person's rows are read-only.",
+      "columns": {
+        "subject": "Whose report",
+        "recipient": "Shared with",
+        "scope": "What is shared",
+        "purpose": "Purpose",
+        "granted": "Granted",
+        "expiry": "Expires",
+        "status": "Status",
+        "action": "Action"
+      },
+      "you": "You",
+      "noExpiry": "No expiry",
+      "noAction": "No action available",
+      "readOnly": "Only {name} can change this row",
+      "otherPerson": "the other person",
+      "refreshError": "The ledger could not be refreshed. The list below may be out of date.",
+      "refreshRetry": "Try again"
+    },
+    "empty": {
+      "title": "Nothing is shared yet",
+      "body": "No sharing choices are recorded yet. You decide who can see your own report, what they see and for how long, and you can revoke it at any time.",
+      "cta": "Choose who sees what"
+    },
+    "status": {
+      "active": "Active",
+      "revoked": "Revoked",
+      "expired": "Expired"
+    },
+    "scope": {
+      "couple_result_only": {
+        "label": "Couple result only",
+        "description": "They see whether a shared result was found for the two of you, in the same plain words you see. They do not see your individual findings."
+      },
+      "gene_names_only": {
+        "label": "Result and gene names",
+        "description": "They see the couple result and the names of the genes involved in your own findings. They do not see variant detail."
+      },
+      "full_variant_detail": {
+        "label": "Result and full variant detail",
+        "description": "They see the couple result and the full variant detail from your own report. This is the widest choice."
+      }
+    },
+    "recipient": {
+      "counsellor": "Counsellor",
+      "clinician": "Clinician",
+      "programme": "Programme staff",
+      "judge": "Demo reviewer",
+      "external": "External party",
+      "couple_member": "Couple member"
+    },
+    "live": {
+      "granted": "Sharing granted: {scope} with {recipient}.",
+      "revoked": "Sharing revoked: {scope} with {recipient}."
+    },
+    "revoke": {
+      "trigger": "Revoke",
+      "triggerContext": "sharing with {recipient}: {scope}",
+      "title": "Stop sharing with {recipient}?",
+      "body": "From now on, \"{scope}\" will no longer be shared from your report. This is recorded in the audit trail.",
+      "note": "Anything already seen cannot be taken back. The state's statutory access is not affected by this choice.",
+      "keep": "Keep sharing",
+      "confirm": "Revoke sharing"
+    },
+    "grant": {
+      "heading": "Share your report",
+      "intro": "Choose one person and one level of detail. You can set an end date, and you can revoke the share later.",
+      "recipient": {
+        "label": "Share with",
+        "hint": "Your partner or your counsellor.",
+        "placeholder": "Choose a person",
+        "partner": "My partner, {name}"
+      },
+      "scope": {
+        "label": "What they can see"
+      },
+      "purpose": {
+        "label": "Purpose",
+        "hint": "Choose the reason from the list the service accepts. It is shown in the ledger and the audit trail.",
+        "placeholder": "Choose a purpose"
+      },
+      "expiry": {
+        "label": "Ends on (optional)",
+        "hint": "Leave empty to share until you revoke."
+      },
+      "submit": "Grant sharing",
+      "errors": {
+        "recipientRequired": "Choose who to share with.",
+        "scopeRequired": "Choose what they can see.",
+        "purposeRequired": "Choose a purpose.",
+        "expiryPast": "Choose a date after today."
+      }
+    },
+    "purposes": {
+      "partner_disclosure": "Share my findings with my partner, to the level I choose",
+      "couple_counselling": "Share my findings with the counsellor or clinician for our counselling",
+      "service_referral": "Share my findings with a referral service I choose",
+      "service_interest_follow_up": "Contact me about services I chose to hear about",
+      "research_secondary_use": "Use my data for an extra purpose (needs fresh written consent)"
+    },
+    "audit": {
+      "intro": "Each event in this log stores a hash of the event before it, so a change or removal anywhere breaks the chain. You can check it yourself below. This log is held in memory in this demo.",
+      "caption": "Events recorded for this couple.",
+      "columns": {
+        "index": "No.",
+        "time": "Time",
+        "actor": "Actor",
+        "action": "Action",
+        "detail": "Detail",
+        "prevHash": "Previous hash",
+        "hash": "Hash"
+      },
+      "role": {
+        "couple_member": "Couple member",
+        "counsellor": "Counsellor",
+        "clinician": "Clinician",
+        "programme": "Programme staff",
+        "judge": "Demo reviewer",
+        "external": "External party"
+      },
+      "none": "none",
+      "firstMismatch": "First mismatch",
+      "verify": "Verify chain",
+      "verifying": "Checking the chain…",
+      "okOwn": "Events about your couple that were checked: {count}.",
+      "okTag": "Chain verified",
+      "okDetail": "Events in the chain: {length}. Head hash:",
+      "brokenTag": "Chain broken",
+      "brokenDetail": "The first event that does not match is number {index}.",
+      "brokenNoIndex": "The API reported a mismatch but did not say where.",
+      "scopeNote": "This is a tamper-evidence check on this demo ledger, not an external or legal proof.",
+      "empty": "No events are recorded for this couple yet. Granting or revoking a share adds the first one.",
+      "refreshError": "The audit trail could not be refreshed. The list below may be out of date.",
+      "refreshRetry": "Try again",
+      "title": "What has happened to your information",
+      "runCount": "× {count}",
+      "earlier": "Show earlier events ({count})",
+      "earlierCaption": "Earlier events recorded for this couple.",
+      "earlierCapped": "Showing the newest {listed} of the earlier events. {unlisted} older events are in the log but not listed here. Verify chain checks all of them."
+    },
+    "matrix": {
+      "eyebrow": "Who sees what · {policy} disclosure rule",
+      "title": "You decide what {name} sees. The law fixes the rest.",
+      "intro": "Only the first column is yours to change. Every change writes a row to the audit log below. Screening itself is mandatory and not consent-based (Art. 4(2)(a), 15); sharing your own findings is.",
+      "introEmpty": "Nothing is shared yet. Use Share in the first column.",
+      "caption": "Who can see which part of your report",
+      "scrollLabel": "Who sees what, scrolls sideways",
+      "rowHeader": "What",
+      "col": {
+        "partner": "{name}, your partner",
+        "care": "Care team",
+        "db": "National genomic database",
+        "employer": "Employer",
+        "insurer": "Insurer"
+      },
+      "hint": {
+        "partner": "you decide",
+        "care": "fixed: care",
+        "db": "fixed: Art. 26(2)",
+        "employer": "fixed: Art. 19 to 21",
+        "insurer": "fixed: Art. 19 to 21"
+      },
+      "row": {
+        "result": "Couple result",
+        "genes": "Gene names",
+        "detail": "Full variant detail"
+      },
+      "on": "Shared with {name}",
+      "off": "Not shared",
+      "share": "Share",
+      "revoke": "Revoke",
+      "fixed": "fixed",
+      "care": "Sees what the {policy} rule allows, for your care",
+      "law": "Receives by law",
+      "never": "Never",
+      "policy": {
+        "abu_dhabi": "Abu Dhabi",
+        "dubai": "Dubai"
+      },
+      "footnote": "Employers and insurers may not require or use results: Federal Decree-Law 49/2023, Art. 19 to 21. A request from either is refused and logged. Rishta Safe never claims to hide data from the health authorities.",
+      "recorded": "Recorded: {action}",
+      "changeFailed": "That change was not saved.",
+      "working": "Saving",
+      "partnerMissing": "Your partner's details could not be loaded, so the sharing switches are not shown. The ledger below still works."
+    },
+    "ledgerToggle": "Consent ledger (table)",
+    "ledgerHint": "Purpose, expiry and every consent record, with the form to grant one.",
+    "rntk": {
+      "label": "Right not to know",
+      "off": "not declared",
+      "on": "declared",
+      "declare": "Declare",
+      "withdraw": "Withdraw",
+      "unknown": "status not available",
+      "note": "Art. 9(2). This is about what you read in this app; the state still holds the result (Art. 26(2)).",
+      "failed": "That change was not saved."
+    }
+  }
+}

@@ -1,0 +1,130 @@
+# Closure instruments: structure and keys. Locale-neutral. Text is in closure.<locale>.yaml.
+#
+# What is here, and what is deliberately not:
+#   * a 12-field clinician proforma (Rishta Safe authoring note, pending clinical sign-off), anchored on the PRSB outpatient
+#     letter standard (2017) and FHIR R5 Task. The schema is OURS with cited anchors; it is not a
+#     conformance claim to either.
+#   * eight ORIGINAL patient items (Rishta Safe authoring note, pending clinical sign-off). No item is copied or adapted from
+#     DCS, DRS, GCOS-24, MMIC or NVS (spec section 2 rule 8). Item-level results only; no scale
+#     score and no alpha (n is too small and the items are unvalidated).
+#   * the Single Item Literacy Screener, CC BY, used ONLY as an optional stratifier, with attribution.
+#   * an opt-in "interested in future services" field. NO marriage-decision field exists anywhere
+#     (ADR 0143): the programme already records the decision in a signed declaration, the
+#     standards place the decision to marry with the judicial authorities, and challenge 03
+#     item 6 forbids treating any single personal choice as the success measure.
+#   * a teach-back quiz, five items per result type, deterministic scoring.
+#
+# The human comprehension test is NOT run. This is the protocol and the instrument only. The
+# ethics-exemption question is open (in Abu Dhabi only the research
+# ethics committee decides exemption, per DoH).
+#
+# Status: needs_clinician_signoff: true; Arabic and Urdu text language_status: draft.
+meta:
+  schema_version: 1
+  needs_clinician_signoff: true
+  human_comprehension_test_run: false
+  note: "Protocol and instrument only. Nothing in this repository reports a human result."
+
+# ------------------------------------------------------------------ clinician proforma (12 fields)
+proforma:
+  version: 1
+  fields:
+    - {number: 1, id: encounter, filled_by: system_clinician_confirms, anchor: "PRSB Outpatient Letter Standards 2017, 'Attendance details' (section 6.1.4)", challenge_items: [5], measure: "equity by language; time to counselling"}
+    - {number: 2, id: risk_signal, filled_by: system, anchor: "PRSB 'Clinical summary' (our coding)", challenge_items: [5], measure: "start of the time-from-risk-signal chain (t0)"}
+    - {number: 3, id: findings_discussed, filled_by: clinician, anchor: "PRSB 9.5.3: unconfirmed or excluded diagnoses are not coded as diagnoses", challenge_items: [1, 5], measure: "links the result to the counselling"}
+    - {number: 4, id: information_given, filled_by: clinician, anchor: "PRSB 'Information and advice given'", challenge_items: [1, 5], measure: "proof of what was explained"}
+    - {number: 5, id: options_discussed, filled_by: clinician, anchor: "PRSB 9.15.3 shared decision making; challenge item 2", challenge_items: [2], measure: "informed choice; options in a neutral order"}
+    - {number: 6, id: teach_back, filled_by: clinician, anchor: "teach-back method (AHRQ Health Literacy Universal Precautions Toolkit, Tool 5; secondary source)", challenge_items: [6], measure: "clinician-observed comprehension"}
+    - {number: 7, id: patient_questions, filled_by: clinician, anchor: "PRSB 'Patient and carer wishes' (adapted)", challenge_items: [3], measure: "counselling-quality indicator"}
+    - {number: 8, id: plan, filled_by: clinician, anchor: "PRSB 9.15.1: the plan names who owns each action", challenge_items: [5], measure: "the actions that become referral tasks"}
+    - {number: 9, id: referral_task, filled_by: system, anchor: "FHIR R5 Task", challenge_items: [5, 6], measure: "completion; time to referral; lost-task count"}
+    - {number: 10, id: service_preference, filled_by: patient, anchor: "challenge item 2", challenge_items: [2], measure: "access without a marriage field"}
+    - {number: 11, id: sharing_and_consent, filled_by: system_clinician_confirms, anchor: "PRSB 9.14.3 patient copy; challenge item 4", challenge_items: [4], measure: "privacy protection"}
+    - {number: 12, id: completed_by, filled_by: system, anchor: "PRSB 'Person completing the record'", challenge_items: [], measure: "accountability"}
+  encounter_modes: [in_person, virtual]
+  # Adapted from an earlier draft: the original seventh tick was "residual risk". This product never
+  # shows a residual-risk number (spec section 2 rule 6), so the tick is "the limits of the test".
+  information_ticks:
+    - carrier_vs_disease
+    - couple_numbers
+    - test_limits
+    - options_neutral_order
+    - right_not_to_know
+    - who_can_see_result
+    - how_to_reach_us
+  options: [prenatal_diagnosis, preimplantation_testing, specialist_discussion]
+  next_step_status: [decided, still_deciding, declined_to_discuss]
+  teach_back_results: [accurate, partly, repeat_needed]
+  plan_actions: [confirmatory_test, partner_testing, referral, recontact]
+  free_text_max_length: 2000
+
+# ------------------------------------------------------------------ patient items (8, original)
+patient_items:
+  version: 1
+  scale: {likert_min: 1, likert_max: 5}
+  scored_tolerance_points:
+    value: 5
+    illustrative: true
+    note: "Item 2 counts as correct within this many points of the engine number. A pre-registered tolerance, fixed before any session; illustrative, not from a source."
+  items:
+    - {id: own_words, number: 1, format: free_text, max_length: 1000, scoring: none, measures: "teach-back comprehension (to be coded 0, 1 or 2 against a fixed rubric by two raters in a later study)", anchor: "teach-back method (secondary source)"}
+    - {id: out_of_100, number: 2, format: integer, min: 0, max: 100, scoring: tolerance_against_engine, measures: "numeric comprehension", anchor: "icon arrays (Garcia-Retamero and Cokely; a visual-aids review)"}
+    - {id: carrier_is_disease, number: 3, format: true_false_not_sure, correct: "false", scoring: key, measures: "risk versus diagnosis", anchor: "challenge item 1"}
+    - {id: negative_means_none, number: 4, format: true_false_not_sure, correct: "false", scoring: key, measures: "false reassurance", anchor: "challenge item 1; residual-risk display (Rishta Safe authoring note, pending clinical sign-off)"}
+    - {id: next_step, number: 5, format: single_choice, options: [counsellor_explains, centre_decides, nothing_more, find_lab_yourself], scoring: none, measures: "next-step knowledge", anchor: "challenge item 5"}
+    - {id: values_clarity, number: 6, format: likert_1_5, scoring: none, measures: "values clarity", anchor: "MMIC construct (attitude), own wording"}
+    - {id: felt_free, number: 7, format: likert_1_5, scoring: none, measures: "non-coercion", anchor: "challenge item 2"}
+    - {id: who_can_see, number: 8, format: single_choice, options: [only_me, me_and_partner, family_i_choose, nobody_else], scoring: none, measures: "privacy comprehension", anchor: "challenge items 4 and 6"}
+
+# Optional stratifier, never counted among the eight, never a literacy diagnosis.
+sils:
+  id: sils
+  format: single_choice
+  options: [never, rarely, sometimes, often, always]
+  positive_screen_if_score_above: 2
+  score_by_option: {never: 1, rarely: 2, sometimes: 3, often: 4, always: 5}
+  licence: "CC BY"
+  attribution: "Morris NS, MacLean CD, Chew LD, Littenberg B. The Single Item Literacy Screener: evaluation of a brief instrument to identify limited reading ability. BMC Family Practice 2006;7:21. PMC1435902."
+  limits: "Sensitivity 54 percent, specificity 83 percent, AUC 0.73 against S-TOFHLA in 999 US diabetes patients (Morris 2006). No Arabic or Urdu validation was found; the Arabic and Urdu wording here is an unvalidated draft translation of a CC BY item."
+
+# ------------------------------------------------------------------ opt-in service interest
+service_interest:
+  field: interested_in_future_services
+  consent_version: 1
+  values: [yes_now, yes_later, no_thanks, prefer_not_to_say]
+  reminder_months: [3, 6, 12]
+  topics:
+    - preconception_counselling
+    - partner_or_relative_testing
+    - conception_options_information
+    - prenatal_testing_information
+    - talk_to_counsellor_again
+  visibility: self_only
+  note: "Opt-in, patient-controlled, never shown to a partner, family member, employer or insurer through this service. The reminder fires on a date the person chose, never on a marital status."
+
+# ------------------------------------------------------------------ teach-back quiz
+teachback:
+  version: 1
+  items_per_result_type: 5
+  scoring: "Deterministic: one point for each answer equal to the key, out of five. Not-sure and blank answers score zero and are reported as such. There is no cut-off and no verdict."
+  design: "Intended for a within-subject, counterbalanced design (each volunteer sees vignettes of different result types in a rotated order). Three arms of 10 volunteers would detect only gaps of about 55 to 65 points (Rishta Safe authoring note, pending clinical sign-off). The test has NOT been run on people."
+  option_ids: [a, b, c]
+  quizzes:
+    shared_result_found:
+      - {id: sr1, format: single_choice, correct: a}
+      - {id: sr2, format: true_false_not_sure, correct: "false"}
+      - {id: sr3, format: single_choice, correct: a}
+      - {id: sr4, format: single_choice, correct: b}
+      - {id: sr5, format: single_choice, correct: a}
+    no_shared_change_found:
+      - {id: ns1, format: single_choice, correct: a}
+      - {id: ns2, format: true_false_not_sure, correct: "false"}
+      - {id: ns3, format: single_choice, correct: a}
+      - {id: ns4, format: true_false_not_sure, correct: "false"}
+      - {id: ns5, format: single_choice, correct: a}
+    more_information_needed:
+      - {id: mi1, format: single_choice, correct: a}
+      - {id: mi2, format: true_false_not_sure, correct: "false"}
+      - {id: mi3, format: single_choice, correct: a}
+      - {id: mi4, format: single_choice, correct: a}
+      - {id: mi5, format: true_false_not_sure, correct: "false"}

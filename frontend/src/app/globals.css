@@ -1,0 +1,1696 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Rishta Safe v2 "Registry Grid". Source of truth: docs/design/v2/tokens.css  */
+/* and DESIGN.md (ADR 0007). Every colour is OKLCH. No hex in TSX.       */
+/* ------------------------------------------------------------------ */
+
+/* ------------------------------------------------------------------ */
+/* Fonts: self-hosted, subset by unicode-range, swap. OFL licences in    */
+/* public/fonts/licences. Metric-matched fallbacks keep the swap quiet.  */
+/* ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/archivo-latin-var.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Red Hat Mono";
+  src: url("/fonts/red-hat-mono-latin-var.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Noto Kufi Arabic";
+  src: url("/fonts/noto-kufi-arabic-arabic-var.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+@font-face {
+  font-family: "Noto Kufi Arabic";
+  src: url("/fonts/noto-kufi-arabic-latin-var.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Noto Naskh Arabic";
+  src: url("/fonts/noto-naskh-arabic-arabic-wght-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+@font-face {
+  font-family: "Noto Nastaliq Urdu";
+  src: url("/fonts/noto-nastaliq-urdu-arabic-wght-normal.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+/* Fallbacks tuned to the loaded faces (hhea metrics and a frequency-weighted advance width, measured with fontTools). */
+@font-face {
+  font-family: "Archivo Fallback";
+  src: local("Arial");
+  size-adjust: 102.4%;
+  ascent-override: 85.7%;
+  descent-override: 20.5%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Red Hat Mono Fallback";
+  src: local("Courier New");
+  size-adjust: 100%;
+  ascent-override: 101.8%;
+  descent-override: 30.5%;
+  line-gap-override: 0%;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tier 1+2: primitives and semantic tokens (light).                    */
+/* ------------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+
+  /* primitives: cool mineral neutrals (hue 255-262), never warm paper */
+  --p-ink-950: oklch(0.155 0.012 262);
+  --p-ink-900: oklch(0.18 0.014 262);
+  --p-ink-850: oklch(0.215 0.015 262);
+  --p-ink-800: oklch(0.255 0.015 262);
+  --p-ink-700: oklch(0.32 0.014 262);
+  --p-ink-600: oklch(0.4 0.016 262);
+  --p-ink-500: oklch(0.5 0.014 262);
+  --p-ink-400: oklch(0.62 0.012 258);
+  --p-ink-300: oklch(0.72 0.01 258);
+  --p-ink-200: oklch(0.84 0.008 255);
+  --p-ink-150: oklch(0.905 0.006 255);
+  --p-ink-100: oklch(0.95 0.004 250);
+  --p-ink-50: oklch(0.982 0.003 250);
+  --p-ink-0: oklch(0.997 0.001 250);
+
+  --p-lapis-700: oklch(0.41 0.17 262);
+  --p-lapis-600: oklch(0.47 0.18 262); /* the one accent */
+  --p-lapis-300: oklch(0.74 0.12 262);
+  --p-lapis-100: oklch(0.95 0.025 262);
+
+  /* surfaces */
+  --surface: var(--p-ink-50);
+  --surface-raised: var(--p-ink-0);
+  --surface-sunken: var(--p-ink-100);
+  --surface-inverse: var(--p-ink-900); /* landing hero, evidence console */
+  --line: var(--p-ink-150); /* hairline separators: decorative, never a UI boundary */
+  --line-strong: var(--p-ink-400); /* input and control boundaries, >= 3:1 */
+  --grid: var(--p-ink-200); /* decorative grid lines only (1.55:1) */
+
+  /* text */
+  --fg: var(--p-ink-900);
+  --fg-2: var(--p-ink-600);
+  --fg-3: var(--p-ink-500);
+  --fg-inverse: oklch(0.955 0.004 262);
+  --fg-inverse-2: oklch(0.78 0.01 262);
+
+  /* action (lapis, <= 3% of pixels) */
+  --accent: var(--p-lapis-600);
+  --accent-hover: var(--p-lapis-700);
+  --accent-soft: var(--p-lapis-100);
+  --on-accent: oklch(0.99 0.004 262);
+  --accent-on-dark: oklch(0.74 0.12 262);
+  --link: var(--p-lapis-600);
+  --focus: var(--p-lapis-600);
+
+  /* result categories: three information states, NOT a scale, never red or green.
+     Each always ships with its cell glyph and text label. Equal lightness by design. */
+  --cat-shared-fg: oklch(0.42 0.11 345); /* aubergine */
+  --cat-shared-bg: oklch(0.955 0.02 345);
+  --cat-shared-mark: oklch(0.47 0.12 345);
+  --cat-none-fg: oklch(0.42 0.03 240); /* graphite */
+  --cat-none-bg: oklch(0.955 0.008 240);
+  --cat-none-mark: oklch(0.47 0.035 240);
+  --cat-info-fg: oklch(0.42 0.08 95); /* olive-ochre */
+  --cat-info-bg: oklch(0.955 0.03 100);
+  --cat-info-mark: oklch(0.47 0.09 95);
+
+  /* system states (never on a result) */
+  --attention-fg: oklch(0.45 0.13 35); /* errors, staff "urgent" */
+  --attention-bg: oklch(0.955 0.025 35);
+  --ok-fg: oklch(0.42 0.08 165); /* "chain verified" only */
+  --ok-bg: oklch(0.955 0.02 165);
+
+  /* tally-grid cells (the signature element) */
+  --cell-edge: var(--fg-3); /* open cells need a >= 3:1 edge (5.72:1); --grid is decoration only */
+  --cell-size: 14px;
+  --cell-gap: 2px;
+
+  /* type: stacks. Script-aware overrides sit below (:lang). */
+  --stack-latin: "Archivo", "Archivo Fallback", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --stack-mono: "Red Hat Mono", "Red Hat Mono Fallback", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --stack-ar-ui: "Noto Kufi Arabic", "Noto Naskh Arabic", "Archivo", "Segoe UI", Tahoma, sans-serif;
+  --stack-ar-read: "Noto Naskh Arabic", "Noto Kufi Arabic", "Archivo", "Segoe UI", Tahoma, serif;
+  /* Kufi is never used for Urdu: Naskh for the interface, Nastaliq for reading prose. */
+  --stack-ur-ui: "Noto Naskh Arabic", "Archivo", "Segoe UI", Tahoma, sans-serif;
+  --stack-ur-read: "Noto Nastaliq Urdu", "Noto Naskh Arabic", "Archivo", "Segoe UI", Tahoma, serif;
+  --stack-ui: var(--stack-latin);
+  --stack-read: var(--stack-latin);
+  --text-label: 0.75rem; /* 12: mono labels, stamps, table heads */
+  --text-sm: 0.875rem; /* 14: dense UI, tables */
+  --text-base: 1rem; /* 16: body */
+  --text-lg: 1.25rem; /* 20: result sentence, section leads */
+  --text-xl: 1.75rem; /* 28: page titles in the app */
+  --text-display: clamp(2.5rem, 1.6rem + 3.2vw, 3.75rem); /* 40-60: landing only */
+  --leading-ui: 1.4;
+  --leading-read: 1.6;
+  --tracking-display: -0.025em;
+  --tracking-label: 0.06em;
+  --text-transform-caps: uppercase;
+  --wdth-display: 112%; /* Archivo width axis (font-stretch): semi-expanded display */
+  --wdth-ui: 100%;
+  --wdth-dense: 88%; /* staff tables: semi-condensed */
+
+  /* shape */
+  --radius-0: 0px; /* cells, tables, charts */
+  --radius-1: 2px; /* stamps, chips */
+  --radius-2: 4px; /* buttons, inputs */
+  --radius-3: 6px; /* panels, dialogs (the maximum) */
+
+  /* layout */
+  --container: 80rem; /* 1280 */
+  --measure: 62ch;
+  --header-h: 52px;
+  --rail-h: 28px;
+  --tape-h: 36px;
+
+  /* depth: hairlines, and exactly one dialog shadow */
+  --shadow-dialog: 0 1px 2px oklch(0.2 0.02 262 / 0.08), 0 8px 24px oklch(0.2 0.02 262 / 0.12);
+  --scrim: oklch(0.18 0.014 262 / 0.5);
+
+  /* motion (CSS only) */
+  --dur-press: 100ms;
+  --dur-state: 180ms;
+  --dur-enter: 320ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+  /* ------------------------------------------------------------------
+     TEMPORARY ALIASES: Lineage Folio token names that lanes B, C and D
+     still use. Each points at the closest Registry Grid token. The
+     controller removes this block once nothing references them
+     (see docs/design/v2/lane-a-signatures.md, "Aliases").
+     ------------------------------------------------------------------ */
+  --border: var(--line);
+  --border-strong: var(--line-strong);
+  --ink: var(--fg);
+  --ink-2: var(--fg-2);
+  --ink-3: var(--fg-3);
+  --brand: var(--accent);
+  --brand-strong: var(--accent-hover);
+  --brand-soft: var(--accent-soft);
+  --on-brand: var(--on-accent);
+  --cat-shared-line: var(--cat-shared-mark);
+  --cat-none-line: var(--cat-none-mark);
+  --cat-info-line: var(--cat-info-mark);
+  --attention-line: var(--attention-fg);
+  --ok-line: var(--ok-fg);
+  --dialog-shadow: var(--shadow-dialog);
+  --stack-voice: var(--stack-read);
+  --leading-body: var(--leading-read);
+  --leading-heading: 1.2;
+  --tracking-caps: var(--tracking-label);
+}
+
+/* dark: explicit choice */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: var(--p-ink-900);
+  --surface-raised: var(--p-ink-850);
+  --surface-sunken: var(--p-ink-950);
+  --surface-inverse: var(--p-ink-950);
+  --line: oklch(0.3 0.012 262);
+  --line-strong: oklch(0.56 0.012 262);
+  --grid: oklch(0.38 0.012 262);
+  --fg: oklch(0.955 0.004 262);
+  --fg-2: oklch(0.8 0.01 262);
+  --fg-3: oklch(0.7 0.012 262);
+  --accent: var(--p-lapis-300);
+  --accent-hover: oklch(0.8 0.1 262);
+  --accent-soft: oklch(0.3 0.06 262);
+  --on-accent: var(--p-ink-900);
+  --link: var(--p-lapis-300);
+  --focus: var(--p-lapis-300);
+  --cat-shared-fg: oklch(0.82 0.08 345);
+  --cat-shared-bg: oklch(0.29 0.05 345);
+  --cat-shared-mark: oklch(0.76 0.1 345);
+  --cat-none-fg: oklch(0.82 0.025 240);
+  --cat-none-bg: oklch(0.29 0.015 240);
+  --cat-none-mark: oklch(0.76 0.03 240);
+  --cat-info-fg: oklch(0.83 0.08 95);
+  --cat-info-bg: oklch(0.29 0.04 95);
+  --cat-info-mark: oklch(0.77 0.09 95);
+  --attention-fg: oklch(0.8 0.11 35);
+  --attention-bg: oklch(0.29 0.05 35);
+  --ok-fg: oklch(0.8 0.08 165);
+  --ok-bg: oklch(0.28 0.035 165);
+  --shadow-dialog: 0 1px 2px oklch(0 0 0 / 0.4), 0 8px 24px oklch(0 0 0 / 0.5);
+  --scrim: oklch(0 0 0 / 0.6);
+}
+
+/* dark: system preference, unless the person chose light */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --surface: var(--p-ink-900);
+    --surface-raised: var(--p-ink-850);
+    --surface-sunken: var(--p-ink-950);
+    --surface-inverse: var(--p-ink-950);
+    --line: oklch(0.3 0.012 262);
+    --line-strong: oklch(0.56 0.012 262);
+    --grid: oklch(0.38 0.012 262);
+    --fg: oklch(0.955 0.004 262);
+    --fg-2: oklch(0.8 0.01 262);
+    --fg-3: oklch(0.7 0.012 262);
+    --accent: var(--p-lapis-300);
+    --accent-hover: oklch(0.8 0.1 262);
+    --accent-soft: oklch(0.3 0.06 262);
+    --on-accent: var(--p-ink-900);
+    --link: var(--p-lapis-300);
+    --focus: var(--p-lapis-300);
+    --cat-shared-fg: oklch(0.82 0.08 345);
+    --cat-shared-bg: oklch(0.29 0.05 345);
+    --cat-shared-mark: oklch(0.76 0.1 345);
+    --cat-none-fg: oklch(0.82 0.025 240);
+    --cat-none-bg: oklch(0.29 0.015 240);
+    --cat-none-mark: oklch(0.76 0.03 240);
+    --cat-info-fg: oklch(0.83 0.08 95);
+    --cat-info-bg: oklch(0.29 0.04 95);
+    --cat-info-mark: oklch(0.77 0.09 95);
+    --attention-fg: oklch(0.8 0.11 35);
+    --attention-bg: oklch(0.29 0.05 35);
+    --ok-fg: oklch(0.8 0.08 165);
+    --ok-bg: oklch(0.28 0.035 165);
+    --shadow-dialog: 0 1px 2px oklch(0 0 0 / 0.4), 0 8px 24px oklch(0 0 0 / 0.5);
+    --scrim: oklch(0 0 0 / 0.6);
+  }
+}
+
+/* Script-specific type: set on any element with lang, so an Arabic block inside an English page reads in Arabic type.
+   RTL is designed: no tracking, no uppercase, Western digits. */
+:lang(ar) {
+  --stack-ui: var(--stack-ar-ui);
+  --stack-read: var(--stack-ar-read);
+  --leading-ui: 1.7;
+  --leading-read: 1.9;
+  --tracking-display: 0;
+  --tracking-label: 0;
+  --text-transform-caps: none;
+}
+:lang(ur) {
+  --stack-ui: var(--stack-ur-ui);
+  --stack-read: var(--stack-ur-read);
+  --leading-ui: 1.8;
+  --leading-read: 2.4;
+  --tracking-display: 0;
+  --tracking-label: 0;
+  --text-transform-caps: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tier 3: Tailwind v4 theme mapped onto the semantic tokens.            */
+/* ------------------------------------------------------------------ */
+@theme inline {
+  --color-*: initial;
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-surface-inverse: var(--surface-inverse);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-grid: var(--grid);
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-fg-3: var(--fg-3);
+  --color-fg-inverse: var(--fg-inverse);
+  --color-fg-inverse-2: var(--fg-inverse-2);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-on-dark: var(--accent-on-dark);
+  --color-on-accent: var(--on-accent);
+  --color-link: var(--link);
+  --color-focus: var(--focus);
+  --color-cat-shared-fg: var(--cat-shared-fg);
+  --color-cat-shared-bg: var(--cat-shared-bg);
+  --color-cat-shared-mark: var(--cat-shared-mark);
+  --color-cat-none-fg: var(--cat-none-fg);
+  --color-cat-none-bg: var(--cat-none-bg);
+  --color-cat-none-mark: var(--cat-none-mark);
+  --color-cat-info-fg: var(--cat-info-fg);
+  --color-cat-info-bg: var(--cat-info-bg);
+  --color-cat-info-mark: var(--cat-info-mark);
+  --color-attention-fg: var(--attention-fg);
+  --color-attention-bg: var(--attention-bg);
+  --color-ok-fg: var(--ok-fg);
+  --color-ok-bg: var(--ok-bg);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* TEMPORARY aliases for the Lineage Folio utility names (see lane-a-signatures.md "Aliases"). */
+  --color-raised: var(--surface-raised);
+  --color-sunken: var(--surface-sunken);
+  --color-ink: var(--fg);
+  --color-ink-2: var(--fg-2);
+  --color-ink-3: var(--fg-3);
+  --color-brand: var(--accent);
+  --color-brand-strong: var(--accent-hover);
+  --color-brand-soft: var(--accent-soft);
+  --color-on-brand: var(--on-accent);
+  --color-attention: var(--attention-fg);
+  --color-attention-soft: var(--attention-bg);
+  --color-ok: var(--ok-fg);
+  --color-ok-soft: var(--ok-bg);
+  --color-cat-shared: var(--cat-shared-fg);
+  --color-cat-shared-soft: var(--cat-shared-bg);
+  --color-cat-none: var(--cat-none-fg);
+  --color-cat-none-soft: var(--cat-none-bg);
+  --color-cat-info: var(--cat-info-fg);
+  --color-cat-info-soft: var(--cat-info-bg);
+  --font-voice: var(--stack-read);
+  --font-ui: var(--stack-ui);
+  --text-xs: var(--text-label);
+  --text-md: 1.125rem;
+  --text-2xl: var(--text-xl);
+  --text-3xl: var(--text-xl);
+
+  --font-sans: var(--stack-ui);
+  --font-mono: var(--stack-mono);
+  --font-read: var(--stack-read);
+
+  --text-label: var(--text-label);
+  --text-sm: var(--text-sm);
+  --text-base: var(--text-base);
+  --text-lg: var(--text-lg);
+  --text-xl: var(--text-xl);
+  --text-display: var(--text-display);
+
+  --radius-none: 0px;
+  --radius-xs: 2px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+
+  --shadow-dialog: var(--shadow-dialog);
+
+  --ease-out: var(--ease-out);
+  --ease-in: var(--ease-in);
+  --ease-out-soft: var(--ease-out);
+  --ease-in-soft: var(--ease-in);
+
+  --breakpoint-xs: 30rem;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+}
+
+@theme {
+  --container-folio: 80rem;
+  --container-reading: 62ch;
+  --duration-fast: 100ms;
+  --duration-base: 180ms;
+  --duration-slow: 320ms;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                 */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    background: var(--surface);
+    color: var(--fg);
+    font-family: var(--stack-ui);
+    font-size: 100%;
+    line-height: var(--leading-ui);
+    font-stretch: var(--wdth-ui);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-block-start: calc(var(--header-h) + var(--rail-h) + 1rem);
+    scroll-padding-block-end: calc(var(--tape-h) + 1rem);
+  }
+  /* An Arabic or Urdu block inside another page takes its own face; the page face is set on <html>. */
+  [lang="ar"]:not(html),
+  [lang="ur"]:not(html) {
+    font-family: var(--stack-ui);
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    min-block-size: 100dvh;
+    background: var(--surface);
+    color: var(--fg);
+    text-rendering: optimizeLegibility;
+    font-variant-numeric: tabular-nums lining-nums;
+    overflow-wrap: anywhere;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--stack-ui);
+    line-height: 1.25;
+    text-wrap: balance;
+    font-weight: 600;
+  }
+  h1 {
+    font-size: var(--text-xl);
+    letter-spacing: -0.015em;
+    font-stretch: 106%;
+    line-height: 1.2;
+  }
+  h2 {
+    font-size: var(--text-lg);
+    line-height: 1.3;
+  }
+  h3 {
+    font-size: var(--text-base);
+    line-height: 1.35;
+  }
+  :lang(ar) h1,
+  :lang(ar) h2,
+  :lang(ur) h1,
+  :lang(ur) h2 {
+    letter-spacing: 0;
+    line-height: 1.6;
+  }
+  :lang(ur) h1,
+  :lang(ur) h2,
+  :lang(ur) h3 {
+    line-height: 1.9;
+  }
+  p,
+  li {
+    text-wrap: pretty;
+  }
+  a {
+    color: var(--link);
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+  a:hover {
+    text-decoration-thickness: 2px;
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-1);
+  }
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--fg);
+  }
+  /* Directional arrows mirror in RTL. Cells never do. */
+  [dir="rtl"] .mirror-rtl {
+    transform: scaleX(-1);
+  }
+  img,
+  svg {
+    display: block;
+    max-inline-size: 100%;
+  }
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+  table {
+    border-collapse: collapse;
+  }
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--stack-mono);
+  }
+  /* Latin codes, hashes, IDs and lab values stay left-to-right inside RTL text. */
+  .ltr-run {
+    direction: ltr;
+    unicode-bidi: isolate;
+    text-align: start;
+    display: inline-block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Components (plain CSS on tokens; Tailwind utilities do the layout).   */
+/* ------------------------------------------------------------------ */
+@layer components {
+  /* ---- type helpers ---- */
+  .mono {
+    font-family: var(--stack-mono);
+    font-variant-numeric: tabular-nums;
+  }
+  .ltr {
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+  /* Uppercase mono label: ids, table heads, stamps. In Arabic and Urdu it falls back to the UI face, no case, no tracking. */
+  .label,
+  .eyebrow {
+    font-family: var(--stack-mono);
+    font-size: var(--text-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: var(--text-transform-caps);
+    color: var(--fg-3);
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  :lang(ar) .label,
+  :lang(ar) .eyebrow,
+  :lang(ur) .label,
+  :lang(ur) .eyebrow {
+    font-family: var(--stack-ui);
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+  .t-display {
+    font-size: var(--text-display);
+    font-weight: 560;
+    font-stretch: var(--wdth-display);
+    letter-spacing: var(--tracking-display);
+    line-height: 1.06;
+  }
+  .wdth-dense {
+    font-stretch: var(--wdth-dense);
+  }
+  /* Reading prose: Latin stays in the UI grotesque; Arabic reads in Naskh, Urdu in Nastaliq. */
+  .read,
+  .reading {
+    font-family: var(--stack-read);
+    line-height: var(--leading-read);
+    max-inline-size: var(--measure);
+  }
+  .reading {
+    font-size: 1.0625rem;
+  }
+  .standfirst {
+    font-family: var(--stack-read);
+    font-size: var(--text-lg);
+    line-height: var(--leading-read);
+    color: var(--fg-2);
+    max-inline-size: var(--measure);
+  }
+  .measure {
+    max-inline-size: var(--measure);
+  }
+  .fg2 {
+    color: var(--fg-2);
+  }
+  .fg3 {
+    color: var(--fg-3);
+  }
+  .num {
+    text-align: end;
+    font-family: var(--stack-mono);
+  }
+
+  /* ---- layout ---- */
+  .wrap {
+    max-inline-size: var(--container);
+    margin-inline: auto;
+    padding-inline: 24px;
+    inline-size: 100%;
+  }
+  @media (max-width: 640px) {
+    .wrap {
+      padding-inline: 16px;
+    }
+  }
+
+  /* ---- panels, rules, key/value ---- */
+  .panel {
+    background: var(--surface-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-3);
+    padding: 1.25rem;
+  }
+  .panel-sunken {
+    background: var(--surface-sunken);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-3);
+    padding: 1.25rem;
+  }
+  .panel-attention {
+    border-inline-start: 4px solid var(--attention-fg);
+  }
+  .rule,
+  .folio-rule {
+    border: 0;
+    border-block-start: 1px solid var(--line);
+    margin: 0;
+  }
+  .dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 6px 16px;
+    font-size: var(--text-sm);
+  }
+  .dl dt {
+    color: var(--fg-3);
+  }
+  .dl dd {
+    margin: 0;
+  }
+
+  /* ---- tally grid: the signature element ----
+     Three fills (solid, diagonal hatch, open) plus a dashed edge for "pending". The hatch is the only repeating
+     fill and it always carries data, so it is the one gradient in the app. Colour comes from `color`, so a cell
+     placed in a dark surface takes the light ink. */
+  .cell {
+    display: inline-block;
+    flex: none;
+    inline-size: var(--cell-size);
+    block-size: var(--cell-size);
+    box-sizing: border-box;
+    border: 1px solid var(--cell-edge);
+    border-radius: var(--radius-0);
+    forced-color-adjust: none;
+  }
+  .cell[data-tone="ink"] {
+    color: var(--fg);
+  }
+  .cell[data-tone="accent"] {
+    color: var(--accent);
+  }
+  .cell[data-tone="shared"] {
+    color: var(--cat-shared-mark);
+  }
+  .cell[data-tone="none"] {
+    color: var(--cat-none-mark);
+  }
+  .cell[data-tone="info"] {
+    color: var(--cat-info-mark);
+  }
+  .cell[data-tone] {
+    border-color: currentColor;
+  }
+  .cell[data-fill="solid"] {
+    background: currentColor;
+    border-color: currentColor;
+  }
+  .cell[data-fill="hatch"] {
+    background: repeating-linear-gradient(135deg, currentColor 0 var(--hatch-line, 1.5px), transparent var(--hatch-line, 1.5px) var(--hatch-gap, 4px));
+    border-color: currentColor;
+  }
+  .cell[data-fill="open"] {
+    background: transparent;
+  }
+  .cell[data-dashed="true"] {
+    border-style: dashed;
+  }
+  .tally {
+    display: grid;
+    grid-template-columns: repeat(var(--tally-cols, 10), var(--cell-size));
+    gap: var(--cell-gap);
+    inline-size: max-content;
+  }
+  .legend {
+    display: grid;
+    gap: 6px;
+    font-size: var(--text-sm);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .legend li {
+    display: grid;
+    grid-template-columns: 14px 3ch 1fr;
+    gap: 10px;
+    align-items: center;
+  }
+  .legend b {
+    font-family: var(--stack-mono);
+    font-weight: 600;
+    text-align: end;
+  }
+
+  /* ---- result category chip: two cells + label. Not a scale. ---- */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    block-size: 28px;
+    padding-inline: 8px 10px;
+    border-radius: var(--radius-1);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    line-height: 1.2;
+    background: var(--chip-bg);
+    color: var(--chip-fg);
+    --cell-size: 9px;
+    --hatch-line: 1px;
+    --hatch-gap: 3px;
+  }
+  .chip[data-size="sm"] {
+    block-size: 24px;
+    padding-inline: 6px 8px;
+    font-size: var(--text-label);
+  }
+  .chip .glyph {
+    display: inline-flex;
+    gap: 2px;
+    align-items: center;
+  }
+  .chip .cell {
+    border-width: 1.5px;
+    border-color: currentColor;
+  }
+  .chip[data-cat="shared_result_found"] .glyph {
+    gap: 0;
+  }
+
+  /* ---- result category theming (used by chip and legacy panels) ---- */
+  [data-cat="shared_result_found"] {
+    --cat-fg: var(--cat-shared-fg);
+    --cat-bg: var(--cat-shared-bg);
+    --cat-mark: var(--cat-shared-mark);
+    --cat-line: var(--cat-shared-mark);
+    --chip-fg: var(--cat-shared-fg);
+    --chip-bg: var(--cat-shared-bg);
+  }
+  [data-cat="no_shared_change_found"] {
+    --cat-fg: var(--cat-none-fg);
+    --cat-bg: var(--cat-none-bg);
+    --cat-mark: var(--cat-none-mark);
+    --cat-line: var(--cat-none-mark);
+    --chip-fg: var(--cat-none-fg);
+    --chip-bg: var(--cat-none-bg);
+  }
+  [data-cat="more_information_needed"] {
+    --cat-fg: var(--cat-info-fg);
+    --cat-bg: var(--cat-info-bg);
+    --cat-mark: var(--cat-info-mark);
+    --cat-line: var(--cat-info-mark);
+    --chip-fg: var(--cat-info-fg);
+    --chip-bg: var(--cat-info-bg);
+  }
+  /* Legacy chip and panel (Lineage Folio markup still used by result/*). */
+  .cat-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem 0.25rem 0.5rem;
+    border-radius: var(--radius-1);
+    background: var(--cat-bg);
+    color: var(--cat-fg);
+    font-weight: 600;
+    font-size: var(--text-sm);
+  }
+  [dir="rtl"] .cat-chip {
+    padding: 0.25rem 0.5rem 0.25rem 0.75rem;
+  }
+  .cat-panel {
+    border: 1px solid var(--cat-line);
+    border-inline-start-width: 4px;
+    background: var(--cat-bg);
+    color: var(--fg);
+    border-radius: var(--radius-3);
+    padding: 1.5rem;
+  }
+
+  /* ---- stamp: honesty marker, compact ---- */
+  .stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-block-size: 22px;
+    padding: 0 7px;
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius-1);
+    background: var(--surface);
+    color: var(--fg-2);
+    font-family: var(--stack-mono);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.04em;
+    text-transform: var(--text-transform-caps);
+  }
+  :lang(ar) .stamp,
+  :lang(ur) .stamp {
+    font-family: var(--stack-ui);
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+
+  /* ---- buttons ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-block-size: 40px;
+    min-inline-size: 40px;
+    padding: 0 16px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-2);
+    font-family: var(--stack-ui);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    line-height: 1.3;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--dur-state) var(--ease-out), border-color var(--dur-state) var(--ease-out), transform var(--dur-press) var(--ease-out);
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn[aria-disabled="true"],
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  .btn-primary:hover {
+    background: var(--accent-hover);
+  }
+  .btn-secondary,
+  .btn-quiet {
+    background: transparent;
+    color: var(--fg);
+    border-color: var(--line-strong);
+  }
+  .btn-secondary:hover,
+  .btn-quiet:hover {
+    background: var(--surface-sunken);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--link);
+  }
+  .btn-ghost:hover {
+    background: var(--accent-soft);
+  }
+  .btn-danger {
+    background: transparent;
+    color: var(--attention-fg);
+    border-color: var(--attention-fg);
+  }
+  .btn-danger:hover {
+    background: var(--attention-bg);
+  }
+  .btn-link {
+    background: none;
+    color: var(--link);
+    padding-inline: 0;
+    min-block-size: 0;
+    min-inline-size: 0;
+    block-size: auto;
+  }
+  .btn-sm {
+    min-block-size: 32px;
+    padding: 0 12px;
+  }
+  .btn-sm.btn-icon,
+  .btn-icon {
+    padding: 0;
+    inline-size: 32px;
+    min-inline-size: 32px;
+  }
+
+  /* ---- fields ---- */
+  .field-label {
+    display: block;
+    font-weight: 600;
+    font-size: var(--text-sm);
+    margin-block-end: 0.25rem;
+  }
+  .field-hint {
+    font-size: var(--text-sm);
+    color: var(--fg-3);
+    margin-block-end: 0.375rem;
+  }
+  .field-error {
+    font-size: var(--text-sm);
+    color: var(--attention-fg);
+    margin-block-start: 0.25rem;
+    font-weight: 600;
+  }
+  .input,
+  .select,
+  .textarea {
+    inline-size: 100%;
+    min-block-size: 40px;
+    padding: 0.5rem 0.75rem;
+    background: var(--surface-raised);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-2);
+    font-size: max(1rem, 16px);
+    line-height: 1.4;
+  }
+  .textarea {
+    min-block-size: 6rem;
+  }
+  .input[aria-invalid="true"],
+  .select[aria-invalid="true"],
+  .textarea[aria-invalid="true"] {
+    border-color: var(--attention-fg);
+    border-width: 2px;
+  }
+  .input-ltr {
+    direction: ltr;
+    text-align: start;
+  }
+
+  /* ---- status tags (pathway, tasks, chain). Text always present. ---- */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.0625rem 0.5rem;
+    border-radius: var(--radius-1);
+    border: 1px solid var(--line-strong);
+    background: var(--surface-raised);
+    color: var(--fg-2);
+    font-size: var(--text-label);
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .tag-ok {
+    background: var(--ok-bg);
+    color: var(--ok-fg);
+    border-color: var(--ok-fg);
+  }
+  .tag-attention {
+    background: var(--attention-bg);
+    color: var(--attention-fg);
+    border-color: var(--attention-fg);
+  }
+  .tag-info {
+    background: var(--cat-info-bg);
+    color: var(--cat-info-fg);
+    border-color: var(--cat-info-mark);
+  }
+  .tag-brand {
+    background: var(--accent-soft);
+    color: var(--accent-hover);
+    border-color: var(--accent);
+  }
+
+  /* ---- skeleton: fixed-size blocks that mirror the layout, no shimmer ---- */
+  .skeleton {
+    background: var(--surface-sunken);
+    border-radius: var(--radius-1);
+    animation: skeleton-pulse 1.4s var(--ease-out) infinite alternate;
+  }
+  @keyframes skeleton-pulse {
+    from {
+      opacity: 0.55;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* ---- tables ---- */
+  .data-table {
+    inline-size: 100%;
+    font-size: var(--text-sm);
+  }
+  .data-table th,
+  .data-table td {
+    padding: 0.625rem 0.75rem;
+    text-align: start;
+    vertical-align: top;
+    border-block-end: 1px solid var(--line);
+  }
+  .data-table th {
+    font-weight: 600;
+    color: var(--fg-2);
+    background: var(--surface-sunken);
+  }
+  /* Instrument table: 40 px rows, semi-condensed (staff, evidence). */
+  .tbl {
+    inline-size: 100%;
+    font-size: var(--text-sm);
+    font-stretch: var(--wdth-dense);
+  }
+  .tbl th {
+    text-align: start;
+    font-family: var(--stack-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: var(--text-transform-caps);
+    color: var(--fg-3);
+    font-weight: 500;
+    padding: 8px 10px;
+    border-block-end: 1px solid var(--line-strong);
+    white-space: nowrap;
+    font-stretch: 100%;
+  }
+  .tbl td {
+    padding: 0 10px;
+    block-size: 40px;
+    border-block-end: 1px solid var(--line);
+    vertical-align: middle;
+  }
+  .tbl tr[aria-selected="true"] td {
+    background: var(--accent-soft);
+  }
+  .tbl tr[aria-selected="true"] td:first-child {
+    border-inline-start: 3px solid var(--accent);
+  }
+
+  .skip-link {
+    position: absolute;
+    inset-inline-start: 0.5rem;
+    inset-block-start: -4rem;
+    z-index: 100;
+    padding: 0.5rem 1rem;
+    background: var(--fg);
+    color: var(--surface);
+    border-radius: var(--radius-2);
+  }
+  .skip-link:focus {
+    inset-block-start: 0.5rem;
+  }
+
+  /*
+   * Native modal <dialog> (opened with showModal(), so the top layer, the focus trap, inertness of the page and
+   * Escape come from the platform). The UA positions it (position: fixed; inset: 0) and `margin: auto` centres it, so
+   * no transform is needed and nothing differs between LTR and RTL. The explicit margin is needed because the
+   * preflight reset zeroes every margin. The one allowed shadow lives here.
+   */
+  .dialog-popup {
+    margin: auto;
+    inline-size: min(36rem, calc(100vw - 2rem));
+    max-block-size: calc(100dvh - 2rem);
+    overflow: auto;
+    background: var(--surface-raised);
+    color: var(--fg);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-3);
+    box-shadow: var(--shadow-dialog);
+    padding: 1.5rem;
+  }
+  .dialog-popup::backdrop {
+    background: var(--scrim);
+  }
+  /* A modal dialog locks the page behind it: no scrolling the ledger under the scrim. */
+  html:has(dialog:modal) {
+    overflow: hidden;
+  }
+
+  /* ---- shell: header (52 px), honesty rail (28 px), audit tape (36 px) ---- */
+  .site-header {
+    position: relative;
+    z-index: 30;
+    block-size: var(--header-h);
+    border-block-end: 1px solid var(--line);
+    background: var(--surface-raised);
+  }
+  .site-header > .wrap {
+    block-size: 100%;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-block-size: 32px;
+    font-weight: 650;
+    font-size: var(--text-base);
+    color: var(--fg);
+    text-decoration: none;
+    font-stretch: 108%;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .wordmark:hover {
+    text-decoration: none;
+  }
+  .wordmark-mark {
+    display: grid;
+    grid-template-columns: repeat(3, 5px);
+    gap: 1px;
+    --cell-size: 5px;
+    --hatch-line: 1px;
+    --hatch-gap: 3px;
+    color: var(--fg);
+  }
+  .wordmark-ar {
+    font-family: var(--stack-ar-ui);
+    font-weight: 500;
+    color: var(--fg-2);
+    font-size: var(--text-sm);
+    font-stretch: 100%;
+    letter-spacing: 0;
+  }
+  .main-nav {
+    display: none;
+  }
+  .main-nav ul {
+    display: flex;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .main-nav a,
+  .menu-panel a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 36px;
+    padding: 0 10px;
+    font-size: var(--text-sm);
+    color: var(--fg-2);
+    text-decoration: none;
+    border-radius: var(--radius-2);
+  }
+  .main-nav a:hover,
+  .menu-panel a:hover {
+    background: var(--surface-sunken);
+    color: var(--fg);
+  }
+  .main-nav a[aria-current="page"],
+  .menu-panel a[aria-current="page"] {
+    color: var(--fg);
+    font-weight: 600;
+    border-radius: 0;
+    border-block-end: 2px solid var(--fg);
+  }
+  .menu-panel a[aria-current="page"] {
+    border-block-end: 0;
+    border-inline-start: 2px solid var(--fg);
+  }
+  .site-header .end {
+    margin-inline-start: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .lens-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    block-size: 32px;
+    padding-inline: 10px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-2);
+    font-size: var(--text-sm);
+    color: var(--fg);
+    background: var(--surface);
+    cursor: pointer;
+    max-inline-size: 100%;
+    min-inline-size: 0;
+  }
+  .lens-btn:hover {
+    background: var(--surface-sunken);
+  }
+  .lens-btn .k {
+    color: var(--fg-3);
+  }
+  .lens-btn .nm {
+    min-inline-size: 0;
+    /* 26ch shows the longest couple and staff names in full (for example "Programme operator (demo)"); narrower
+       desktop widths shorten it, and the button's accessible name always carries the full text. */
+    max-inline-size: 26ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    .lens-btn .nm {
+      max-inline-size: 16ch;
+    }
+  }
+  .lens-btn .case {
+    font-family: var(--stack-mono);
+    font-size: var(--text-label);
+    color: var(--fg-2);
+    border-inline-start: 1px solid var(--line);
+    padding-inline-start: 8px;
+    white-space: nowrap;
+  }
+  .locale-seg {
+    display: flex;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-2);
+    overflow: hidden;
+    block-size: 32px;
+  }
+  .locale-seg a {
+    display: grid;
+    place-items: center;
+    min-inline-size: 36px;
+    padding-inline: 8px;
+    font-size: var(--text-sm);
+    color: var(--fg-2);
+    text-decoration: none;
+  }
+  .locale-seg a + a {
+    border-inline-start: 1px solid var(--line);
+  }
+  .locale-seg a:hover {
+    background: var(--surface-sunken);
+  }
+  .locale-seg a[aria-current="true"] {
+    background: var(--fg);
+    color: var(--surface);
+  }
+  .locale-seg [lang="ar"] {
+    font-family: var(--stack-ar-ui);
+  }
+  .locale-seg [lang="ur"] {
+    font-family: var(--stack-ur-ui);
+  }
+  .menu-btn {
+    display: inline-grid;
+    place-items: center;
+    inline-size: 32px;
+    block-size: 32px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-2);
+    background: transparent;
+    color: var(--fg);
+    cursor: pointer;
+  }
+  .menu-btn:hover {
+    background: var(--surface-sunken);
+  }
+  .menu-panel {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-start: 100%;
+    background: var(--surface-raised);
+    border-block-end: 1px solid var(--line-strong);
+    padding-block: 8px 12px;
+  }
+  .menu-panel ul {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .menu-panel .theme-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-block-start: 8px;
+    padding-block-start: 8px;
+    border-block-start: 1px solid var(--line);
+  }
+  .theme-inline {
+    display: none;
+  }
+  @media (min-width: 64rem) {
+    .main-nav {
+      display: block;
+    }
+    .theme-inline {
+      display: inline-flex;
+    }
+    .menu-btn,
+    .menu-panel {
+      display: none;
+    }
+  }
+  @media (max-width: 479px) {
+    .site-header > .wrap {
+      gap: 6px; /* the Latin wordmark "Rishta Safe" is wider than the old one: 2 px back keeps the Urdu header inside 390 px */
+      padding-inline: 12px;
+    }
+    .site-header .end {
+      gap: 8px;
+    }
+    .wordmark-ar {
+      display: none;
+    }
+    /* The word "Lens" stays in the accessible name; only its pixels go. */
+    .lens-btn .k {
+      position: absolute;
+      inline-size: 1px;
+      block-size: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+    .lens-btn .nm {
+      max-inline-size: 10ch;
+    }
+    .lens-btn .case {
+      display: none;
+    }
+    .locale-seg a {
+      min-inline-size: 30px;
+      padding-inline: 5px;
+    }
+  }
+
+  .rail {
+    block-size: var(--rail-h);
+    background: var(--surface-sunken);
+    border-block-end: 1px solid var(--line);
+    font-family: var(--stack-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--fg-2);
+  }
+  .rail > .wrap {
+    block-size: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .rail ul {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  /* The stamp class stays on each item (a stable test and styling hook) but the rail draws them flat. */
+  .rail li.stamp {
+    min-block-size: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    gap: 6px;
+    font-size: inherit;
+    letter-spacing: inherit;
+    font-weight: 400;
+    text-transform: none;
+  }
+  .rail li.stamp::before {
+    content: "";
+    flex: none;
+    inline-size: 7px;
+    block-size: 7px;
+    border: 1px solid var(--fg-2);
+    background: repeating-linear-gradient(135deg, var(--fg-2) 0 1px, transparent 1px 3px);
+  }
+  .rail .more {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 24px;
+    margin-inline-start: auto;
+    color: var(--link);
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: inherit;
+  }
+  :lang(ar) .rail,
+  :lang(ur) .rail {
+    font-family: var(--stack-ui);
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+  @media (max-width: 760px) {
+    .rail .x {
+      display: none;
+    }
+  }
+
+  .tape {
+    position: sticky;
+    inset-block-end: 0;
+    z-index: 20;
+    background: var(--surface-raised);
+    border-block-start: 1px solid var(--line-strong);
+    font-size: 12px;
+  }
+  .tape > .wrap {
+    block-size: var(--tape-h);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  /* The one link is small (a 24 px target); ::after stretches its click area over the whole bar. */
+  .tape-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-block-size: 24px;
+    color: inherit;
+    text-decoration: none;
+  }
+  .tape-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+  .tape-link:hover {
+    text-decoration: underline;
+  }
+  .tape-link:focus-visible {
+    outline: none;
+  }
+  .tape-link:focus-visible::after {
+    outline: 2px solid var(--focus);
+    outline-offset: -2px;
+  }
+  .tape .ev {
+    color: var(--fg-2);
+  }
+  .tape-ok {
+    color: var(--ok-fg);
+    font-weight: 600;
+    margin-inline-start: auto;
+  }
+  .tape-ok .cell {
+    --cell-size: 9px;
+    color: var(--ok-fg);
+  }
+  .tape-muted {
+    color: var(--fg-3);
+  }
+  .tape-bad {
+    color: var(--attention-fg);
+  }
+  .tape-bad .cell {
+    color: var(--attention-fg);
+  }
+  @media (max-width: 760px) {
+    .tape .x,
+    .tape .when {
+      display: none;
+    }
+    /* The chain status never clips: the newest event gives way (ellipsis), the status keeps its full text. */
+    .tape > .wrap {
+      gap: 12px;
+    }
+    .tape .ev {
+      min-inline-size: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .tape-link {
+      flex: none;
+    }
+  }
+
+  /* ---- site footer: one compact block ---- */
+  .site-footer {
+    margin-block-start: 48px;
+    border-block-start: 1px solid var(--line);
+    background: var(--surface-raised);
+    font-size: var(--text-sm);
+    color: var(--fg-2);
+  }
+
+  /* ---- legacy pathway tracker (Lane C removes it; kept styled with the new tokens) ---- */
+  .descent {
+    position: relative;
+    padding-inline-start: 3rem;
+  }
+  .descent-node {
+    position: absolute;
+    inset-inline-start: 0.25rem;
+    inset-block-start: 0.125rem;
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+  }
+  .descent-line {
+    position: absolute;
+    inset-inline-start: 1.125rem;
+    inset-block-start: 2rem;
+    inset-block-end: -0.125rem;
+    inline-size: 1.5px;
+    background: var(--line-strong);
+    transform-origin: top;
+  }
+  .descent[data-status="done"] .descent-line {
+    background: var(--accent);
+  }
+  .descent-line[data-draw="true"] {
+    animation: descent-draw var(--dur-enter) var(--ease-out) both;
+  }
+  @keyframes descent-draw {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  /* Feedback: a row that just changed settles from the accent tint to its resting background (180 ms). */
+  .row-settle {
+    animation: row-settle var(--dur-state) var(--ease-out) both;
+  }
+  @keyframes row-settle {
+    from {
+      background-color: var(--accent-soft);
+    }
+  }
+
+  /* Process: each audit row's tick fades in as "verify chain" reaches it (the 40 ms stagger is driven by the component). */
+  .verify-tick {
+    animation: verify-tick var(--dur-press) var(--ease-out) both;
+  }
+  @keyframes verify-tick {
+    from {
+      opacity: 0;
+    }
+  }
+}
+
+/* Utilities that Tailwind does not ship. */
+@utility ltr-isolate {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* ------------------------------------------------------------------ */
+/* Arabic and Urdu typography (ADR 0168). Deliberately outside every @layer so it beats the Tailwind utilities and the    */
+/* component classes: cursive joins break under letter-spacing, and Arabic script has no case. A block marked lang="en"    */
+/* inside an ar or ur page does not match :lang(ar)/:lang(ur) and keeps its Latin styling.                                */
+/* ------------------------------------------------------------------ */
+:lang(ar),
+:lang(ur),
+[dir="rtl"]:not(:lang(en)) {
+  letter-spacing: 0;
+  text-transform: none;
+}
+/* A run of Arabic or Urdu inside a mono-styled element reads in the script's UI face (Kufi; Naskh for Urdu), never in
+   the Latin mono. Real mono stays for ids, hashes and endpoints: code, .ltr-run, .ltr and dir="ltr" runs. */
+:lang(ar) :is(.font-mono, .mono):not(.ltr-run, .ltr, code, kbd, samp, [dir="ltr"], :lang(en)),
+:lang(ur) :is(.font-mono, .mono):not(.ltr-run, .ltr, code, kbd, samp, [dir="ltr"], :lang(en)) {
+  font-family: var(--stack-ui);
+}
+:lang(ar) :is(.font-mono, .mono) :is(.ltr-run, .ltr, code, kbd, samp, [dir="ltr"]),
+:lang(ur) :is(.font-mono, .mono) :is(.ltr-run, .ltr, code, kbd, samp, [dir="ltr"]) {
+  font-family: var(--stack-mono);
+}
+/* Nastaliq sits low on the line and reads smaller than its size: the footer is never below 15px in Urdu. */
+:lang(ur) .site-footer {
+  font-size: 0.9375rem;
+}
+/* Ids never break mid-token ("cpl-demo-05" stays on one line). */
+.id-chip {
+  white-space: nowrap;
+}
+/* Naskh and Nastaliq set smaller than Kufi at the same size: the Urdu page's own H1 is never less prominent than the
+   Arabic or English H1 shown beside it. */
+:lang(ur) h1 {
+  font-size: calc(var(--text-xl) * 1.14);
+  font-weight: 700;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tables that restack below 40rem (640px): audit table, sharing ledger, visibility matrix. Outside every layer so the   */
+/* padding utilities on the cells do not win. Each cell shows its column name from data-label; nothing scrolls sideways. */
+/* ------------------------------------------------------------------ */
+@media (width < 40rem) {
+  .stack-wrap {
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+  .stack-table,
+  .stack-tbody {
+    display: block;
+    inline-size: 100%;
+    min-inline-size: 0;
+  }
+  .stack-thead {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+  .stack-caption {
+    display: block;
+    inline-size: 100%;
+    padding-inline: 0;
+  }
+  .stack-tr {
+    display: block;
+    margin-block-end: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-3);
+    background: var(--surface-raised);
+  }
+  .stack-td {
+    display: grid;
+    grid-template-columns: minmax(6rem, 9rem) minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 0.75rem;
+    padding-block: 0.375rem;
+    padding-inline: 0;
+    border-block-end: 0;
+  }
+  .stack-td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--fg-2);
+  }
+  /* The matrix: a layer is a group (its name, then one labelled row per recipient). */
+  .stack-group {
+    display: block;
+    padding-block-end: 0.5rem;
+  }
+  .stack-group-head {
+    display: block;
+    background: var(--surface-sunken);
+  }
+  .stack-group .stack-td {
+    padding: 0.75rem;
+    border-block-start: 1px solid var(--line);
+  }
+}

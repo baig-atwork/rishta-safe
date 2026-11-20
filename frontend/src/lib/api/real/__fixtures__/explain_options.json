@@ -1,0 +1,78 @@
+{
+  "locale": "en",
+  "language_status": "draft",
+  "blocks": [
+    {
+      "kind": "callout",
+      "text": "This explanation is a draft. The clinical lead's sign-off is pending.",
+      "items": [],
+      "icon_array": null,
+      "tone": "info",
+      "numbers": []
+    },
+    {
+      "kind": "heading",
+      "text": "Choices that exist",
+      "items": [],
+      "icon_array": null,
+      "tone": "neutral",
+      "numbers": []
+    },
+    {
+      "kind": "paragraph",
+      "text": "These are choices that exist. They are listed in no order of preference, and the order is the same for everyone. Nobody here is telling you which one to take. A counsellor can explain each one.",
+      "items": [],
+      "icon_array": null,
+      "tone": "neutral",
+      "numbers": []
+    }
+  ],
+  "glossary_keys": [
+    "genetic_counselling",
+    "right_not_to_know"
+  ],
+  "numbers_used": [
+    {
+      "key": "const.art_11",
+      "value": 11,
+      "origin": "template_constant"
+    },
+    {
+      "key": "const.art_12",
+      "value": 12,
+      "origin": "template_constant"
+    },
+    {
+      "key": "const.law_number",
+      "value": 49,
+      "origin": "template_constant"
+    },
+    {
+      "key": "const.law_year",
+      "value": 2023,
+      "origin": "template_constant"
+    },
+    {
+      "key": "const.art_9",
+      "value": 9,
+      "origin": "template_constant"
+    },
+    {
+      "key": "const.art_9_para",
+      "value": 2,
+      "origin": "template_constant"
+    }
+  ],
+  "template_ids": [
+    "status.draft_notice",
+    "options.heading",
+    "options.intro"
+  ],
+  "check": {
+    "ok": true,
+    "numeric_fidelity": true,
+    "polarity": true,
+    "banned_words_absent": true,
+    "messages": []
+  }
+}

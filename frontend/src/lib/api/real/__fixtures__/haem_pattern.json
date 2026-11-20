@@ -1,0 +1,55 @@
+{
+  "label": "indices_reduced",
+  "stage": "cbc_only",
+  "label_description": "Red-cell indices are reduced (MCH or MCV below the screening cut-off). Haemoglobin analysis and iron status are needed next. A CBC cannot say what the cause is.",
+  "matched_rule_id": "S1-R01",
+  "draft_output": "S1_SCREEN_POSITIVE__HB_ANALYSIS_AND_IRON_STATUS_NEEDED",
+  "trace": [
+    {
+      "rule_id": "S1-A01",
+      "kind": "annotate",
+      "outcome": "ALPHA_THAL_POSSIBLE_CBC_CANNOT_SEPARATE_FROM_IRON_DEFICIENCY",
+      "source_id": "NHS-ANTE",
+      "locator": "s11.2 and s11.4: 99% of alpha-zero cases have MCH <25 pg; BSH-2023 PDF p.4 'If the MCH is <25 pg ... alpha-zero'"
+    },
+    {
+      "rule_id": "S1-R01",
+      "kind": "terminal",
+      "outcome": "S1_SCREEN_POSITIVE__HB_ANALYSIS_AND_IRON_STATUS_NEEDED",
+      "source_id": "NHS-INTERP",
+      "locator": "s1.1 Scenario 0 (MCH <27 pg -> HPLC or CE); TIF-OLD PDF p.21 and p.24 (MCV and/or MCH); SITE-2022 Recommendations (MCV <80 fL and MCH <27 pg in adults)"
+    }
+  ],
+  "flags": [
+    "ALPHA_THAL_POSSIBLE_CBC_CANNOT_SEPARATE_FROM_IRON_DEFICIENCY"
+  ],
+  "mandatory_statements": [],
+  "sources_disagree": [
+    "MCV leg: NHS not used; TIF 79 (text) or 78 (flowchart); SITE 80."
+  ],
+  "sources": [
+    {
+      "id": "NHS-ANTE",
+      "title": "NHS England. Same handbook, chapter 'Antenatal screening' (sections 6.4 action values, 8 HbA2 problems, 9 iron deficiency, 10-11 alpha-zero, 12 risk assessment)",
+      "year": "updated 2024-10-10",
+      "url": "https://www.gov.uk/government/publications/sct-screening-handbook-for-antenatal-laboratories/antenatal-screening",
+      "tier": "P",
+      "licence": null,
+      "read_from": null
+    },
+    {
+      "id": "NHS-INTERP",
+      "title": "NHS England. Sickle cell and thalassaemia screening handbook for antenatal laboratories, 5th ed., chapter 'Interpretation and reporting of antenatal screening results'",
+      "year": "updated 2024-10-10",
+      "url": "https://www.gov.uk/government/publications/sct-screening-handbook-for-antenatal-laboratories/interpretation-and-reporting-of-antenatal-screening-results",
+      "tier": "P",
+      "licence": null,
+      "read_from": null
+    }
+  ],
+  "needs_clinician_signoff": true,
+  "not_a_diagnosis": "This is a screening-support pattern for a clinician. It is not a diagnosis and not clinical advice. A CBC alone can never show whether someone carries a change; confirmation and interpretation belong to an accredited laboratory and a qualified clinician.",
+  "prior_art_note": "Prior art: other public tools already interpret laboratory values (haemoglobin, MCV, MCH, HbA2, HbF, ferritin, G6PD) with named sources. This aid is not claimed as new; it is a closed-vocabulary, rule-traced aid in which every rule is gated on clinical sign-off.",
+  "population_caveat": "The NHS and BSH rules were written for antenatal screening in England (high and low prevalence areas). Their use for non-pregnant premarital adults in the UAE is an extrapolation that the clinician must accept or reject explicitly.",
+  "ruleset_version": "bayan-haem-0.1-draft+c59ee66bf91a"
+}

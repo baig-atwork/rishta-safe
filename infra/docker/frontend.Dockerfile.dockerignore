@@ -1,0 +1,21 @@
+# Context is frontend/. Keeps node_modules, build output and local state out of the build context, so the image installs
+# from pnpm-lock.yaml and builds from source only. BuildKit reads this file because it sits next to the Dockerfile and is
+# named <dockerfile>.dockerignore.
+
+node_modules
+.next
+out
+coverage
+playwright-report
+test-results
+*.tsbuildinfo
+next-env.d.ts
+
+# Secrets and local configuration
+.env
+.env.*
+
+# Not part of the image. tests/ is deliberately NOT excluded: `next build` type-checks every file the tsconfig includes, and a
+# config file that imports from tests/ (playwright.config.ts) fails the image build when the folder is missing.
+screenshots
+.git

@@ -1,0 +1,28 @@
+# Render Blueprint: one free web service running the single-container image (infra/docker/combined.Dockerfile).
+#
+# Why one service: Render's free tier sleeps a service after 15 minutes without traffic and a free workspace has 750 instance hours
+# a month. One service fits in one month, and wakes once. The image runs the API on loopback and the web server on $PORT.
+#
+# Region: frankfurt is the nearest region Render offers to the UAE (its list is oregon, ohio, frankfurt, singapore, virginia). This
+# is NOT in-UAE hosting and the documents must not say it is. Data is synthetic and the state is in memory.
+#
+# Validated against Render's published schema (render.com/schema/render.yaml.json), 2026-11-20.
+services:
+  - type: web
+    name: rishta-safe-demo
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./infra/docker/combined.Dockerfile
+    dockerContext: .
+    healthCheckPath: /en
+    autoDeployTrigger: "off"
+    envVars:
+      - key: BAYAN_ENV
+        value: demo
+      - key: BAYAN_DEMO_MODE
+        value: "true"
+      - key: BAYAN_LOG_JSON
+        value: "true"
+      - key: BAYAN_SESSION_SECRET
+        generateValue: true

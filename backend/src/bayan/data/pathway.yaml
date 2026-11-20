@@ -1,0 +1,210 @@
+# Pathway state machine, turnaround standards, permissions and KPI definitions.
+# Locale-neutral structure. All user-visible text is in pathway.<locale>.yaml.
+#
+# EVERY external system named here is SIMULATED. Nothing is booked, sent, issued or integrated
+# (spec section 2 rule 7). The structure follows two primary standards; no form, text or gene
+# list from them is reproduced (docs/spec/00-architecture-and-scope.md, rule 8).
+#
+# Status: needs_clinician_signoff: true. Parameters flagged `illustrative: true` are not from a
+# published standard and are shown as illustrative in the product (spec section 2 rule 3).
+meta:
+  schema_version: 1
+  needs_clinician_signoff: true
+  simulated: true
+  jurisdiction_variant: uae
+  note: >-
+    UAE first (ADR 0002). A screening visit is a simulated "book at a licensed centre" hand-off,
+    never home collection (ADR 0141). The Pakistan-variant adapter is parked (docs/parking-lot.md).
+
+sources:
+  D1:
+    title: "DoH Abu Dhabi, Premarital Screening Standard, ref DoH/STD/PSS/V3, September 2024"
+    url: "https://doh.gov.ae/-/media/Feature/Resources/Standards/Premarital-Screening-standard-for-publication.ashx"
+    tier: "P (read in full during authoring)"
+  D2:
+    title: "Dubai Health Authority, Standards for Premarital Screening Services, V1, DHA/PHPD/ST-01, effective 27 March 2026"
+    url: "https://dha.gov.ae/uploads/032026/Standards for Premarital Screening Services2026327321.pdf"
+    tier: "P (text extracted and body read during authoring)"
+  AUTHORING_PATHWAY:
+    title: "Rishta Safe authoring note, pending clinical sign-off: UAE premarital pathway parameters not stated by D1 or D2"
+    url: ""
+    tier: "authoring note, no public source"
+  AUTHORING_CLOSURE:
+    title: "Rishta Safe authoring note, pending clinical sign-off: closure instruments and evaluation design"
+    url: ""
+    tier: "authoring note, no public source"
+  FHIR_R5_TASK:
+    title: "HL7 FHIR R5 (5.0.0) Task resource and Task Status value set"
+    url: "https://hl7.org/fhir/R5/valueset-task-status.html"
+    tier: "F (fetched 2026-11-20; 12 codes, the 8 used here are a subset)"
+
+external_systems:
+  # Each is simulated. Names are generic on purpose; no vendor, authority or product is implied.
+  licensed_centre: {simulated: true, shaped_after: "licensed premarital screening facility (D1 4.1.9, D2 6.1)"}
+  standard_lab: {simulated: true, shaped_after: "licensed laboratory for the standard tests (D2 6.2)"}
+  genomic_lab: {simulated: true, shaped_after: "the assigned genomic laboratory (D1 3.10, D2 11.7.1)"}
+  result_feed: {simulated: true, shaped_after: "interpreted-report feed between laboratory and physician; shaped like an HL7 v2 ORU or FHIR Observation message"}
+  certificate_service: {simulated: true, shaped_after: "digital certificate delivery (Rishta Safe authoring note, pending clinical sign-off)"}
+  judicial_department: {simulated: true, shaped_after: "report made available to the judicial department (D1 3.3.9, 3.3.13.1)"}
+  national_genomic_database: {simulated: true, shaped_after: "data feed required by Decree-Law 49/2023 Art. 26(2)"}
+
+# ------------------------------------------------------------------ service-level timers
+sla:
+  at_risk_fraction:
+    value: 0.75
+    illustrative: true
+    note: "A timer is at_risk once 75 percent of its standard has elapsed. A product choice, not a published figure."
+  timers:
+    lab_start:
+      from_event: sample_collected
+      to_events: [lab_started]
+      standard_hours: 24
+      illustrative: false
+      source: "D1 3.8 and D2 11.5.1: laboratory work starts within 24 hours"
+      step: lab_started
+    genetic_result:
+      from_event: sample_collected
+      to_events: [joint_report_ready]
+      standard_days:
+        abu_dhabi: 21
+        dubai: 28
+      typical_days: 14
+      illustrative: false
+      source: "Abu Dhabi: not more than 21 days in more than 90 percent of cases (D1 3.8.6). Dubai: around 4 weeks from receiving both samples (D2 11.5.6). Typical: 14 days in the Abu Dhabi workflow image (D1 App. 15, least reliable row set). The standards disagree with each other and with press figures; the value is parameterised per emirate policy, never hard-coded."
+      step: joint_report_ready
+    referral:
+      from_event: result_communicated
+      to_events: [counselling_booked, counselling_declined]
+      standard_days: 14
+      illustrative: true
+      source: "ILLUSTRATIVE. No standard states a time limit for the referral. The Abu Dhabi KPI is a share (90 percent, D1 section 5 Table 1), not a time. No primary figure for time from result to counselling was found; the scenario values of 7, 14, 30, 60 and 90 days are a Rishta Safe authoring note, pending clinical sign-off. 14 is one scenario."
+      step: counselling_booked
+    certificate_validity:
+      from_event: certificate_issued
+      validity_months: 3
+      illustrative: false
+      source: "The report is valid for three months from issue (D1 3.3.10.5, D2 9.1.9)"
+      step: certificate_issued
+
+planning_minutes:
+  consult_completed:
+    value: 15
+    source: "Abu Dhabi workflow: consultation about 15 minutes (D1 App. 14, 15). Planning figure, not an SLA."
+  sample_collected:
+    value: 15
+    source: "Abu Dhabi workflow: consenting and sample collection about 15 minutes (D1 App. 14, 15). Planning figure, not an SLA."
+
+# ------------------------------------------------------------------ KPIs
+kpi:
+  basis: "Computed from the stored synthetic cases only. A figure with no cases behind it is empty, never invented. Event times come from the injected clock, so any timing shown is simulated, not a measured wait."
+  referral_target_share:
+    value: 0.9
+    source: "Referral of the positive (non-compatible) genetic cases to a clinical geneticist or genetic counsellor: target 90 percent (D1 section 5 Table 1)"
+    illustrative: false
+  task_stale_after_days:
+    value: 30
+    illustrative: true
+    note: "A task that is not finished and has had no change for this long is reported as stale, never hidden (Rishta Safe authoring note, pending clinical sign-off). Illustrative."
+
+# ------------------------------------------------------------------ steps shown in the pathway view
+# A step is completed when one of its events has happened. `applies_if: flagged` steps are shown
+# as not_applicable for couples whose result needs no counselling.
+steps:
+  - {id: registered, events: [registered], applies_if: always, external_system: licensed_centre, timer: null, actor_roles: [couple_member, clinician]}
+  - {id: consult_completed, events: [consult_completed], applies_if: always, external_system: licensed_centre, timer: null, actor_roles: [clinician, counsellor], planning_minutes: 15}
+  - {id: sample_collected, events: [sample_collected], applies_if: always, external_system: licensed_centre, timer: null, actor_roles: [clinician], planning_minutes: 15}
+  - {id: lab_started, events: [lab_started], applies_if: always, external_system: standard_lab, timer: lab_start, actor_roles: [clinician, programme]}
+  - {id: joint_report_ready, events: [joint_report_ready], applies_if: always, external_system: genomic_lab, timer: genetic_result, actor_roles: [clinician, programme]}
+  - {id: result_communicated, events: [result_communicated], applies_if: always, external_system: result_feed, timer: null, actor_roles: [clinician]}
+  - {id: counselling_booked, events: [counselling_booked, counselling_declined], applies_if: flagged, external_system: null, timer: referral, actor_roles: [counsellor, clinician, couple_member]}
+  - {id: counselling_completed, events: [counselling_completed, counselling_declined], applies_if: flagged, external_system: null, timer: null, actor_roles: [counsellor, clinician]}
+  - {id: declaration_signed, events: [declaration_signed], applies_if: always, external_system: licensed_centre, timer: null, actor_roles: [clinician]}
+  - {id: certificate_issued, events: [certificate_issued], applies_if: always, external_system: certificate_service, timer: certificate_validity, actor_roles: [clinician]}
+  - {id: judicial_handoff_sent, events: [judicial_handoff_sent], applies_if: always, external_system: judicial_department, timer: null, actor_roles: [clinician]}
+  - {id: case_closed, events: [case_closed], applies_if: always, external_system: null, timer: null, actor_roles: [clinician]}
+
+# ------------------------------------------------------------------ state machine
+initial_state: registered
+terminal_states: [closed]
+
+transitions:
+  - {event: consult_completed, from: [registered], to: consult_done}
+  - {event: sample_collected, from: [consult_done], to: sample_collected}
+  - {event: lab_started, from: [sample_collected], to: lab_in_progress}
+  - {event: joint_report_ready, from: [lab_in_progress], to: report_ready}
+  - {event: result_communicated, from: [report_ready], to: counselling_pending, guard: flagged}
+  - {event: result_communicated, from: [report_ready], to: result_clear, guard: not_flagged}
+  - {event: counselling_booked, from: [counselling_pending], to: counselling_booked}
+  - {event: counselling_missed, from: [counselling_booked], to: counselling_pending}
+  - {event: counselling_completed, from: [counselling_booked], to: counselling_done}
+  - {event: counselling_declined, from: [counselling_pending, counselling_booked], to: counselling_declined}
+  - {event: referral_rejected, from: [counselling_pending, counselling_booked], to: counselling_pending}
+  - {event: partner_declined_to_share, from: [result_clear, counselling_done, counselling_declined], to: certificate_withheld}
+  - {event: declaration_signed, from: [result_clear, counselling_done, counselling_declined, certificate_withheld], to: declaration_signed}
+  - {event: certificate_issued, from: [declaration_signed], to: certificate_issued}
+  - {event: judicial_handoff_sent, from: [certificate_issued], to: judicial_handoff_sent}
+  - {event: case_closed, from: [judicial_handoff_sent, certificate_withheld], to: closed, guard: closable}
+
+# Events that change no state but act on referral tasks.
+side_events:
+  - {event: brief_generated, from: [counselling_pending, counselling_booked]}
+  - {event: confirmatory_test_ordered, from: [counselling_done, declaration_signed, certificate_issued, judicial_handoff_sent]}
+  - {event: confirmatory_test_resulted, from: [counselling_done, declaration_signed, certificate_issued, judicial_handoff_sent]}
+  - {event: specialist_referral_requested, from: [counselling_done, declaration_signed, certificate_issued, judicial_handoff_sent]}
+  - {event: specialist_referral_completed, from: [counselling_done, declaration_signed, certificate_issued, judicial_handoff_sent]}
+
+# Who may fire which event. JUDGE and EXTERNAL may never advance a case. PROGRAMME acts as the
+# system adapter for laboratory and feed events (simulated), never on individual clinical steps.
+permissions:
+  consult_completed: [clinician, counsellor]
+  sample_collected: [clinician]
+  lab_started: [clinician, programme]
+  joint_report_ready: [clinician, programme]
+  result_communicated: [clinician]
+  counselling_booked: [counsellor, clinician, couple_member]
+  counselling_missed: [counsellor, clinician]
+  counselling_completed: [counsellor, clinician]
+  counselling_declined: [couple_member, counsellor, clinician]
+  referral_rejected: [counsellor, clinician, programme]
+  partner_declined_to_share: [couple_member, clinician]
+  declaration_signed: [clinician]
+  certificate_issued: [clinician]
+  judicial_handoff_sent: [clinician, programme]
+  case_closed: [clinician]
+  brief_generated: [counsellor, clinician, programme]
+  confirmatory_test_ordered: [counsellor, clinician]
+  confirmatory_test_resulted: [counsellor, clinician, programme]
+  specialist_referral_requested: [counsellor, clinician]
+  specialist_referral_completed: [counsellor, clinician]
+
+# ------------------------------------------------------------------ referral tasks (FHIR Task shaped)
+referral_tasks:
+  resource_shape: "HL7 FHIR R5 Task (5.0.0): status, statusReason, intent, priority, code, for, authoredOn, lastModified, requester, owner, executionPeriod. Labelled simulated; no FHIR server exists."
+  status_codes: [requested, accepted, in-progress, on-hold, completed, rejected, failed, cancelled]
+  terminal_statuses: [completed, rejected, failed, cancelled]
+  reasons_required_for: [rejected, failed, cancelled, on-hold]
+  status_reasons: [patient_declined, no_show, provider_unavailable, timeout, wrong_destination]
+  codes: [counselling, confirmatory_testing, specialist_referral]
+  default_owner_role:
+    counselling: counsellor
+    confirmatory_testing: clinician
+    specialist_referral: clinician
+
+# ------------------------------------------------------------------ intake
+intake:
+  family_history_items:
+    - blood_disease_in_family
+    - thalassaemia_in_family
+    - sickle_cell_disease_in_family
+    - childhood_death_in_family
+    - previous_child_with_inherited_condition
+    - known_carrier_in_family
+    - developmental_or_neurological_condition_in_family
+    - hearing_or_vision_loss_in_family
+    - none_declared
+  family_history_note: >-
+    A controlled list so that nothing free-typed is stored. The categories mirror what the Abu
+    Dhabi nurse screening form asks for (history, consanguinity to partner, family history and
+    pedigree, previous children; D1 App. 3a). The list itself is ours.
+  id_types: [emirates_id, cnic, none]
+  id_type_note: "A setting only. No identifier number is ever stored (spec section 2 rule 1)."

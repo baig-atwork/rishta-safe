@@ -1,0 +1,35 @@
+{
+  "label": "cbc_incomplete",
+  "stage": "cbc_only",
+  "label_description": "The CBC stage cannot be interpreted (missing input, out-of-scope age, transfusion history, or very low haemoglobin). A clinician reviews.",
+  "matched_rule_id": "V01",
+  "draft_output": "INCONCLUSIVE__CLINICIAN_REVIEW",
+  "trace": [
+    {
+      "rule_id": "V01",
+      "kind": "terminal",
+      "outcome": "INCONCLUSIVE__CLINICIAN_REVIEW",
+      "source_id": "NONE-VALIDATION",
+      "locator": "input validation"
+    }
+  ],
+  "flags": [],
+  "mandatory_statements": [],
+  "sources_disagree": [],
+  "sources": [
+    {
+      "id": "NONE-VALIDATION",
+      "title": "Input validation; not a clinical rule",
+      "year": "",
+      "url": null,
+      "tier": "none",
+      "licence": null,
+      "read_from": null
+    }
+  ],
+  "needs_clinician_signoff": true,
+  "not_a_diagnosis": "This is a screening-support pattern for a clinician. It is not a diagnosis and not clinical advice. A CBC alone can never show whether someone carries a change; confirmation and interpretation belong to an accredited laboratory and a qualified clinician.",
+  "prior_art_note": "Prior art: other public tools already interpret laboratory values (haemoglobin, MCV, MCH, HbA2, HbF, ferritin, G6PD) with named sources. This aid is not claimed as new; it is a closed-vocabulary, rule-traced aid in which every rule is gated on clinical sign-off.",
+  "population_caveat": "The NHS and BSH rules were written for antenatal screening in England (high and low prevalence areas). Their use for non-pregnant premarital adults in the UAE is an extrapolation that the clinician must accept or reject explicitly.",
+  "ruleset_version": "bayan-haem-0.1-draft+c59ee66bf91a"
+}

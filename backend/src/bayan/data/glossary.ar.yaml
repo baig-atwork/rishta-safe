@@ -1,0 +1,121 @@
+# Plain-language glossary, Arabic (Modern Standard Arabic). Same term keys as glossary.en.yaml.
+#
+# Rules (same as the English file, enforced by tests/explain): no digits; no banned word; every locale
+# has the same keys; every entry has a definition and a source note. Terms that clinicians often say in
+# English carry the Latin term in brackets after the Arabic term.
+# Definitions are adapted from the English entries, written for this prototype from general medical
+# knowledge. No third-party glossary text is copied (spec section 2 rule 8). They carry
+# needs_clinician_signoff: true.
+meta:
+  schema_version: 1
+  locale: ar
+  direction: rtl
+  digit_system: western
+  language_status: draft
+  needs_clinician_signoff: true
+  authoring: "Static draft text, drafted at authoring time with an LLM assistant (no personal data was given to it). No native Arabic clinical reader has read it yet. No runtime LLM."
+  default_source: "Authored for this prototype from general medical knowledge; no third-party text copied; clinical sign-off pending."
+
+terms:
+  gene:
+    term: "الجين"
+    definition: "الجين مجموعة من التعليمات داخل خلايا الجسم. تساعد الجينات الجسم على النمو والعمل. ويحصل الإنسان على نسخة من كل جين من كل واحد من والديه."
+  variant:
+    term: "التغيّر الجيني (variant)"
+    definition: "المتغيّر الجيني هو اختلاف في «تهجئة» الجين، أي في ترتيب حروفه. كثير من المتغيّرات غير ضارة. وبعضها يغيّر طريقة عمل الجين."
+  carrier:
+    term: "الحامل للتغيّر (carrier)"
+    definition: "الحامل لديه نسخة واحدة متغيّرة من الجين ونسخة واحدة معتادة. وفي معظم الحالات الوراثية التي تحتاج إلى نسختين متغيّرتين، لا تظهر على الحامل أعراض. والحامل ليس مريضًا."
+  recessive:
+    term: "الوراثة المتنحية"
+    definition: "تظهر الحالة المتنحية فقط عندما يتلقى الطفل نسخة متغيّرة من الجين من كلا الوالدين. وعادةً يكون كل واحد من الوالدين حاملًا، وعادةً يكون بصحة جيدة."
+  dominant:
+    term: "الوراثة السائدة"
+    definition: "قد تظهر الحالة السائدة عندما يتلقى الطفل نسخة واحدة متغيّرة من الجين من أحد والديه."
+  x_linked:
+    term: "الوراثة المرتبطة بالكروموسوم X (X-linked)"
+    definition: "الجين المرتبط بالكروموسوم X يقع على هذا الكروموسوم. لدى الإناث كروموسومان X، ولدى الذكور كروموسوم X واحد وكروموسوم Y واحد. ولذلك قد تؤثر هذه الحالات في الأولاد والبنات بطرق مختلفة."
+  chromosome:
+    term: "الكروموسوم (الصبغي)"
+    definition: "الكروموسوم خيط طويل من الجينات داخل كل خلية. والجينات مرتبة على امتداد الكروموسومات."
+  inheritance:
+    term: "الوراثة"
+    definition: "الوراثة هي الطريقة التي تنتقل بها الجينات من الوالدين إلى الأبناء."
+  panel:
+    term: "لوحة الجينات (gene panel)"
+    definition: "لوحة الجينات فحص ينظر في قائمة محددة من الجينات. وهو لا ينظر في كل الجينات."
+  vus:
+    term: "تغيّر غير واضح المعنى (VUS)"
+    definition: "هو تغيّر جيني لا يستطيع الأطباء حتى الآن وصفه بأنه ضار أو غير ضار. ولا يُحتسب نتيجة. وقد يتضح معناه لاحقًا."
+  haemoglobin:
+    term: "الهيموغلوبين (خضاب الدم)"
+    definition: "الهيموغلوبين هو الجزء من خلايا الدم الحمراء الذي ينقل الأكسجين في أنحاء الجسم."
+  thalassaemia:
+    term: "الثلاسيميا (فقر دم البحر المتوسط)"
+    definition: "الثلاسيميا مجموعة من حالات الدم الوراثية يصنع فيها الجسم هيموغلوبين أقل من المعتاد."
+  alpha_thalassaemia:
+    term: "ألفا ثلاسيميا"
+    definition: "ألفا ثلاسيميا نوع من الثلاسيميا مرتبط بجينات ألفا غلوبين."
+  beta_thalassaemia:
+    term: "بيتا ثلاسيميا"
+    definition: "بيتا ثلاسيميا نوع من الثلاسيميا مرتبط بجين بيتا غلوبين."
+  sickle_cell_disease:
+    term: "مرض الخلايا المنجلية (فقر الدم المنجلي)"
+    definition: "مرض الخلايا المنجلية حالة وراثية في الدم. وهو يغيّر شكل بعض خلايا الدم الحمراء."
+  iron_deficiency:
+    term: "نقص الحديد"
+    definition: "نقص الحديد يعني أن الجسم لا يحصل على ما يكفي من الحديد. وقد يجعل خلايا الدم الحمراء صغيرة وباهتة. وهو شائع وليس وراثيًا."
+  hplc:
+    term: "فحص الهيموغلوبين (HPLC)"
+    definition: "فحص HPLC فحص دم يفصل بين أنواع الهيموغلوبين المختلفة. وهو يساعد على معرفة ما إذا كان الشخص قد يكون حاملًا لحالة دموية."
+  cbc:
+    term: "تعداد الدم الكامل (CBC)"
+    definition: "تعداد الدم الكامل فحص دم أساسي. يعدّ خلايا الدم ويقيس حجمها. ولا يستطيع وحده أن يبيّن ما إذا كان الشخص حاملًا."
+  detection_rate:
+    term: "معدل الكشف (detection rate)"
+    definition: "يبيّن معدل الكشف عدد المرات التي يجد فيها الفحص تغيّرًا موجودًا فعلًا. ولا يكشف أي فحص كل التغيّرات."
+  confirmatory_test:
+    term: "الفحص التأكيدي"
+    definition: "الفحص التأكيدي فحص ثانٍ، يُجرى بطريقة مختلفة، للتحقق مما ظهر في الفحص الأول."
+  screening:
+    term: "فحص الكشف (screening)"
+    definition: "فحص الكشف يبحث عن احتمال وجود حالة لدى أشخاص يشعرون أنهم بخير. وهو ليس تشخيصًا."
+  consanguinity:
+    term: "قرابة الدم (زواج الأقارب)"
+    definition: "قرابة الدم تعني أن الشريكين تربطهما صلة دم، مثل أبناء العم أو أبناء الخال. وقد يكون الشريكان القريبان أكثر عرضة لحمل التغيّر الجيني نفسه، لأن كليهما قد يتلقاه من سلف مشترك."
+  family_history:
+    term: "التاريخ العائلي"
+    definition: "التاريخ العائلي هو ما تعرفه عن الحالات الصحية لدى أقاربك."
+  genetic_counselling:
+    term: "الإرشاد الوراثي (genetic counselling)"
+    definition: "الإرشاد الوراثي حديث مع مختص مدرَّب. يشرح لك النتائج، ويجيب عن الأسئلة، ويصف الخيارات المتاحة. ولا يملي عليك ما تقرّره."
+  genetic_counsellor:
+    term: "المرشد الوراثي (genetic counsellor)"
+    definition: "المرشد الوراثي مختص صحي مدرَّب على شرح النتائج الجينية ومساعدة العائلات على فهمها."
+  affected:
+    term: "المتأثر (لديه الحالة)"
+    definition: "يُسمّى الشخص متأثرًا عندما يؤدي تغيّر جيني إلى ظهور الحالة نفسها. والحامل ليس متأثرًا."
+  shared_result:
+    term: "النتيجة المشتركة"
+    definition: "تعني النتيجة المشتركة أن كلا الشريكين يحمل تغيّرًا في الجين نفسه، أو أن نتيجة أحدهما تتطابق مع نتيجة الآخر. وهي تشير إلى احتمال أن يولد طفل لديه الحالة. وليست تشخيصًا لأي من الشريكين."
+  natural_frequency:
+    term: "الاحتمال من بين مئة حالة حمل"
+    definition: "نصف الاحتمال بعدد من بين مئة حالة حمل. والعدد الأكبر يعني احتمالًا أكبر. وينطبق الاحتمال نفسه على كل حمل."
+  risk:
+    term: "الاحتمال (المخاطرة)"
+    definition: "المقصود هنا بالمخاطرة هو الاحتمال، أي مدى إمكانية حدوث أمر ما. والاحتمال ليس يقينًا."
+  diagnosis:
+    term: "التشخيص"
+    definition: "التشخيص هو استنتاج الطبيب أن لدى الشخص حالة صحية. ونتيجة فحص الكشف ليست تشخيصًا."
+  right_not_to_know:
+    term: "الحق في عدم المعرفة"
+    definition: "يمكنك اختيار ألا تُخبر ببعض نتائجك الجينية أو كلها. ويمكنك تغيير رأيك لاحقًا."
+  prenatal_diagnosis:
+    term: "التشخيص قبل الولادة (prenatal diagnosis)"
+    definition: "التشخيص قبل الولادة فحص أثناء الحمل لمعرفة ما إذا كان لدى الطفل حالة معينة."
+  preimplantation_testing:
+    term: "فحص ما قبل الزرع (preimplantation testing)"
+    definition: "فحص ما قبل الزرع يفحص الأجنّة الناتجة عن التلقيح الصناعي (أطفال الأنابيب) قبل بدء الحمل. ويُجرى في مراكز مرخّصة."
+  certificate:
+    term: "شهادة الفحص (التقرير)"
+    definition: "شهادة الفحص هي التقرير الموقّع من مركز الفحص المرخّص، وهي مطلوبة لعقد الزواج. وهي صالحة لمدة محدودة."

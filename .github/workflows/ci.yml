@@ -1,0 +1,233 @@
+# Continuous integration for Rishta Safe: backend, frontend, image smoke, infrastructure and secret scan.
+#
+# STATE: written 2026-11-20 before any GitHub repository exists. NOTHING in this file has run on GitHub: it is UNVERIFIED.
+# Each command was written against the repository as it stood, and the infra job's commands were run locally. Expect a first
+# run to need small fixes.
+#
+# Every action is pinned to a full commit SHA with its release in the trailing comment. The releases were looked up on
+# 2026-11-20 (GitHub releases API); bump SHA and comment together.
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  backend:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      # The interpreter the image ships (python:3.13-slim-trixie, infra/docker/backend.Dockerfile): CI tests what runs in
+      # production. UV_PYTHON outranks backend/.python-version. Bump it with the Dockerfile.
+      UV_PYTHON: "3.13.18"
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: "0.13.7"
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+
+      - name: Install Python and the locked dependencies
+        run: |
+          uv python install "$UV_PYTHON"
+          uv sync --locked
+
+      - name: Lockfile is up to date
+        run: uv lock --check
+
+      - name: Lint (ruff check)
+        run: uv run ruff check src tests
+
+      - name: Format (ruff format --check)
+        run: uv run ruff format --check src tests
+
+      - name: Types (mypy strict)
+        run: uv run mypy
+
+      - name: Tests with coverage
+        run: uv run pytest --cov=bayan --cov-report=term-missing --cov-report=xml:coverage.xml
+
+      - name: Keep the coverage report
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: backend-coverage
+          path: backend/coverage.xml
+          retention-days: 14
+
+  frontend:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # The pnpm version is the one in frontend/package.json ("packageManager"); this repo keeps package.json under frontend/.
+      - name: Set up pnpm
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with:
+          package_json_file: frontend/package.json
+
+      # Node 24.22.3 is the version of the node:24-trixie-slim image the web Dockerfile pins (looked up 2026-11-20).
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24.22.3"
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+
+      # Regenerates the typed client from backend/openapi.json and fails if the committed copy differs.
+      - name: API types are current
+        run: |
+          pnpm gen:api
+          git diff --exit-code -- src/lib/api
+
+      - run: pnpm build
+
+  # Builds both images from the same Dockerfiles Azure uses and starts them. Playwright e2e is not run here: it needs both
+  # processes and a browser, and is its own job once the suite exists (docs/parking-lot.md).
+  images:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build the api image
+        run: docker build --file infra/docker/backend.Dockerfile --tag bayan-api:ci backend
+
+      - name: Build the web image
+        run: docker build --file infra/docker/frontend.Dockerfile --tag bayan-web:ci frontend
+
+      - name: Both images run as an unprivileged user
+        run: |
+          for image in bayan-api:ci bayan-web:ci; do
+            uid="$(docker run --rm --entrypoint id "$image" -u)"
+            echo "$image runs as uid $uid"
+            test "$uid" != "0"
+          done
+
+      # BAYAN_ENV=demo is what Azure runs: the app refuses to start in demo or prod when a lane's service is missing, so this
+      # also fails if the composition is incomplete.
+      - name: The api starts and answers
+        run: |
+          trap 'docker logs bayan-api-ci 2>&1 | tail -30; docker rm -f bayan-api-ci bayan-web-ci > /dev/null 2>&1 || true' EXIT
+          docker run -d --name bayan-api-ci -p 8000:8000 \
+            -e BAYAN_ENV=demo -e BAYAN_DEMO_MODE=true -e BAYAN_LOG_JSON=true -e BAYAN_SESSION_SECRET=ci-only-not-a-secret \
+            bayan-api:ci
+          for _ in $(seq 1 30); do
+            if curl --fail --silent --output /dev/null http://localhost:8000/healthz; then break; fi
+            sleep 1
+          done
+          curl --fail --silent --show-error http://localhost:8000/healthz
+          echo
+          curl --fail --silent --show-error http://localhost:8000/readyz
+          echo
+
+      - name: The web app starts and answers in English
+        run: |
+          trap 'docker logs bayan-web-ci 2>&1 | tail -30; docker rm -f bayan-api-ci bayan-web-ci > /dev/null 2>&1 || true' EXIT
+          docker run -d --name bayan-web-ci -p 3000:3000 -e BAYAN_API_URL=http://localhost:8000 bayan-web:ci
+          for _ in $(seq 1 30); do
+            if curl --fail --silent --location --output /dev/null http://localhost:3000/en; then break; fi
+            sleep 1
+          done
+          curl --fail --silent --show-error --location --output /dev/null --write-out 'GET /en -> %{http_code}\n' http://localhost:3000/en
+
+  infra:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Pinned, and checked against the digest GitHub publishes for the v0.49.2 asset bicep-linux-x64 (GitHub API, looked up
+      # 2026-11-20; Bicep publishes no checksums file). `az bicep install` does not verify what it downloads. Change the version
+      # and the sha256 together, and the same pair in deploy.yml.
+      - name: Install Bicep (pinned, checksum verified)
+        run: |
+          sha256=0ab9de90c2493f206f8281bae74f9ee2d5ed3605548dab1adf41fef185e1f7c5
+          az bicep install --version v0.49.2
+          echo "${sha256}  ${HOME}/.azure/bin/bicep" | sha256sum -c -
+
+      - name: Bicep build and lint
+        run: |
+          az bicep build --file infra/bicep/main.bicep --stdout > /dev/null
+          az bicep lint --file infra/bicep/main.bicep
+
+      # The parameter file reads its values from the environment, so it only compiles with them. Random values, never
+      # literals: a secret scanner cannot tell a dummy literal from a real one.
+      - name: Bicep parameter file compiles
+        run: |
+          export BAYAN_LOCATION=uaenorth DEPLOY_API=true DEPLOY_WEB=true API_IMAGE=registry.invalid/bayan-api:ci WEB_IMAGE=registry.invalid/bayan-web:ci
+          BAYAN_SESSION_SECRET="$(openssl rand -hex 32)"
+          export BAYAN_SESSION_SECRET
+          az bicep build-params --file infra/bicep/main.bicepparam --stdout > /dev/null
+
+      - name: Compose file is valid
+        run: docker compose config --quiet
+
+      - name: PowerShell scripts parse
+        shell: pwsh
+        run: |
+          foreach ($f in Get-ChildItem -Path infra/scripts -Filter *.ps1) {
+            $errors = $null; $tokens = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($f.FullName, [ref]$tokens, [ref]$errors)
+            if ($errors.Count -gt 0) { $errors | ForEach-Object { Write-Error "$($f.Name): $($_.Message)" }; exit 1 }
+            Write-Host "parsed $($f.Name)"
+          }
+
+  secrets:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out (full history)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # The same gitleaks version as the pre-commit hook (rev in .pre-commit-config.yaml; bump both together), over the whole
+      # history. The archive's sha256 is pinned here in the repository and not read from a file served next to the archive. It
+      # is the `digest` of the v8.30.1 release asset gitleaks_8.30.1_linux_x64.tar.gz in the GitHub API, looked up 2026-11-20.
+      - name: Secret scan (gitleaks, full history)
+        run: |
+          version=8.30.1
+          sha256=551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
+          archive="gitleaks_${version}_linux_x64.tar.gz"
+          url="https://github.com/gitleaks/gitleaks/releases/download/v${version}"
+          tool_dir="$RUNNER_TEMP/gitleaks"
+          mkdir -p "$tool_dir"
+          curl --fail --silent --show-error --location --retry 3 --retry-all-errors --output "$tool_dir/$archive" "$url/$archive"
+          (cd "$tool_dir" && echo "${sha256}  ${archive}" | sha256sum -c - && tar -xzf "$archive" gitleaks)
+          "$tool_dir/gitleaks" git --redact --verbose --no-banner .

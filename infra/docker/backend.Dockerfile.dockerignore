@@ -1,0 +1,23 @@
+# Context is backend/. The Dockerfile copies only pyproject.toml, uv.lock and src/, so this keeps the context small and
+# keeps local state and secrets out of it. BuildKit reads this file because it sits next to the Dockerfile and is named
+# <dockerfile>.dockerignore.
+
+# Local environments and caches
+.venv
+.mypy_cache
+.ruff_cache
+.pytest_cache
+.hypothesis
+.coverage
+htmlcov
+**/__pycache__
+**/*.pyc
+
+# Secrets and local configuration
+.env
+.env.*
+
+# Not part of the runtime image
+tests
+scripts
+openapi.json

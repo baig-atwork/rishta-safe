@@ -1,0 +1,12 @@
+{
+  "type": "https://bayan.invalid/problems/forbidden",
+  "title": "Forbidden",
+  "status": 403,
+  "detail": "Refused. Under Federal Decree-Law 49/2023 Art. 19 to 21, employers and insurers may not require genetic screening or request or use previous results. Nobody has to share results with an employer or an insurer, and Rishta Safe releases no result, screening status or fitness statement to them.",
+  "code": "forbidden",
+  "instance": "/v1/third-party-requests",
+  "correlation_id": "42cc32e6cba34c128f9e07b3f90a94d4",
+  "reason": "third_party:employer",
+  "legal_basis": "Federal Decree-Law 49/2023 Art. 19 to 21: employers and insurers may not require genetic screening or request or use previous results",
+  "kind": "employer"
+}

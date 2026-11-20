@@ -1,0 +1,120 @@
+# Plain-language glossary, Urdu (اردو). Draft translation of glossary.en.yaml (adapted, not word for word).
+# Same term keys as glossary.en.yaml.
+#
+# Rules (enforced by tests/explain): no digits; no banned word; every locale has the same keys;
+# every entry has a definition.
+# Definitions are written for this prototype from general medical knowledge. No third-party
+# glossary text is copied. Status: needs_clinician_signoff: true, language_status: draft. The Urdu
+# was drafted with an LLM assistant and has NOT been read by a native clinical reader.
+meta:
+  schema_version: 1
+  locale: ur
+  direction: rtl
+  language_status: draft
+  needs_clinician_signoff: true
+  authoring: "Static text. Drafted at authoring time with an LLM assistant (no personal data was given to it). It is a draft that has not been reviewed by a native clinical reader of Urdu. There is no runtime LLM."
+  default_source: "Authored for this prototype from general medical knowledge; no third-party text copied; clinical sign-off pending."
+
+terms:
+  gene:
+    term: "جین (gene)"
+    definition: "جین آپ کے خلیوں میں ہدایات کا ایک سیٹ ہے۔ جین جسم کو بڑھنے اور کام کرنے میں مدد دیتے ہیں۔ ہر جین کی ایک کاپی آپ کو ماں سے اور ایک کاپی باپ سے ملتی ہے۔"
+  variant:
+    term: "جین کی تبدیلی (variant)"
+    definition: "ویریئنٹ جین کی ترتیب میں ایک فرق ہے۔ بہت سی تبدیلیوں سے کوئی نقصان نہیں ہوتا۔ کچھ تبدیلیاں جین کے کام کرنے کا طریقہ بدل دیتی ہیں۔"
+  carrier:
+    term: "کیریئر (carrier)"
+    definition: "کیریئر کے پاس جین کی ایک بدلی ہوئی کاپی اور ایک عام کاپی ہوتی ہے۔ زیادہ تر ان موروثی بیماریوں میں جن کے لیے دو بدلی ہوئی کاپیاں درکار ہوتی ہیں، کیریئر میں کوئی علامت نہیں ہوتی۔"
+  recessive:
+    term: "ریسیسو وراثت (recessive)"
+    definition: "ریسیسو بیماری تب ظاہر ہوتی ہے جب بچے کو جین کی بدلی ہوئی کاپی ماں اور باپ دونوں سے ملے۔ ماں اور باپ عموماً دونوں کیریئر ہوتے ہیں اور عموماً صحت مند ہوتے ہیں۔"
+  dominant:
+    term: "ڈومیننٹ وراثت (dominant)"
+    definition: "ڈومیننٹ بیماری اس وقت ظاہر ہو سکتی ہے جب بچے کو جین کی صرف ایک بدلی ہوئی کاپی ماں یا باپ میں سے کسی ایک سے ملے۔"
+  x_linked:
+    term: "ایکس سے جڑی وراثت (X-linked)"
+    definition: "ایکس سے جڑا جین X کروموسوم پر ہوتا ہے۔ خواتین میں دو X کروموسوم ہوتے ہیں اور مردوں میں ایک X اور ایک Y۔ اس لیے یہ بیماریاں بیٹوں اور بیٹیوں کو مختلف طرح سے متاثر کر سکتی ہیں۔"
+  chromosome:
+    term: "کروموسوم (chromosome)"
+    definition: "کروموسوم ہر خلیے کے اندر جینز کا ایک لمبا دھاگا ہے۔ جینز کروموسوم پر ترتیب سے لگے ہوتے ہیں۔"
+  inheritance:
+    term: "وراثت (inheritance)"
+    definition: "وراثت وہ طریقہ ہے جس سے جین والدین سے بچوں تک پہنچتے ہیں۔"
+  panel:
+    term: "جین پینل (gene panel)"
+    definition: "جین پینل ایک ایسا ٹیسٹ ہے جو جینز کی ایک منتخب فہرست دیکھتا ہے۔ یہ ہر جین کو نہیں دیکھتا۔"
+  vus:
+    term: "غیر واضح معنی والی تبدیلی (VUS)"
+    definition: "VUS جین کی ایسی تبدیلی ہے جسے ڈاکٹر ابھی نقصان دہ یا بے نقصان نہیں کہہ سکتے۔ اسے نتیجے میں شمار نہیں کیا جاتا۔ اس کا مطلب بعد میں واضح ہو سکتا ہے۔"
+  haemoglobin:
+    term: "ہیموگلوبن (haemoglobin)"
+    definition: "ہیموگلوبن خون کے سرخ خلیوں کا وہ حصہ ہے جو جسم میں آکسیجن لے کر جاتا ہے۔"
+  thalassaemia:
+    term: "تھیلیسیمیا (thalassaemia)"
+    definition: "تھیلیسیمیا خون کی موروثی بیماریوں کا ایک گروہ ہے جس میں جسم عام سے کم ہیموگلوبن بناتا ہے۔"
+  alpha_thalassaemia:
+    term: "الفا تھیلیسیمیا (alpha-thalassaemia)"
+    definition: "الفا تھیلیسیمیا تھیلیسیمیا کی ایک قسم ہے جو الفا گلوبن جینز سے جڑی ہے۔"
+  beta_thalassaemia:
+    term: "بیٹا تھیلیسیمیا (beta-thalassaemia)"
+    definition: "بیٹا تھیلیسیمیا تھیلیسیمیا کی ایک قسم ہے جو بیٹا گلوبن جین سے جڑی ہے۔"
+  sickle_cell_disease:
+    term: "سکل سیل بیماری (sickle cell disease)"
+    definition: "سکل سیل بیماری خون کی ایک موروثی بیماری ہے۔ اس میں کچھ سرخ خلیوں کی شکل بدل جاتی ہے۔"
+  iron_deficiency:
+    term: "آئرن کی کمی (iron deficiency)"
+    definition: "آئرن کی کمی کا مطلب ہے کہ جسم میں آئرن کافی نہیں ہے۔ اس سے سرخ خلیے چھوٹے اور ہلکے رنگ کے ہو سکتے ہیں۔ یہ عام ہے اور موروثی نہیں ہے۔"
+  hplc:
+    term: "HPLC (ہیموگلوبن ٹیسٹ)"
+    definition: "HPLC خون کا ایک ٹیسٹ ہے جو ہیموگلوبن کی مختلف اقسام کو الگ کرتا ہے۔ اس سے یہ جاننے میں مدد ملتی ہے کہ کوئی شخص خون کی کسی بیماری کا کیریئر ہو سکتا ہے یا نہیں۔"
+  cbc:
+    term: "خون کی مکمل گنتی (CBC)"
+    definition: "خون کی مکمل گنتی خون کا ایک بنیادی ٹیسٹ ہے۔ یہ خون کے خلیوں کو گنتا ہے اور ان کا سائز ناپتا ہے۔ صرف اس سے یہ پتا نہیں چل سکتا کہ کوئی کیریئر ہے یا نہیں۔"
+  detection_rate:
+    term: "شناخت کی شرح (detection rate)"
+    definition: "شناخت کی شرح بتاتی ہے کہ جو تبدیلی واقعی موجود ہو، ٹیسٹ اسے کتنی بار پکڑ لیتا ہے۔ کوئی ٹیسٹ ہر تبدیلی نہیں ڈھونڈتا۔"
+  confirmatory_test:
+    term: "تصدیقی ٹیسٹ (confirmatory test)"
+    definition: "تصدیقی ٹیسٹ ایک دوسرا ٹیسٹ ہے، جو مختلف طریقے سے کیا جاتا ہے، تاکہ پہلی بار جو کچھ ملا اس کی جانچ ہو سکے۔"
+  screening:
+    term: "اسکریننگ (screening)"
+    definition: "اسکریننگ ان لوگوں میں کسی بیماری کے امکان کو دیکھتی ہے جو خود کو ٹھیک محسوس کرتے ہیں۔ اسکریننگ ٹیسٹ تشخیص نہیں ہے۔"
+  consanguinity:
+    term: "خونی رشتہ داری (consanguinity)"
+    definition: "خونی رشتہ داری کا مطلب ہے کہ دو ساتھی خون کے رشتے سے جڑے ہیں، مثلاً کزن۔ رشتہ دار ساتھیوں میں ایک ہی جین کی تبدیلی ہونے کا امکان زیادہ ہوتا ہے، کیونکہ وہ دونوں اسے ایک مشترک بزرگ سے حاصل کر سکتے ہیں۔"
+  family_history:
+    term: "خاندانی طبی تاریخ (family history)"
+    definition: "خاندانی طبی تاریخ وہ ہے جو آپ اپنے رشتہ داروں کی صحت اور بیماریوں کے بارے میں جانتے ہیں۔"
+  genetic_counselling:
+    term: "جینیاتی کونسلنگ (genetic counselling)"
+    definition: "جینیاتی کونسلنگ ایک تربیت یافتہ ماہر کے ساتھ بات چیت ہے۔ وہ نتائج سمجھاتے ہیں، سوالوں کے جواب دیتے ہیں اور بتاتے ہیں کہ کون سے اختیارات موجود ہیں۔ وہ آپ کو یہ نہیں بتاتے کہ آپ کیا فیصلہ کریں۔"
+  genetic_counsellor:
+    term: "جینیاتی کونسلر (genetic counsellor)"
+    definition: "جینیاتی کونسلر صحت کے شعبے کا وہ ماہر ہوتا ہے جسے جینیاتی نتائج سمجھانے اور خاندانوں کو انہیں سمجھنے میں مدد دینے کی تربیت ملی ہو۔"
+  affected:
+    term: "متاثر (affected)"
+    definition: "کسی شخص کو متاثر تب کہا جاتا ہے جب جین کی تبدیلی کی وجہ سے اسے وہ بیماری خود ہو۔ کیریئر متاثر نہیں ہوتا۔"
+  shared_result:
+    term: "مشترک نتیجہ (shared result)"
+    definition: "مشترک نتیجے کا مطلب ہے کہ دونوں ساتھیوں میں ایک ہی جین میں تبدیلی ہے، یا ایک ساتھی کا نتیجہ دوسرے کے نتیجے سے ملتا ہے۔ اس سے بیماری والے بچے کے امکان کا اشارہ ملتا ہے۔ یہ دونوں ساتھیوں میں سے کسی کی تشخیص نہیں ہے۔"
+  natural_frequency:
+    term: "سو حمل میں سے امکان"
+    definition: "ہم امکان کو سو حمل میں سے ایک عدد کی صورت میں بیان کرتے ہیں۔ بڑا عدد بڑے امکان کو ظاہر کرتا ہے۔ ہر حمل پر وہی امکان لاگو ہوتا ہے۔"
+  risk:
+    term: "رسک (امکان)"
+    definition: "یہاں رسک کا مطلب امکان ہے، یعنی کوئی بات کتنی ممکن ہے۔ امکان کوئی یقینی بات نہیں ہوتا۔"
+  diagnosis:
+    term: "تشخیص (diagnosis)"
+    definition: "تشخیص ڈاکٹر کا یہ طے کرنا ہے کہ کسی شخص کو کوئی بیماری ہے۔ اسکریننگ کا نتیجہ تشخیص نہیں ہے۔"
+  right_not_to_know:
+    term: "نہ جاننے کا حق"
+    definition: "آپ اپنے کچھ یا تمام جینیاتی نتائج نہ بتائے جانے کا انتخاب کر سکتے ہیں۔ آپ بعد میں اپنا فیصلہ بدل سکتے ہیں۔"
+  prenatal_diagnosis:
+    term: "حمل کے دوران تشخیص (prenatal diagnosis)"
+    definition: "حمل کے دوران تشخیص وہ ٹیسٹ ہے جو حمل کے دوران یہ دیکھنے کے لیے کیا جاتا ہے کہ بچے کو کوئی خاص بیماری ہے یا نہیں۔"
+  preimplantation_testing:
+    term: "حمل ٹھہرنے سے پہلے ٹیسٹ (preimplantation testing)"
+    definition: "اس ٹیسٹ میں IVF (مصنوعی طریقے سے بارآوری) سے بنے جنین کو حمل شروع ہونے سے پہلے جانچا جاتا ہے۔ یہ لائسنس یافتہ مراکز میں کیا جاتا ہے۔"
+  certificate:
+    term: "اسکریننگ سرٹیفکیٹ (رپورٹ)"
+    definition: "اسکریننگ سرٹیفکیٹ لائسنس یافتہ اسکریننگ سینٹر کی دستخط شدہ رپورٹ ہے جو شادی کے معاہدے کے لیے درکار ہوتی ہے۔ یہ محدود مدت کے لیے معتبر ہوتی ہے۔"

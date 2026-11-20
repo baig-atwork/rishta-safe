@@ -1,0 +1,128 @@
+[
+  {
+    "id": "clinician",
+    "role": "clinician",
+    "display_name": "Clinician (synthetic persona)",
+    "description": "Files reports, records the pathway, uses the haematology aid.",
+    "couple_id": null,
+    "token": {
+      "access_token": "demo-token-clinician",
+      "token_type": "bearer",
+      "expires_at": "2026-11-20T11:27:38.021161Z",
+      "principal": {
+        "role": "clinician",
+        "subject_id": "stf-clinician-01",
+        "couple_id": null,
+        "display_name": "Clinician (synthetic persona)"
+      },
+      "simulated": true,
+      "auth_mode": "demo_simulated",
+      "notice": "Simulated demo authentication on synthetic data. Not production authentication: a production deployment would use the national identity provider (UAE PASS, Emirates ID)."
+    }
+  },
+  {
+    "id": "counsellor",
+    "role": "counsellor",
+    "display_name": "Counsellor (synthetic persona)",
+    "description": "Sees the escalation queue and a grounded brief for each assigned couple.",
+    "couple_id": null,
+    "token": {
+      "access_token": "demo-token-counsellor",
+      "token_type": "bearer",
+      "expires_at": "2026-11-20T11:27:38.021336Z",
+      "principal": {
+        "role": "counsellor",
+        "subject_id": "stf-counsellor-01",
+        "couple_id": null,
+        "display_name": "Counsellor (synthetic persona)"
+      },
+      "simulated": true,
+      "auth_mode": "demo_simulated",
+      "notice": "Simulated demo authentication on synthetic data. Not production authentication: a production deployment would use the national identity provider (UAE PASS, Emirates ID)."
+    }
+  },
+  {
+    "id": "programme",
+    "role": "programme",
+    "display_name": "Programme operator (synthetic persona)",
+    "description": "Sees aggregate pathway measures only, never an individual result.",
+    "couple_id": null,
+    "token": {
+      "access_token": "demo-token-programme",
+      "token_type": "bearer",
+      "expires_at": "2026-11-20T11:27:38.021379Z",
+      "principal": {
+        "role": "programme",
+        "subject_id": "prg-operator-01",
+        "couple_id": null,
+        "display_name": "Programme operator (synthetic persona)"
+      },
+      "simulated": true,
+      "auth_mode": "demo_simulated",
+      "notice": "Simulated demo authentication on synthetic data. Not production authentication: a production deployment would use the national identity provider (UAE PASS, Emirates ID)."
+    }
+  },
+  {
+    "id": "judge",
+    "role": "judge",
+    "display_name": "Evaluator (read-only, synthetic cases)",
+    "description": "Read-only view of every synthetic case and the evaluation scoreboard.",
+    "couple_id": null,
+    "token": {
+      "access_token": "demo-token-judge",
+      "token_type": "bearer",
+      "expires_at": "2026-11-20T11:27:38.021408Z",
+      "principal": {
+        "role": "judge",
+        "subject_id": "jdg-evaluator-01",
+        "couple_id": null,
+        "display_name": "Evaluator (read-only, synthetic cases)"
+      },
+      "simulated": true,
+      "auth_mode": "demo_simulated",
+      "notice": "Simulated demo authentication on synthetic data. Not production authentication: a production deployment would use the national identity provider (UAE PASS, Emirates ID)."
+    }
+  },
+  {
+    "id": "cpl-demo-02-a",
+    "role": "couple_member",
+    "display_name": "Layla Demo (synthetic)",
+    "description": "Case 2: First cousins, both carry the same condition.",
+    "couple_id": "cpl-demo-02",
+    "token": {
+      "access_token": "demo-token-cpl-demo-02-a",
+      "token_type": "bearer",
+      "expires_at": "2026-11-20T11:27:38.021481Z",
+      "principal": {
+        "role": "couple_member",
+        "subject_id": "prs-02a",
+        "couple_id": "cpl-demo-02",
+        "display_name": "Layla Demo (synthetic)"
+      },
+      "simulated": true,
+      "auth_mode": "demo_simulated",
+      "notice": "Simulated demo authentication on synthetic data. Not production authentication: a production deployment would use the national identity provider (UAE PASS, Emirates ID)."
+    }
+  },
+  {
+    "id": "cpl-demo-04-b",
+    "role": "couple_member",
+    "display_name": "Hamad Demo (synthetic)",
+    "description": "Case 4: Alpha-thalassaemia carrier pair (Dubai policy).",
+    "couple_id": "cpl-demo-04",
+    "token": {
+      "access_token": "demo-token-cpl-demo-04-b",
+      "token_type": "bearer",
+      "expires_at": "2026-11-20T11:27:38.021591Z",
+      "principal": {
+        "role": "couple_member",
+        "subject_id": "prs-04b",
+        "couple_id": "cpl-demo-04",
+        "display_name": "Hamad Demo (synthetic)"
+      },
+      "simulated": true,
+      "auth_mode": "demo_simulated",
+      "notice": "Simulated demo authentication on synthetic data. Not production authentication: a production deployment would use the national identity provider (UAE PASS, Emirates ID)."
+    }
+  }
+]

@@ -1,0 +1,376 @@
+{
+  "couple_id": "cpl-demo-09",
+  "locale": "en",
+  "members": [
+    {
+      "display_name": "Joud Demo",
+      "sex": "female",
+      "age": 29,
+      "language": "en",
+      "family_history": [
+        "thalassaemia_in_family",
+        "previous_child_with_inherited_condition"
+      ]
+    },
+    {
+      "display_name": "Adel Demo",
+      "sex": "male",
+      "age": 32,
+      "language": "ar",
+      "family_history": [
+        "thalassaemia_in_family"
+      ]
+    }
+  ],
+  "relationship": "first_cousin_once_removed",
+  "emirate_policy": "abu_dhabi",
+  "pathway_state": "counselling_pending",
+  "category": "shared_result_found",
+  "review_priority": "urgent",
+  "shared": [
+    {
+      "condition_id": "beta_thalassaemia",
+      "gene": "HBB",
+      "inheritance": "AR",
+      "basis": "both_carriers",
+      "outcomes": [
+        {
+          "label": "affected",
+          "per_100": 25,
+          "applies_to": "any_child"
+        },
+        {
+          "label": "carrier",
+          "per_100": 50,
+          "applies_to": "any_child"
+        },
+        {
+          "label": "neither",
+          "per_100": 25,
+          "applies_to": "any_child"
+        }
+      ]
+    }
+  ],
+  "detection": [
+    {
+      "panel_id": "uae_demo_panel_v1",
+      "statement_key": "detection.panel_rate_assumed",
+      "detection_rate_label": "about 9 in 10 of the known changes in these genes (assumed and illustrative, not a measured rate; see limits)",
+      "assumed": true,
+      "related_couple_caveat": true
+    },
+    {
+      "panel_id": "uae_demo_panel_v1",
+      "statement_key": "detection.alpha_globin_locus_limit",
+      "detection_rate_label": "about 8 in 10 for the alpha-globin genes (assumed and illustrative; this locus is technically complex to assess)",
+      "assumed": true,
+      "related_couple_caveat": true
+    },
+    {
+      "panel_id": "uae_demo_panel_v1",
+      "statement_key": "detection.related_couple_shared_misses",
+      "detection_rate_label": "about 9 in 10 (assumed); because the partners are related, a change this test misses is likely to be missed in both of them",
+      "assumed": true,
+      "related_couple_caveat": true
+    }
+  ],
+  "escalations": [
+    {
+      "couple_id": "cpl-demo-09",
+      "trigger_id": "shared_result",
+      "tier": "accredited_geneticist",
+      "reason_keys": [
+        "escalation.shared_result"
+      ],
+      "due_by_hint": "fast_track",
+      "needs_clinician_signoff": true,
+      "needs_legal_read": false,
+      "source": "NHS handbook: known carrier couples are fast-tracked and offered counselling straight away. EHS (Gulf News, 1 Nov 2026): an appointment is arranged for both partners with a genetics specialist."
+    },
+    {
+      "couple_id": "cpl-demo-09",
+      "trigger_id": "shared_severity_a",
+      "tier": "accredited_geneticist",
+      "reason_keys": [
+        "escalation.shared_severity_a"
+      ],
+      "due_by_hint": "fast_track",
+      "needs_clinician_signoff": true,
+      "needs_legal_read": false,
+      "source": "Rishta Safe authoring note, pending clinical sign-off: trigger 'severity tier A'. The severity tier comes from the condition catalogue (clinical sign-off pending), never from this library."
+    },
+    {
+      "couple_id": "cpl-demo-09",
+      "trigger_id": "pregnancy_in_progress",
+      "tier": "accredited_geneticist",
+      "reason_keys": [
+        "escalation.pregnancy_in_progress"
+      ],
+      "due_by_hint": "fast_track",
+      "needs_clinician_signoff": true,
+      "needs_legal_read": false,
+      "source": "ACMG 2021: a partner's results not available in time is a reason to offer a diagnostic procedure; NHS: chorionic villus sampling from 11 weeks. Options text stays neutral (Federal Decree-Law 49/2023 Art. 11 and 12)."
+    },
+    {
+      "couple_id": "cpl-demo-09",
+      "trigger_id": "family_history_recessive",
+      "tier": "accredited_geneticist",
+      "reason_keys": [
+        "escalation.family_history_recessive"
+      ],
+      "due_by_hint": "routine",
+      "needs_clinician_signoff": true,
+      "needs_legal_read": false,
+      "source": "ESHG 2016: carrier screening is for people without an a priori increased risk from family history; NSGC 2002: thorough family history with follow-up of significant findings. Not scored; routed to clinical genetics."
+    }
+  ],
+  "sections": [
+    {
+      "key": "result",
+      "title": "Result on file",
+      "lines": [
+        "Category: shared_result_found",
+        "Ruleset: rishta-safe-couple-1.0+b682d63abbf0",
+        "beta_thalassaemia (HBB, AR): 25 of 100 affected, 50 of 100 carrier, 25 of 100 neither"
+      ]
+    },
+    {
+      "key": "why",
+      "title": "Why a human is asked to look",
+      "lines": [
+        "shared_result: tier accredited_geneticist, due fast_track",
+        "shared_severity_a: tier accredited_geneticist, due fast_track",
+        "pregnancy_in_progress: tier accredited_geneticist, due fast_track",
+        "family_history_recessive: tier accredited_geneticist, due routine"
+      ]
+    },
+    {
+      "key": "sharing",
+      "title": "Who may see what",
+      "lines": [
+        "No sharing consent recorded."
+      ]
+    },
+    {
+      "key": "open",
+      "title": "Open items",
+      "lines": [
+        "1 referral task(s) open.",
+        "Next: Book counselling",
+        "Next: Record that counselling was declined",
+        "Next: Record that a referral was rejected",
+        "Next: Record that the counsellor brief was prepared",
+        "No closure record has been filed yet."
+      ]
+    }
+  ],
+  "trace": [
+    "E01 relationship recorded as first_cousin_once_removed; Mendelian outcome lines do not depend on it",
+    "E10 beta_thalassaemia: partner 1 carrier, partner 2 carrier; 25 affected, 50 carrier, 25 neither per 100 pregnancies",
+    "P1 review priority: urgent (shared condition of severity tier A (illustrative): beta_thalassaemia)"
+  ],
+  "consents": [],
+  "closure_records": [],
+  "pathway": {
+    "couple_id": "cpl-demo-09",
+    "state": "counselling_pending",
+    "locale": "en",
+    "language_status": "draft",
+    "steps": [
+      {
+        "id": "registered",
+        "label": "Book a screening visit",
+        "description": "Choose a licensed screening centre and a time. In this prototype the booking is simulated and nothing is booked.",
+        "status": "done",
+        "completed_at": "2026-11-02T07:27:27.040733Z",
+        "external_system": "Licensed screening centre (simulated)",
+        "simulated": true,
+        "planning_minutes": null,
+        "timer": null
+      },
+      {
+        "id": "consult_completed",
+        "label": "Consent and doctor's visit",
+        "description": "You sign the agreement and meet a doctor, each partner on their own. The doctor asks about your health and family.",
+        "status": "done",
+        "completed_at": "2026-11-02T09:27:27.040862Z",
+        "external_system": "Licensed screening centre (simulated)",
+        "simulated": true,
+        "planning_minutes": 15,
+        "timer": null
+      }
+    ],
+    "next_actions": [
+      {
+        "event": "counselling_booked",
+        "label": "Book counselling",
+        "roles": [
+          "clinician",
+          "counsellor",
+          "couple_member"
+        ]
+      },
+      {
+        "event": "counselling_declined",
+        "label": "Record that counselling was declined",
+        "roles": [
+          "clinician",
+          "counsellor",
+          "couple_member"
+        ]
+      },
+      {
+        "event": "referral_rejected",
+        "label": "Record that a referral was rejected",
+        "roles": [
+          "clinician",
+          "counsellor",
+          "programme"
+        ]
+      },
+      {
+        "event": "brief_generated",
+        "label": "Record that the counsellor brief was prepared",
+        "roles": [
+          "clinician",
+          "counsellor",
+          "programme"
+        ]
+      }
+    ],
+    "open_referral_tasks": 1,
+    "certificate": null,
+    "kpi": {
+      "time_to_result_hours": 267,
+      "time_to_referral_hours": null,
+      "counselling": "pending"
+    },
+    "notices": [
+      "Every outside system shown on this page is simulated. Nothing is booked, sent or issued.",
+      "All people and results in this prototype are made up (synthetic).",
+      "These labels are a draft. The clinical lead's sign-off is pending."
+    ],
+    "simulated": true,
+    "synthetic": true
+  },
+  "document": {
+    "locale": "en",
+    "language_status": "draft",
+    "blocks": [
+      {
+        "kind": "callout",
+        "text": "This explanation is a draft. The clinical lead's sign-off is pending.",
+        "items": [],
+        "icon_array": null,
+        "tone": "info",
+        "numbers": []
+      }
+    ],
+    "glossary_keys": [
+      "shared_result",
+      "carrier",
+      "gene",
+      "natural_frequency",
+      "genetic_counselling",
+      "risk",
+      "diagnosis",
+      "panel",
+      "detection_rate"
+    ],
+    "numbers_used": [
+      {
+        "key": "const.denominator",
+        "value": 100,
+        "origin": "template_constant"
+      },
+      {
+        "key": "shared.0.any_child.affected",
+        "value": 25,
+        "origin": "engine"
+      },
+      {
+        "key": "shared.0.any_child.carrier",
+        "value": 50,
+        "origin": "engine"
+      },
+      {
+        "key": "shared.0.any_child.neither",
+        "value": 25,
+        "origin": "engine"
+      },
+      {
+        "key": "detection.0.rate_num",
+        "value": 9,
+        "origin": "engine"
+      },
+      {
+        "key": "detection.0.rate_den",
+        "value": 10,
+        "origin": "engine"
+      },
+      {
+        "key": "detection.1.rate_num",
+        "value": 8,
+        "origin": "engine"
+      },
+      {
+        "key": "detection.1.rate_den",
+        "value": 10,
+        "origin": "engine"
+      },
+      {
+        "key": "detection.2.rate_num",
+        "value": 9,
+        "origin": "engine"
+      },
+      {
+        "key": "detection.2.rate_den",
+        "value": 10,
+        "origin": "engine"
+      },
+      {
+        "key": "const.law_number",
+        "value": 49,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.law_year",
+        "value": 2023,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.art_19",
+        "value": 19,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.art_21",
+        "value": 21,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.art_26",
+        "value": 26,
+        "origin": "template_constant"
+      },
+      {
+        "key": "const.art_26_para",
+        "value": 2,
+        "origin": "template_constant"
+      }
+    ],
+    "template_ids": [
+      "status.draft_notice"
+    ],
+    "check": {
+      "ok": true,
+      "numeric_fidelity": true,
+      "polarity": true,
+      "banned_words_absent": true,
+      "messages": []
+    }
+  },
+  "boundary_notice": "boundary.education_decision_support",
+  "synthetic": true
+}

@@ -1,0 +1,360 @@
+{
+  "staff": {
+    "priority": {
+      "urgent": "Urgent",
+      "priority": "Priority",
+      "routine": "Routine"
+    },
+    "queue": {
+      "title": "Review queue",
+      "tableLabel": "Cases waiting for review",
+      "col": {
+        "priority": "Priority",
+        "case": "Case",
+        "rule": "Rule fired",
+        "waiting": "Waiting"
+      },
+      "moreRules": "and {count} more",
+      "noReason": "No rule recorded",
+      "empty": {
+        "title": "No cases are waiting for review",
+        "body": "The queue fills when an escalation rule fires on a couple's case. Every rule and its source is listed on the governance page.",
+        "cta": "See the escalation rules"
+      },
+      "meta": "{count} open · sorted by priority, then waiting",
+      "keys": "J / K move · Enter open",
+      "waiting": {
+        "d": "{count} d",
+        "h": "{count} h",
+        "min": "{count} min"
+      }
+    },
+    "brief": {
+      "title": "Brief",
+      "stamps": {
+        "signoff": "Pending clinical sign-off",
+        "synthetic": "Synthetic data"
+      },
+      "notice": {
+        "title": "A decision aid, not clinical advice",
+        "body": "This brief supports the counsellor's conversation and does not replace a clinician's judgement. Its rules and wording are pending sign-off by the clinical lead (sign-off pending)."
+      },
+      "meta": {
+        "couple": "Couple",
+        "languages": "Languages",
+        "rule": "Rule",
+        "pathway": "Pathway",
+        "family": "Family history",
+        "briefIn": "Read the brief in"
+      },
+      "relationship": {
+        "unrelated": "Unrelated",
+        "second_cousin": "Second cousins",
+        "first_cousin_once_removed": "First cousins once removed",
+        "first_cousin": "First cousins",
+        "double_first_cousin": "Double first cousins",
+        "other_close": "Other close relationship"
+      },
+      "detection": {
+        "title": "Detection statements",
+        "none": "No detection statement is listed in this brief.",
+        "panel": "Panel",
+        "assumed": "Assumed rate",
+        "caveatTitle": "Related partners",
+        "caveat": "These partners are related. A negative test reassures less for related partners than for unrelated ones, because the same change can be missed in both. No figure is shown for that."
+      },
+      "referrals": {
+        "title": "Referral tasks",
+        "caption": "Referral tasks for this couple",
+        "none": "No referral task has been created yet.",
+        "task": "Task",
+        "destination": "Destination",
+        "status": "Status",
+        "updated": "Last updated",
+        "simulated": "Simulated"
+      },
+      "taskStatus": {
+        "requested": "Requested",
+        "accepted": "Accepted",
+        "in-progress": "In progress",
+        "completed": "Completed",
+        "rejected": "Rejected",
+        "failed": "Could not be completed",
+        "cancelled": "Withdrawn",
+        "on-hold": "On hold"
+      },
+      "partial": "The proforma form could not be loaded, so only the brief is shown.",
+      "emptyTitle": "Select a case",
+      "empty": "Select a case from the queue. The brief and its trace open here.",
+      "policy": {
+        "abu_dhabi": "Abu Dhabi disclosure rule",
+        "dubai": "Dubai disclosure rule"
+      },
+      "langName": {
+        "en": "English",
+        "ar": "Arabic",
+        "ur": "Urdu"
+      },
+      "noMembers": "Not listed",
+      "noHistory": "None recorded",
+      "sectionsNone": "This brief has no sections.",
+      "partialPathway": "The pathway could not be loaded, so no action is offered.",
+      "section": {
+        "result": "Result on file",
+        "why": "Why a human is asked to look",
+        "sharing": "Who may see what",
+        "open": "Open items"
+      },
+      "englishNote": "Rule text and sources are in English."
+    },
+    "proforma": {
+      "title": "Closure proforma",
+      "standfirst": "Twelve fields in the order of the form. The system fills what it already knows, the clinician completes the clinical fields, and the patient answers their own part separately.",
+      "formLabel": "Closure proforma",
+      "draft": "Draft translation",
+      "filledBy": {
+        "system": "Filled by the system",
+        "clinician": "Completed by the clinician",
+        "patient": "Completed by the patient"
+      },
+      "systemValue": "Recorded by the system when the form is saved",
+      "patientNote": "Completed by the patient in their own session. Not editable here.",
+      "yes": "Yes",
+      "no": "No",
+      "choose": "Choose an option",
+      "actions": {
+        "none": "No actions added yet.",
+        "add": "Add an action",
+        "remove": "Remove action {number}",
+        "rowLabel": "Action {number}",
+        "action": "Action",
+        "owner": "Owner",
+        "due": "Due date"
+      },
+      "submit": "Save proforma",
+      "saving": "Saving",
+      "validation": {
+        "maxLength": "Use at most {max} characters.",
+        "datetime": "Enter a valid date and time.",
+        "choice": "Choose one of the listed options.",
+        "actionRow": "Complete the action, owner and due date, or remove the row.",
+        "atLeastOne": "Complete at least one field before saving."
+      },
+      "success": {
+        "title": "Proforma saved",
+        "body": "The record was stored for this couple.",
+        "record": "Record",
+        "when": "Saved",
+        "simulated": "Simulated store",
+        "edit": "Edit and save again"
+      },
+      "error": {
+        "title": "The proforma could not be saved",
+        "body": "Nothing was stored. Check the messages next to the fields, then try again.",
+        "retry": "Try again",
+        "correlation": "Correlation id",
+        "other": "Other messages"
+      }
+    },
+    "trace": {
+      "title": "Trace",
+      "empty": "Select a case to see the rule, source and sign-off behind each line.",
+      "footer": "Nothing in this brief is generated. Each line comes from a rule, a record or the engine, and links to it.",
+      "jump": "Go to trace entry",
+      "engine": "Engine",
+      "trigger": "Trigger",
+      "tier": "Tier",
+      "due": "Due",
+      "source": "Source",
+      "consents": "{count} consent records · policy {policy}",
+      "pathway": "state {state} · {count} referral tasks",
+      "signoff": "sign-off pending",
+      "legal": "legal read needed",
+      "rulesPending": "Clinical rules pending sign-off",
+      "englishNote": "Rule text and sources are in English."
+    },
+    "action": {
+      "counselling_booked": "Record counselling booked",
+      "counselling_completed": "Record counselling done",
+      "proforma": "Open closure proforma",
+      "closeProforma": "Close the closure proforma",
+      "none": "No pathway step can be recorded here right now.",
+      "busy": "Recording",
+      "done": "Recorded: {action}",
+      "error": "That step could not be recorded",
+      "correlation": "Correlation id",
+      "label": "Actions"
+    }
+  },
+  "haem": {
+    "eyebrow": "Clinician haematology aid",
+    "title": "Haematology work-up reading",
+    "standfirst": "Enter the blood count first, then the HPLC result. The aid reads the values against written rules and shows every rule it used. It does not decide anything.",
+    "boundary": {
+      "title": "Read this first",
+      "statement": "Not a diagnosis. A decision aid for the clinician.",
+      "signoff": "Pending clinical sign-off",
+      "owner": "The rules and wording are pending sign-off by the clinical lead (sign-off pending).",
+      "synthetic": "Synthetic demo: enter made-up values only. No real patient data."
+    },
+    "steps": {
+      "label": "Steps",
+      "cbc": "Complete blood count (CBC)",
+      "hplc": "HPLC (optional)",
+      "position": "Step {current} of {total}"
+    },
+    "cbc": {
+      "legend": "Complete blood count (CBC)",
+      "hint": "This step can be submitted on its own."
+    },
+    "hplc": {
+      "legend": "HPLC",
+      "hint": "Optional. Submitting it reads the CBC and the HPLC together."
+    },
+    "optional": "optional",
+    "unansweredHint": "A question left as Not answered is not sent. The aid reads it as not known and never fills it in.",
+    "choices": {
+      "unanswered": "Not answered",
+      "yes": "Yes",
+      "no": "No",
+      "unknown": "Not known"
+    },
+    "fields": {
+      "sex": {
+        "label": "Sex",
+        "choose": "Choose",
+        "female": "Female",
+        "male": "Male"
+      },
+      "age_years": {
+        "label": "Age",
+        "unit": "years",
+        "hint": "Without an age the aid reports the blood count as incomplete."
+      },
+      "pregnant": {
+        "label": "Pregnant"
+      },
+      "transfused_last_4_months": {
+        "label": "Blood transfusion in the last 4 months",
+        "hint": "A recent or unknown transfusion makes the blood count inconclusive for this aid."
+      },
+      "hb_g_dl": {
+        "label": "Haemoglobin (Hb)",
+        "unit": "g/dL"
+      },
+      "mcv_fl": {
+        "label": "Mean cell volume (MCV)",
+        "unit": "fL"
+      },
+      "mch_pg": {
+        "label": "Mean cell haemoglobin (MCH)",
+        "unit": "pg"
+      },
+      "rbc_10e12_l": {
+        "label": "Red cell count (RBC)",
+        "unit": "×10¹²/L"
+      },
+      "ferritin_ug_l": {
+        "label": "Ferritin",
+        "unit": "µg/L"
+      },
+      "ferritin_status": {
+        "label": "Ferritin flag from the laboratory",
+        "hint": "The aid uses the laboratory's own flag, not a number.",
+        "low": "Low",
+        "not_low": "Not low",
+        "not_measured": "Not measured"
+      },
+      "hba2_percent": {
+        "label": "HbA2",
+        "unit": "%"
+      },
+      "hba2_is_total": {
+        "label": "HbA2 is the total HbA2",
+        "hint": "Check that the HbA2 value above is the total, including any HbA2 variant peak."
+      },
+      "hbf_percent": {
+        "label": "HbF",
+        "unit": "%"
+      },
+      "variant_hb_percent": {
+        "label": "Variant haemoglobin amount",
+        "unit": "%"
+      },
+      "variant_hb_name": {
+        "label": "Variant haemoglobin name"
+      },
+      "single_hba_band_only": {
+        "label": "Single major peak in the HbA position",
+        "hint": "The written rules apply only when a single major peak is in the HbA position."
+      }
+    },
+    "validation": {
+      "positive": "Enter a number greater than 0.",
+      "choose": "Choose an option."
+    },
+    "actions": {
+      "interpretCbc": "Interpret CBC alone",
+      "next": "Next: HPLC",
+      "back": "Back",
+      "interpretBoth": "Interpret CBC and HPLC",
+      "busy": "Interpreting",
+      "retry": "Try again"
+    },
+    "result": {
+      "title": "Reading",
+      "empty": {
+        "title": "Enter the CBC first, then the HPLC",
+        "body": "Start with the complete blood count. A CBC alone can never give a carrier statement. The HPLC comes second and is optional. The reading appears here with every rule it used."
+      },
+      "loading": "Interpreting the values",
+      "basedOn": {
+        "cbc": "Based on the CBC alone",
+        "both": "Based on the CBC and the HPLC"
+      },
+      "stale": "The values have changed since this reading. Interpret again to update it.",
+      "labelKey": "Label key",
+      "statement": "Not a diagnosis. A decision aid for the clinician.",
+      "signoff": "Pending clinical sign-off",
+      "callout": {
+        "title": "Needs clinician sign-off",
+        "body": "The rules behind this reading are pending sign-off by the clinical lead (sign-off pending). A clinician looks at the reading before anything is done with it."
+      },
+      "traceTitle": "Rule trace",
+      "traceNone": "No rule steps were returned.",
+      "source": "Source",
+      "noSource": "No source listed",
+      "flagsTitle": "Flags",
+      "flagsNone": "No flags were returned.",
+      "sourcesTitle": "Sources",
+      "sourcesNone": "No sources were listed.",
+      "illustrative": "Illustrative",
+      "opensNewTab": "opens in a new tab",
+      "trace": {
+        "rule": "Rule",
+        "finding": "What it found",
+        "source": "Source"
+      }
+    },
+    "error": {
+      "title": "The values could not be interpreted",
+      "body": "No reading was produced. Check the values, then try again.",
+      "fieldsHint": "Check the fields marked below.",
+      "correlation": "Correlation id",
+      "other": "Other messages"
+    },
+    "label": {
+      "indices_reduced": "Indices reduced",
+      "indices_not_flagged": "Indices not flagged",
+      "cbc_incomplete": "CBC incomplete",
+      "pattern_suggests_beta_thal_trait": "Pattern suggests beta-thalassaemia trait",
+      "pattern_suggests_alpha_thal_trait": "Pattern suggests alpha-thalassaemia trait",
+      "pattern_suggests_hb_variant_trait": "Pattern suggests haemoglobin variant trait",
+      "pattern_suggests_iron_deficiency_first": "Pattern suggests iron deficiency first",
+      "pattern_suggests_possible_compound_or_affected": "Pattern suggests possible compound or affected",
+      "pattern_unclear_refer_for_molecular": "Pattern unclear, refer for molecular testing",
+      "no_pattern_flagged_on_this_work_up": "No pattern flagged on this work-up",
+      "work_up_incomplete": "Work-up incomplete"
+    }
+  }
+}

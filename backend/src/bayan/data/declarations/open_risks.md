@@ -1,0 +1,12 @@
+# Open risks (read before submitting)
+
+1. **No clinical review.** Every clinical rule, cut-off, detection rate and Arabic or Urdu string is a draft awaiting sign-off from the clinical lead and, for the languages, a native clinical reviewer. The product says so on screen.
+2. **Correlated-miss derivation** (related couples) is our own and unreviewed by a statistician.
+3. **Legal reads outstanding** for several escalation triggers against Federal Decree-Law 49/2023 (genotype-inferred relatedness, non-targeted findings, X-linked or affected-partner visibility, life-threat disclosure override of the right not to know).
+4. **Hosting.** The design target is Azure UAE North. The region in which a public demo runs is stated with the demo link and is verified against the live resources; the demo is never described as hosted in the UAE unless that has been verified. The demo holds made-up data only.
+5. **Human comprehension test not run** (ethics exemption unanswered); the protocol exists.
+6. **Three routes are over the 170 KB route-JavaScript budget** (gzip, measured locally on a production build in mock mode on 2026-11-20): sharing 173.8, closure 188.3 and clinician 190.7 KB. Closure and clinician were over before the redesign because of react-hook-form and zod (ADR 0166). The other ten measured routes are between 161.3 and 169.0 KB. Largest Contentful Paint and layout shift were measured on the local build only, not on a throttled mobile profile.
+7. **Arabic and Urdu text of the new screens is draft.** The interface copy added with the redesign (the threshold, read together, the who-sees-what matrix, the case bench, the Evidence labels) has had no native clinical review, and the Arabic text of these screens has not been read by a native reader.
+8. **The evidence figures and the staff brief's rule text are English only.** The Arabic and Urdu pages mark them as English; the chrome around them is translated.
+9. **The flagship gene frequency is illustrative.** Case 2 uses USH2A (Usher syndrome type 2A); its carrier frequency is not a published, quotable figure and the product labels it illustrative. It does not appear in any couple-facing result.
+10. **Threshold choices other than "I prefer not to know" live in the browser only.** "Read it now", "read it with a counsellor first" and "not yet" are not recorded on the server or in the audit log and do not follow a person to another device (ADR 0170).

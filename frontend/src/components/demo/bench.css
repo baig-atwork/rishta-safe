@@ -1,0 +1,19 @@
+/*
+ * The case bench's default view is names, what each case tests and the lens cells. The rule and relationship column (raw
+ * rule ids in mono) sits behind a toggle above the table: a native <details>, so it works without JavaScript. Tokens only.
+ */
+[data-testid="case-bench"] .bench-rule-col {
+  display: none;
+}
+[data-testid="case-bench"]:has(details.bench-rules[open]) .bench-rule-col {
+  display: table-cell;
+}
+details.bench-rules > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-block-size: 40px;
+  cursor: pointer;
+  color: var(--link);
+  font-size: var(--text-sm);
+}

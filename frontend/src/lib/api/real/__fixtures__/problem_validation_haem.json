@@ -1,0 +1,20 @@
+{
+  "type": "https://bayan.invalid/problems/validation_error",
+  "title": "Validation failed",
+  "status": 422,
+  "detail": "The request is not valid.",
+  "code": "validation_error",
+  "instance": "/v1/haem/interpret",
+  "correlation_id": "10911f0a3b894eb6a71006164f6676aa",
+  "errors": [
+    {
+      "loc": [
+        "body",
+        "cbc",
+        "hb_g_per_l"
+      ],
+      "msg": "Input should be less than or equal to 250",
+      "type": "less_than_equal"
+    }
+  ]
+}

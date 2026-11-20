@@ -1,0 +1,124 @@
+{
+  "couple_id": "cpl-demo-02",
+  "events": [
+    {
+      "index": 3,
+      "timestamp": "2026-11-20T07:27:27.033419Z",
+      "actor_role": "system",
+      "actor_id": "system",
+      "action": "staff_assigned",
+      "couple_id": "cpl-demo-02",
+      "subject_id": null,
+      "outcome": "recorded",
+      "reason": "care_team_assignment",
+      "detail": [
+        [
+          "staff",
+          "stf-clinician-01"
+        ]
+      ],
+      "prev_hash": "ac782d2bf87e1d68595004a22ab6bafc373d1eb16ce4d461ff9c283a9e20814d",
+      "hash": "7d289224ef644dc52b17a64d961fbc72d88c97557891a648c24c107f8a06dd52"
+    },
+    {
+      "index": 4,
+      "timestamp": "2026-11-20T07:27:27.033462Z",
+      "actor_role": "system",
+      "actor_id": "system",
+      "action": "staff_assigned",
+      "couple_id": "cpl-demo-02",
+      "subject_id": null,
+      "outcome": "recorded",
+      "reason": "care_team_assignment",
+      "detail": [
+        [
+          "staff",
+          "stf-counsellor-01"
+        ]
+      ],
+      "prev_hash": "7d289224ef644dc52b17a64d961fbc72d88c97557891a648c24c107f8a06dd52",
+      "hash": "37b5caaf4335978d4ffb9ba014c4ce47c6820f08cc164b166bd50d9d921fbe49"
+    },
+    {
+      "index": 5,
+      "timestamp": "2026-11-06T16:27:27.033526Z",
+      "actor_role": "system",
+      "actor_id": "system",
+      "action": "escalation_raised",
+      "couple_id": "cpl-demo-02",
+      "subject_id": null,
+      "outcome": "recorded",
+      "reason": "trigger_fired",
+      "detail": [
+        [
+          "escalation_id",
+          "esc-00002"
+        ],
+        [
+          "legal_read",
+          "false"
+        ],
+        [
+          "source",
+          "evaluate"
+        ],
+        [
+          "tiers",
+          "accredited_geneticist"
+        ],
+        [
+          "triggers",
+          "shared_result|family_history_recessive"
+        ]
+      ],
+      "prev_hash": "37b5caaf4335978d4ffb9ba014c4ce47c6820f08cc164b166bd50d9d921fbe49",
+      "hash": "d99de64a10f6179c1978d2089c870b433fdad27f36dc3ce331561d63b383702b"
+    },
+    {
+      "index": 29,
+      "timestamp": "2026-11-20T07:27:38.072820Z",
+      "actor_role": "couple_member",
+      "actor_id": "prs-02a",
+      "action": "disclose",
+      "couple_id": "cpl-demo-02",
+      "subject_id": "prs-02a",
+      "outcome": "allowed",
+      "reason": "released",
+      "detail": [
+        [
+          "category_released",
+          "true"
+        ],
+        [
+          "policy",
+          "abu_dhabi"
+        ]
+      ],
+      "prev_hash": "40257bedcfc2c9bad56779e399e7ad484b4dee6ef879002900961f125fbde266",
+      "hash": "34c0f56a9fade995d183c5abc7291e931c4681029072e129fc06c837b8e126d2"
+    },
+    {
+      "index": 30,
+      "timestamp": "2026-11-20T07:27:38.089630Z",
+      "actor_role": "couple_member",
+      "actor_id": "prs-02a",
+      "action": "disclose",
+      "couple_id": "cpl-demo-02",
+      "subject_id": "prs-02a",
+      "outcome": "allowed",
+      "reason": "released",
+      "detail": [
+        [
+          "category_released",
+          "true"
+        ],
+        [
+          "policy",
+          "abu_dhabi"
+        ]
+      ],
+      "prev_hash": "34c0f56a9fade995d183c5abc7291e931c4681029072e129fc06c837b8e126d2",
+      "hash": "8dd48c26e86b80833c71b040c4c12f62ca8182606b67d120ce7bb2501cc9197d"
+    }
+  ]
+}

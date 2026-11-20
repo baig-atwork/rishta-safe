@@ -1,0 +1,9 @@
+{
+  "scope": "chain",
+  "ok": true,
+  "own_events": null,
+  "length": 36,
+  "head_hash": "84a63e725447cc27a846cf9ffc4880379354af5d4db8f53d0a082309f8e96b23",
+  "first_bad_index": null,
+  "problem": null
+}

@@ -1,0 +1,18 @@
+# Judge-facing notes attached to the explainer evaluation report (explain/evaluation.py).
+# English only: this text is shown on the scoreboard, not to couples.
+meta:
+  needs_clinician_signoff: true
+
+notes:
+  arabic_urdu_readability: >-
+    No validated Arabic or Urdu readability standard exists, so no Arabic or Urdu readability score
+    is computed or claimed. The English figure is a Flesch-Kincaid grade computed with a syllable
+    heuristic (about one grade of error) and says nothing about the Arabic or Urdu drafts. Reading
+    level in those languages needs human lay readers.
+  scope: >-
+    Measured on synthetic disclosed results only. Numeric fidelity and polarity percentages are the
+    share of rendered documents the deterministic checker passes; the mutation catch rate is the
+    share of injected faults (flipped number, flipped polarity, banned word, wrong digit system,
+    unknown identifier, false review claim, dropped limits statement) that the checker rejects.
+    All text is draft with clinician sign-off pending; the Arabic and Urdu wording has not been
+    reviewed by a native clinical reader. No human comprehension test was run.

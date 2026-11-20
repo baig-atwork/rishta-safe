@@ -1,0 +1,100 @@
+{
+  "records": [
+    {
+      "escalation_id": "esc-00001",
+      "couple_id": "cpl-demo-01",
+      "created_at": "2026-10-23T16:27:27.004290Z",
+      "decisions": [
+        {
+          "couple_id": "cpl-demo-01",
+          "trigger_id": "variable_penetrance_gene",
+          "tier": "accredited_geneticist",
+          "reason_keys": [
+            "escalation.variable_penetrance_gene"
+          ],
+          "due_by_hint": "routine",
+          "needs_clinician_signoff": true,
+          "needs_legal_read": false,
+          "source": "ACMG 2021: reports should include penetrance and variability in expression and designate well-known mild alleles."
+        }
+      ],
+      "status": "open"
+    },
+    {
+      "escalation_id": "esc-00002",
+      "couple_id": "cpl-demo-02",
+      "created_at": "2026-11-06T16:27:27.033526Z",
+      "decisions": [
+        {
+          "couple_id": "cpl-demo-02",
+          "trigger_id": "shared_result",
+          "tier": "accredited_geneticist",
+          "reason_keys": [
+            "escalation.shared_result"
+          ],
+          "due_by_hint": "fast_track",
+          "needs_clinician_signoff": true,
+          "needs_legal_read": false,
+          "source": "NHS handbook: known carrier couples are fast-tracked and offered counselling straight away. EHS (Gulf News, 1 Nov 2026): an appointment is arranged for both partners with a genetics specialist."
+        },
+        {
+          "couple_id": "cpl-demo-02",
+          "trigger_id": "family_history_recessive",
+          "tier": "accredited_geneticist",
+          "reason_keys": [
+            "escalation.family_history_recessive"
+          ],
+          "due_by_hint": "routine",
+          "needs_clinician_signoff": true,
+          "needs_legal_read": false,
+          "source": "ESHG 2016: carrier screening is for people without an a priori increased risk from family history; NSGC 2002: thorough family history with follow-up of significant findings. Not scored; routed to clinical genetics."
+        }
+      ],
+      "status": "open"
+    },
+    {
+      "escalation_id": "esc-00003",
+      "couple_id": "cpl-demo-04",
+      "created_at": "2026-11-04T16:27:27.035907Z",
+      "decisions": [
+        {
+          "couple_id": "cpl-demo-04",
+          "trigger_id": "shared_result",
+          "tier": "accredited_geneticist",
+          "reason_keys": [
+            "escalation.shared_result"
+          ],
+          "due_by_hint": "fast_track",
+          "needs_clinician_signoff": true,
+          "needs_legal_read": false,
+          "source": "NHS handbook: known carrier couples are fast-tracked and offered counselling straight away. EHS (Gulf News, 1 Nov 2026): an appointment is arranged for both partners with a genetics specialist."
+        },
+        {
+          "couple_id": "cpl-demo-04",
+          "trigger_id": "shared_severity_a",
+          "tier": "accredited_geneticist",
+          "reason_keys": [
+            "escalation.shared_severity_a"
+          ],
+          "due_by_hint": "fast_track",
+          "needs_clinician_signoff": true,
+          "needs_legal_read": false,
+          "source": "Rishta Safe authoring note, pending clinical sign-off: trigger 'severity tier A'. The severity tier comes from the condition catalogue (clinical sign-off pending), never from this library."
+        },
+        {
+          "couple_id": "cpl-demo-04",
+          "trigger_id": "family_history_recessive",
+          "tier": "accredited_geneticist",
+          "reason_keys": [
+            "escalation.family_history_recessive"
+          ],
+          "due_by_hint": "routine",
+          "needs_clinician_signoff": true,
+          "needs_legal_read": false,
+          "source": "ESHG 2016: carrier screening is for people without an a priori increased risk from family history; NSGC 2002: thorough family history with follow-up of significant findings. Not scored; routed to clinical genetics."
+        }
+      ],
+      "status": "open"
+    }
+  ]
+}

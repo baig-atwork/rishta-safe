@@ -1,0 +1,98 @@
+@font-face{font-family:'Outfit';src:url('fonts/outfit-var.ttf') format('truetype');font-weight:100 900;font-style:normal}
+@font-face{font-family:'Red Hat Mono';src:url('fonts/red-hat-mono-latin-var.woff2') format('woff2');font-weight:300 700;font-style:normal}
+@font-face{font-family:'Archivo';src:url('fonts/archivo-latin-var.woff2') format('woff2');font-weight:100 900;font-style:normal}
+
+:root{
+  --ink:#0f1217; --ink2:#4a5361; --ink3:#6b7482; --paper:#f8f9fb; --white:#ffffff;
+  --lapis:#1a51bd; --hair:#c9ced6; --hair2:#e1e5ea;
+  --sans:'Outfit','Archivo',Arial,sans-serif; --mono:'Red Hat Mono','Consolas',monospace;
+}
+@page{size:A4;margin:14mm 18mm 17mm 18mm;background:#f8f9fb;
+  @bottom-left{content:"Rishta Safe technical report, page " counter(page) " of " counter(pages);font-family:'Outfit',Arial,sans-serif;font-size:7.6pt;color:#4a5361;vertical-align:top;padding-top:5mm;border-top:1px solid #c9ced6;margin-top:2mm}
+  @bottom-right{content:"Prototype on synthetic data. Not clinically reviewed.";font-family:'Outfit',Arial,sans-serif;font-size:7.6pt;color:#4a5361;vertical-align:top;padding-top:5mm;border-top:1px solid #c9ced6;margin-top:2mm}
+}
+@page :first{@bottom-left{content:none;border:0}@bottom-right{content:none;border:0}}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:9.2pt;line-height:1.4;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;font-variant-numeric:lining-nums}
+code,.mono{font-family:var(--mono);font-size:.86em;letter-spacing:0}
+p{margin:0 0 .55em}
+h1,h2,h3{font-family:var(--sans);color:var(--ink);margin:0;font-weight:600}
+h2{font-size:15.5pt;line-height:1.15;border-left:4px solid var(--lapis);padding:1px 0 1px 10px;margin:0 0 3mm;break-after:avoid;break-inside:avoid}
+h2 .no{font-family:var(--mono);font-size:.62em;color:var(--lapis);font-weight:500;display:block;letter-spacing:.06em;margin-bottom:1px}
+h3{font-size:10.2pt;margin:3.2mm 0 1.2mm;break-after:avoid}
+section{break-before:page}
+section.cont{break-before:auto;margin-top:4.5mm}
+.lede{font-size:10.2pt;color:var(--ink2);margin:0 0 3mm;max-width:155mm}
+ul{margin:0 0 .6em;padding:0;list-style:none}
+ul li{position:relative;padding-left:4.2mm;margin:0 0 1.1mm}
+ul li:before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;background:var(--lapis)}
+ul.plain li:before{background:var(--ink)}
+b,strong{font-weight:600}
+
+/* figures */
+figure{margin:0 0 3.5mm;break-inside:avoid}
+figure .art{background:var(--paper);border:1px solid var(--hair);padding:0}
+figure svg{display:block;width:100%;height:auto}
+figcaption{font-size:7.9pt;line-height:1.35;color:var(--ink2);margin-top:1.6mm;border-left:2px solid var(--hair);padding-left:2.4mm}
+figcaption .fn{font-family:var(--mono);font-size:.95em;color:var(--ink);font-weight:600;margin-right:2px}
+figcaption .k{font-weight:600;color:var(--ink)}
+
+/* tables */
+table{border-collapse:collapse;width:100%;font-size:7.9pt;line-height:1.3;margin:0 0 3mm}
+table.fixed{table-layout:fixed}
+th{font-family:var(--mono);font-weight:500;font-size:6.6pt;text-transform:uppercase;letter-spacing:.07em;color:var(--ink2);text-align:left;
+   border-top:1.2px solid var(--ink);border-bottom:1px solid var(--ink);padding:1.4mm 2mm 1.2mm 0;vertical-align:bottom}
+td{border-bottom:1px solid var(--hair);padding:1.35mm 2.2mm 1.35mm 0;vertical-align:top}
+tr{break-inside:avoid}
+td.id,th.id{font-family:var(--mono);font-size:7.6pt;white-space:nowrap;font-weight:600;padding-right:3mm}
+td.num{text-align:right;white-space:nowrap}
+table.tight td{padding-top:.9mm;padding-bottom:.9mm}
+caption{caption-side:top;text-align:left;font-size:7.9pt;color:var(--ink2);margin-bottom:1.2mm}
+.tcap{font-size:7.9pt;line-height:1.35;color:var(--ink2);margin:-1.5mm 0 3.5mm;border-left:2px solid var(--hair);padding-left:2.4mm}
+.tcap .k{font-weight:600;color:var(--ink)}
+.tcap .fn{font-family:var(--mono);font-weight:600;color:var(--ink);margin-right:2px}
+
+/* cover */
+.cover{break-before:auto;position:relative;height:258mm;display:flex;flex-direction:column}
+.cover .lead{border-left:7px solid var(--lapis);padding-left:7mm;margin:6mm 0 8mm}
+.cover .kicker{font-family:var(--mono);font-size:8pt;letter-spacing:.12em;text-transform:uppercase;color:var(--lapis);margin:4mm 0 5mm}
+.cover h1{font-size:50pt;line-height:.95;letter-spacing:-.02em;font-weight:600;margin:0 0 3mm}
+.cover .sub{font-size:17pt;color:var(--ink2);font-weight:400;margin:0 0 2mm}
+.cover .purpose{font-size:13pt;line-height:1.38;max-width:150mm;margin:0 0 9mm;color:var(--ink)}
+.tally{display:flex;gap:3px;margin:0 0 2mm}
+.tally i{display:block;width:13px;height:13px;background:var(--ink)}
+.tally i.h{background:repeating-linear-gradient(45deg,var(--white) 0 2px,var(--ink) 2px 3.4px);border:1px solid var(--ink)}
+.tallycap{font-size:7.9pt;color:var(--ink2);margin:0 0 9mm}
+.status{border:1.4px solid var(--ink);background:var(--white);margin:0 0 6mm}
+.status .hd{background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:7.4pt;letter-spacing:.1em;text-transform:uppercase;padding:2mm 4mm}
+.status .row{display:flex;border-top:1px solid var(--hair)}
+.status .row:first-of-type{border-top:0}
+.status .row .l{width:54mm;flex:none;font-weight:600;padding:3mm 4mm;border-right:1px solid var(--hair);font-size:10pt}
+.status .row .r{padding:3mm 4mm;font-size:9.4pt;line-height:1.4}
+.note{border-left:4px solid var(--lapis);padding:2mm 0 2mm 4mm;font-size:9.6pt;line-height:1.42;margin:0 0 5mm;max-width:158mm}
+.cover .meta{margin-top:auto;font-size:8.3pt;color:var(--ink2);border-top:1px solid var(--hair);padding-top:3mm;line-height:1.5}
+.cover .meta .mono{color:var(--ink)}
+
+/* page 2 */
+.three{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:6mm;margin:0 0 4mm}
+.three h3{margin:0 0 1.5mm;font-family:var(--mono);font-size:7.2pt;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--lapis)}
+.three p,.three li{font-size:8.7pt;line-height:1.38}
+.three ul li{margin-bottom:1mm}
+.callout{border:1.3px solid var(--ink);background:var(--white);padding:2.6mm 4mm;margin:0 0 3.5mm;font-size:9.2pt}
+.callout b{font-weight:600}
+
+/* label strip */
+.labels{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;margin:0 0 3mm}
+.labels div{border:1px solid var(--ink);background:var(--white);padding:2mm 3mm;font-size:8.2pt;line-height:1.35}
+.labels div code{display:block;font-weight:600;font-size:8.4pt;margin-bottom:.8mm}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:6mm}
+.small{font-size:8.2pt;color:var(--ink2)}
+.boxed{border:1px solid var(--hair);background:var(--white);padding:2.4mm 3.4mm;margin:0 0 3mm;font-size:8.6pt}
+pre{font-family:var(--mono);font-size:7.3pt;line-height:1.38;background:var(--white);border:1px solid var(--hair);border-left:4px solid var(--lapis);padding:2.6mm 3.4mm;margin:0 0 3mm;white-space:pre-wrap;color:var(--ink)}
+.pagefill{min-height:10mm}
+.hl{background:transparent;border-bottom:2px solid var(--lapis)}
+.arch .art{border:0}
+
+table.dense{font-size:7.5pt;line-height:1.26}
+table.dense td{padding-top:.7mm;padding-bottom:.7mm}

@@ -1,0 +1,62 @@
+{
+  "record_id": "closure-cpl-demo-02-001",
+  "couple_id": "cpl-demo-02",
+  "kind": "patient",
+  "submitted_at": "2026-11-20T07:27:38.223321Z",
+  "patient": {
+    "person_id": "prs-02a",
+    "items": [
+      {
+        "item_id": "own_words",
+        "outcome": "not_answered",
+        "answer": null
+      },
+      {
+        "item_id": "out_of_100",
+        "outcome": "correct",
+        "answer": 25
+      },
+      {
+        "item_id": "carrier_is_disease",
+        "outcome": "correct",
+        "answer": "false"
+      },
+      {
+        "item_id": "negative_means_none",
+        "outcome": "not_answered",
+        "answer": null
+      },
+      {
+        "item_id": "next_step",
+        "outcome": "not_scored",
+        "answer": "counsellor_explains"
+      },
+      {
+        "item_id": "values_clarity",
+        "outcome": "not_scored",
+        "answer": 4
+      },
+      {
+        "item_id": "felt_free",
+        "outcome": "not_answered",
+        "answer": null
+      },
+      {
+        "item_id": "who_can_see",
+        "outcome": "not_answered",
+        "answer": null
+      }
+    ],
+    "sils_positive_screen": null,
+    "service_interest": {
+      "value": "no_thanks",
+      "consent_acknowledged": false,
+      "consent_version": 1,
+      "topics": [],
+      "reminder_months": null
+    },
+    "consent_text_version": 1
+  },
+  "clinician": null,
+  "synthetic": true
+}

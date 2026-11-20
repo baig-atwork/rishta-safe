@@ -1,0 +1,260 @@
+# Deterministic escalation library (lane B, governance).
+#
+# Every trigger names its source and carries `needs_clinician_signoff: true`: the TIER, the due-by
+# hint and the trigger set are drafts for the clinical lead (sign-off pending). Two tiers because the
+# federal programme's counsellors are trained physicians, not genetics professionals
+# (53 doctors trained, Gulf News 29 Jun 2026):
+#   counsellor              trained physician or counsellor of the programme
+#   accredited_geneticist   accredited genetics professional
+# `due_by_hint` is a key, never a number of days: the time targets belong to the clinical lead
+# (NHS sources give "fast-tracked" and gestation windows, not days).
+# `needs_legal_read`: never | always | when_non_targeted | when_genotype_inferred, per the
+# collision with Federal Decree-Law 49/2023 judged per trigger. Statute readings are authoring notes pending
+# legal read; the statute text itself was not re-read for this build.
+# Arabic and Urdu phrase lists are language_status: draft (authored with an LLM assistant at
+# authoring time; no native clinical reader has reviewed them).
+#
+# Sources:  ACMG = Gregg et al., Genet Med 2021, DOI 10.1038/s41436-021-01203-z (PMC8488021)
+#           ESHG = Henneman et al., Eur J Hum Genet 2016, PMC4867464
+#           NHS = GOV.UK, Sickle cell and thalassaemia screening handbook, prenatal diagnosis guidelines, 11 Jul 2025
+#           Federal Decree-Law 49/2023 (cited by article)
+#           Rules marked "Rishta Safe authoring note" have no public guideline text behind them.
+
+meta:
+  version: 1
+  needs_clinician_signoff: true
+  language_status: draft
+  statement: "Triggers are implemented as written; completeness of the list is not claimed."
+
+# Phrase lists for user-distress detection. Matching is on normalised text (text.normalize), whole
+# word for ASCII phrases and substring for Arabic and Urdu. A phrase list is a keyword list, not
+# understanding: negation ("I am not scared") still matches, which errs towards escalating.
+phrase_lists:
+  crisis:
+    en: ["want to die", "wanna die", "kill myself", "end my life", "end it all", "suicide", "suicidal", "hurt myself", "dont want to live", "no reason to live", "better off dead"]
+    ar: ["اريد ان اموت", "ابغي اموت", "ودي اموت", "انتحر", "انهي حياتي", "اقتل نفسي", "لا اريد العيش", "ما اريد اعيش", "اؤذي نفسي"]
+    ur: ["مرنا چاہتا ہوں", "مرنا چاہتی ہوں", "خودکشی", "جان دے دوں", "اپنی جان لے", "زندہ نہیں رہنا", "خود کو نقصان", "جینا نہیں چاہتا", "جینا نہیں چاہتی"]
+  distress:
+    en: ["cant cope", "cannot cope", "cant handle this", "cant stop crying", "panic attack", "so scared", "very scared", "terrified", "devastated", "hopeless", "my life is over", "ruined my life", "falling apart", "overwhelmed", "cant sleep", "cant breathe", "feel numb"]
+    ar: ["لا استطيع التحمل", "ما اقدر اتحمل", "منهار", "انهار", "خائف جدا", "خايف مره", "مرعوب", "حياتي انتهت", "يائس", "نوبه هلع", "لا استطيع النوم", "ما اقدر انام", "قلق شديد"]
+    ur: ["برداشت نہیں", "بہت ڈر", "ڈر لگ رہا", "گھبرا", "بہت پریشان", "زندگی ختم", "مایوس", "ٹوٹ گیا", "ٹوٹ گئی", "نیند نہیں", "پینک", "سانس نہیں"]
+
+# Example requests per refusal category, used ONLY to build the synthetic evaluation set from the
+# trigger definitions (governance/escalation_eval.py). They must be refused by classify_request;
+# a test asserts it.
+request_examples:
+  marriage_decision:
+    en: ["should we still get married", "should we call off the wedding"]
+    ar: ["هل نكمل الزواج", "هل نفسخ الخطوبة"]
+    ur: ["کیا ہم شادی کر سکتے ہیں", "شادی ختم کر دیں"]
+  termination_advice:
+    en: ["should i terminate the pregnancy", "is abortion the right choice"]
+    ar: ["هل اجهض الجنين", "انهاء الحمل"]
+    ur: ["کیا حمل ضائع کر دوں", "اسقاط حمل کے بارے میں بتائیں"]
+  lineage_inference:
+    en: ["are we really related", "what is my ancestry"]
+    ar: ["ما هو نسبي", "هل نحن اقارب"]
+    ur: ["ہمارا نسب کیا ہے", "باپ کون ہے"]
+  other_person_result:
+    en: ["show me my brothers result", "what is her genetic report"]
+    ar: ["نتيجة اخي", "اريد ان ارى نتيجة زوجتي"]
+    ur: ["بھائی کا نتیجہ دکھائیں", "اس کی رپورٹ بتائیں"]
+
+# `when` is a list of clauses; the trigger fires if ANY clause is true.
+#   result_category   values: [category,...]               the engine's couple-level category
+#   shared_basis      values: [basis,...]                  any SharedCondition.basis in the result
+#   flag              name: <EscalationContext bool field>
+#   phrase_list       name: crisis | distress              free text matches a phrase
+#   request_category  values: [category,...]               free text is refused for that category
+triggers:
+  - id: shared_result
+    source: "NHS handbook: known carrier couples are fast-tracked and offered counselling straight away. EHS (Gulf News, 1 Nov 2026): an appointment is arranged for both partners with a genetics specialist."
+    tier: accredited_geneticist
+    due_by_hint: fast_track
+    needs_clinician_signoff: true
+    needs_legal_read: never
+    reason_keys: [escalation.shared_result]
+    when:
+      - {kind: result_category, values: [shared_result_found]}
+  - id: affected_partner
+    source: "NHS at-risk definition includes a parent affected by sickle cell disease; ACMG describes carrier screening as for people who are largely healthy, so an affected person needs diagnostic care. Collision: an affected partner's result is that person's own (Federal Decree-Law 49/2023 Art. 9) while Art. 15 says inform the couple."
+    tier: accredited_geneticist
+    due_by_hint: fast_track
+    needs_clinician_signoff: true
+    needs_legal_read: always
+    reason_keys: [escalation.affected_partner]
+    when:
+      - {kind: shared_basis, values: [affected_partner_and_carrier, both_affected, x_linked_affected_male]}
+      - {kind: flag, name: affected_partner}
+  - id: shared_severity_a
+    source: "Rishta Safe authoring note, pending clinical sign-off: trigger 'severity tier A'. The severity tier comes from the condition catalogue (clinical sign-off pending), never from this library."
+    tier: accredited_geneticist
+    due_by_hint: fast_track
+    needs_clinician_signoff: true
+    needs_legal_read: never
+    reason_keys: [escalation.shared_severity_a]
+    when:
+      - {kind: flag, name: shared_severity_a}
+  - id: variant_of_uncertain_significance
+    source: "ACMG 2021: report a VUS only in partners of identified carriers and only with the patient's consent."
+    tier: accredited_geneticist
+    due_by_hint: routine
+    needs_clinician_signoff: true
+    needs_legal_read: when_non_targeted
+    reason_keys: [escalation.variant_of_uncertain_significance]
+    when:
+      - {kind: flag, name: has_vus}
+  - id: copy_number_or_non_snv
+    source: "ACMG 2021: the HBA locus is technically complex to assess; SMN1 copy number is hampered by a homologous pseudogene."
+    tier: accredited_geneticist
+    due_by_hint: routine
+    needs_clinician_signoff: true
+    needs_legal_read: when_non_targeted
+    reason_keys: [escalation.copy_number_or_non_snv]
+    when:
+      - {kind: flag, name: copy_number_or_non_snv}
+  - id: x_linked_finding
+    source: "ACMG 2021: women who screen positive for X-linked conditions may manifest symptoms (skewed X inactivation). Collision: the result belongs to the woman; partner-visible text needs her consent."
+    tier: accredited_geneticist
+    due_by_hint: routine
+    needs_clinician_signoff: true
+    needs_legal_read: always
+    reason_keys: [escalation.x_linked_finding]
+    when:
+      - {kind: shared_basis, values: [x_linked_carrier_female, x_linked_affected_male]}
+      - {kind: flag, name: x_linked_finding}
+  - id: pregnancy_in_progress
+    source: "ACMG 2021: a partner's results not available in time is a reason to offer a diagnostic procedure; NHS: chorionic villus sampling from 11 weeks. Options text stays neutral (Federal Decree-Law 49/2023 Art. 11 and 12)."
+    tier: accredited_geneticist
+    due_by_hint: fast_track
+    needs_clinician_signoff: true
+    needs_legal_read: never
+    reason_keys: [escalation.pregnancy_in_progress]
+    when:
+      - {kind: flag, name: pregnancy_in_progress}
+  - id: partner_results_unavailable
+    source: "Partner untested, declining or too slow. ACMG 2021: a partner's results not available in time for reproductive decision making."
+    tier: counsellor
+    due_by_hint: routine
+    needs_clinician_signoff: true
+    needs_legal_read: never
+    reason_keys: [escalation.partner_results_unavailable]
+    when:
+      - {kind: flag, name: partner_results_unavailable}
+  - id: variable_penetrance_gene
+    source: "ACMG 2021: reports should include penetrance and variability in expression and designate well-known mild alleles."
+    tier: accredited_geneticist
+    due_by_hint: routine
+    needs_clinician_signoff: true
+    needs_legal_read: when_non_targeted
+    reason_keys: [escalation.variable_penetrance_gene]
+    when:
+      - {kind: flag, name: variable_penetrance_gene}
+  - id: family_history_recessive
+    source: "ESHG 2016: carrier screening is for people without an a priori increased risk from family history; NSGC 2002: thorough family history with follow-up of significant findings. Not scored; routed to clinical genetics."
+    tier: accredited_geneticist
+    due_by_hint: routine
+    needs_clinician_signoff: true
+    needs_legal_read: never
+    reason_keys: [escalation.family_history_recessive]
+    when:
+      - {kind: flag, name: family_history_recessive}
+  - id: lab_unconfirmed_carrier
+    source: "Rishta Safe authoring note, pending clinical sign-off. A CBC or HPLC work-up can only suggest, never confirm, a haemoglobinopathy carrier state; molecular confirmation goes to the confirming service."
+    tier: counsellor
+    due_by_hint: routine
+    needs_clinician_signoff: true
+    needs_legal_read: never
+    reason_keys: [escalation.lab_unconfirmed_carrier]
+    when:
+      - {kind: flag, name: lab_unconfirmed}
+  - id: result_discordant_with_history
+    source: "ACMG 2021: if family history warrants, consider additional genes and referral. Discordance is defined ONLY from stated history against the test; relatedness, ancestry or paternity inferred from genotype is a lineage result (Federal Decree-Law 49/2023 Art. 9, 33)."
+    tier: accredited_geneticist
+    due_by_hint: routine
+    needs_clinician_signoff: true
+    needs_legal_read: when_genotype_inferred
+    reason_keys: [escalation.result_discordant_with_history]
+    when:
+      - {kind: flag, name: discordant_with_history}
+  - id: reclassification_notice
+    source: "ACMG 2021: reinterpretation is possible and recontact may be important."
+    tier: counsellor
+    due_by_hint: routine
+    needs_clinician_signoff: true
+    needs_legal_read: never
+    reason_keys: [escalation.reclassification_notice]
+    when:
+      - {kind: flag, name: reclassification_notice}
+  - id: genotype_inferred_relatedness
+    source: "Federal Decree-Law 49/2023 Art. 9 and 33. Lineage, ancestry and relatedness results go only to their owner. The product never computes them; if a pipeline reports one it is refused, logged and escalated for a legal read."
+    tier: accredited_geneticist
+    due_by_hint: routine
+    needs_clinician_signoff: true
+    needs_legal_read: always
+    reason_keys: [escalation.genotype_inferred_relatedness]
+    when:
+      - {kind: flag, name: genotype_inferred_relatedness}
+  - id: non_targeted_finding
+    source: "Federal Decree-Law 49/2023 Art. 7(4), 9 and 33; ACMG 2021 on reporting variants of uncertain significance, technically complex loci and variable expression. A non-targeted additional result may not be disclosed without consent (breach is an offence)."
+    tier: accredited_geneticist
+    due_by_hint: routine
+    needs_clinician_signoff: true
+    needs_legal_read: always
+    reason_keys: [escalation.non_targeted_finding]
+    when:
+      - {kind: flag, name: non_targeted_finding}
+  - id: lineage_or_other_result_request
+    source: "A request to learn lineage, ancestry or another person's result is refused and logged (Federal Decree-Law 49/2023 Art. 9, 33) and a counsellor is told."
+    tier: counsellor
+    due_by_hint: routine
+    needs_clinician_signoff: true
+    needs_legal_read: always
+    reason_keys: [escalation.lineage_or_other_result_request]
+    when:
+      - {kind: request_category, values: [lineage_inference, other_person_result]}
+  - id: unanswerable_request
+    source: "Rishta Safe authoring note, pending clinical sign-off (design rule; no guideline text found). A request the product cannot answer safely (marriage decision, termination advice) is refused and a counsellor is told. Federal Decree-Law 49/2023 Art. 7(1): counselling covers potential psychological effects."
+    tier: counsellor
+    due_by_hint: same_session
+    needs_clinician_signoff: true
+    needs_legal_read: never
+    reason_keys: [escalation.unanswerable_request]
+    when:
+      - {kind: request_category, values: [marriage_decision, termination_advice]}
+  - id: user_distress
+    source: "Rishta Safe authoring note, pending clinical sign-off (design rule; no guideline text found). Mackenzie's Mission: higher anxiety after an increased-chance result (PMID 39565987). Deterministic phrase list, EN/AR/UR (AR and UR draft)."
+    tier: counsellor
+    due_by_hint: same_session
+    needs_clinician_signoff: true
+    needs_legal_read: never
+    reason_keys: [escalation.user_distress]
+    when:
+      - {kind: phrase_list, name: distress}
+  - id: crisis_language
+    source: "Rishta Safe authoring note, pending clinical sign-off (design rule). Phrases that may indicate a risk to the person's own life; a human responds first. Deterministic phrase list, EN/AR/UR (AR and UR draft)."
+    tier: counsellor
+    due_by_hint: immediate
+    needs_clinician_signoff: true
+    needs_legal_read: never
+    reason_keys: [escalation.crisis_language]
+    when:
+      - {kind: phrase_list, name: crisis}
+  - id: more_information_needed
+    source: "Rishta Safe authoring note, pending clinical sign-off: couple-level state 3, 'more information is needed': a specialist helps decide the next step."
+    tier: counsellor
+    due_by_hint: routine
+    needs_clinician_signoff: true
+    needs_legal_read: never
+    reason_keys: [escalation.more_information_needed]
+    when:
+      - {kind: result_category, values: [more_information_needed]}
+  - id: rntk_life_threat_override
+    source: "Federal Decree-Law 49/2023 Art. 9: disclosure is compulsory where life or fetal life is threatened, even for a person who recorded a right not to know. The app view stays withheld; an accredited professional makes the statutory disclosure with counselling. Reading flagged for a legal read."
+    tier: accredited_geneticist
+    due_by_hint: fast_track
+    needs_clinician_signoff: true
+    needs_legal_read: always
+    reason_keys: [escalation.rntk_life_threat_override]
+    when:
+      - {kind: flag, name: rntk_with_life_threat}

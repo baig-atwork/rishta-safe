@@ -1,0 +1,141 @@
+# Pathway texts, Arabic. Same keys as pathway.en.yaml.
+# Every outside system label ends with the simulated marker (تجريبي (محاكاة)) in every label.
+# Status: needs_clinician_signoff: true; language_status: draft (no native clinical reader has looked at this wording).
+meta:
+  schema_version: 1
+  locale: ar
+  direction: rtl
+  language_status: draft
+  needs_clinician_signoff: true
+  authoring: "Arabic draft of static text, drafted at authoring time with an LLM assistant. No personal data was given to the assistant. No native clinical reader has reviewed it. No runtime LLM."
+
+notices:
+  simulated: "كل جهة خارجية تظهر في هذه الصفحة هي تجريبية (محاكاة). لا يُحجز شيء ولا يُرسل ولا يُصدر."
+  synthetic: "جميع الأشخاص والنتائج في هذا النموذج الأولي مختلَقة (بيانات اصطناعية)."
+  draft: "هذه التسميات مسودة. وما زال توقيع المسؤول السريري عليها قيد الانتظار."
+  certificate_expired: "انتهت تواريخ الشهادة المعروضة هنا. وسيلزم إصدار شهادة جديدة."
+  certificate_valid_until: "صالحة حتى"
+  preliminary_risk_off: "لم يُطلب تقدير أولي."
+  preliminary_risk_unavailable: "طُلب تقدير أولي، لكن هذه النسخة لا تملك مصدراً له. لا يُعرض شيء."
+  stale_task: "لم يطرأ أي تغيير على هذه المهمة منذ مدة طويلة. وهي معروضة هنا حتى لا تضيع."
+  standard_illustrative: "هذه المدة الزمنية للتوضيح فقط. لا يوجد معيار منشور يحدد مدة."
+
+steps:
+  registered:
+    label: "حجز زيارة فحص"
+    description: "تختاران مركز فحص مرخّصاً وموعداً. في هذا النموذج الأولي الحجز تجريبي (محاكاة) ولا يُحجز شيء."
+  consult_completed:
+    label: "الموافقة وزيارة الطبيب"
+    description: "توقّعان على الاتفاقية وتلتقيان بالطبيب، كل واحد منكما على حدة. يسأل الطبيب عن صحتكما وعن عائلتكما."
+  sample_collected:
+    label: "عيّنة الدم"
+    description: "يسحب شخص مدرَّب الدم في المركز، خلال الزيارة نفسها. وتُرسل العيّنات إلى المختبرات."
+  lab_started:
+    label: "بدء العمل في المختبر"
+    description: "يستلم المختبر العيّنة ويبدأ الفحوصات."
+  joint_report_ready:
+    label: "التقرير المشترك جاهز"
+    description: "يُعدّ تقرير مشترك واحد للزوجين ويُرسل إلى الطبيب. ويستغرق الجزء الجيني وقتاً أطول من بقية الفحوصات."
+  result_communicated:
+    label: "شرح النتيجة"
+    description: "يطلعكما الطبيب على النتيجة. وقد يُتواصل مع كل شريك على حدة."
+  counselling_booked:
+    label: "حجز جلسة الاستشارة"
+    description: "إذا اقتضت النتيجة ذلك، تُحجز جلسة استشارة. ويمكنكما أيضاً أن تقولا: لا، شكراً."
+  counselling_completed:
+    label: "انتهاء الاستشارة"
+    description: "يشرح مختص مدرَّب النتيجة والخيارات المتاحة. ولا يملي عليكما ما تقرران."
+  declaration_signed:
+    label: "توقيع الإقرار"
+    description: "توقّعان على إقرار بأن النتيجة شُرحت لكما."
+  certificate_issued:
+    label: "إصدار الشهادة"
+    description: "يُصدر تقرير الفحص المطلوب لعقد الزواج. وهو صالح لمدة محدودة."
+  judicial_handoff_sent:
+    label: "إرسال التقرير إلى الدائرة القضائية"
+    description: "يُتاح التقرير للدائرة القضائية. وفي هذا النموذج الأولي التسليم تجريبي (محاكاة)."
+  case_closed:
+    label: "إغلاق الملف"
+    description: "انتهت خطوات المتابعة أو جرى الاعتذار عنها، وأُغلق الملف."
+
+events:
+  consult_completed: "تأشير الموافقة وزيارة الطبيب على أنهما تمّتا"
+  sample_collected: "تأشير سحب عيّنة الدم على أنه تمّ"
+  lab_started: "تسجيل أن المختبر قد بدأ العمل"
+  joint_report_ready: "تسجيل أن التقرير المشترك جاهز"
+  result_communicated: "تسجيل أن النتيجة قد شُرحت"
+  counselling_booked: "حجز جلسة استشارة"
+  counselling_missed: "تسجيل جلسة استشارة فائتة"
+  counselling_completed: "تسجيل اكتمال الاستشارة"
+  counselling_declined: "تسجيل أنه جرى الاعتذار عن الاستشارة"
+  referral_rejected: "تسجيل رفض إحالة"
+  partner_declined_to_share: "تسجيل أن أحد الشريكين اختار عدم المشاركة"
+  declaration_signed: "تسجيل الإقرار الموقَّع"
+  certificate_issued: "تسجيل إصدار الشهادة"
+  judicial_handoff_sent: "تسجيل التسليم إلى الدائرة القضائية"
+  case_closed: "إغلاق الملف"
+  brief_generated: "تسجيل إعداد موجز المستشار"
+  confirmatory_test_ordered: "طلب فحص تأكيدي"
+  confirmatory_test_resulted: "تسجيل نتيجة الفحص التأكيدي"
+  specialist_referral_requested: "طلب إحالة إلى أخصائي"
+  specialist_referral_completed: "تسجيل زيارة الأخصائي"
+
+external_systems:
+  licensed_centre: "مركز الفحص المرخّص - تجريبي (محاكاة)"
+  standard_lab: "مختبر الفحوصات الاعتيادية - تجريبي (محاكاة)"
+  genomic_lab: "مختبر الجينوم - تجريبي (محاكاة)"
+  result_feed: "قناة نقل التقارير بين المختبر والطبيب - تجريبي (محاكاة)"
+  certificate_service: "خدمة الشهادة الرقمية - تجريبي (محاكاة)"
+  judicial_department: "تسليم التقرير إلى الدائرة القضائية - تجريبي (محاكاة)"
+  national_genomic_database: "قناة بيانات قاعدة الجينوم الوطنية - تجريبي (محاكاة)"
+
+sla_status:
+  on_time: "في الموعد"
+  at_risk: "معرّضة للتأخر"
+  breached: "متأخرة"
+
+step_status:
+  done: "تمّت"
+  current: "الآن"
+  upcoming: "لاحقاً"
+  not_applicable: "غير مطلوبة"
+  skipped: "تم الاعتذار عنها"
+  blocked: "معلّقة"
+
+task_codes:
+  counselling: "الاستشارة الوراثية"
+  confirmatory_testing: "فحص تأكيدي"
+  specialist_referral: "إحالة إلى أخصائي"
+
+task_status:
+  requested: "مطلوبة"
+  accepted: "مقبولة"
+  in-progress: "قيد التنفيذ"
+  on-hold: "معلّقة"
+  completed: "مكتملة"
+  rejected: "مرفوضة"
+  failed: "تعذّر إكمالها"
+  cancelled: "أُوقفت"
+
+status_reasons:
+  patient_declined: "اختار الشخص عدم المتابعة"
+  no_show: "لم تتم الزيارة"
+  provider_unavailable: "الخدمة غير متاحة"
+  timeout: "لم يصل رد خلال المدة المحددة"
+  wrong_destination: "أُرسلت إلى خدمة غير مناسبة"
+
+family_history:
+  blood_disease_in_family: "حالة دموية في العائلة"
+  thalassaemia_in_family: "الثلاسيميا في العائلة"
+  sickle_cell_disease_in_family: "فقر الدم المنجلي في العائلة"
+  childhood_death_in_family: "طفل في العائلة توفي في سن مبكرة"
+  previous_child_with_inherited_condition: "طفل سابق لديه حالة وراثية"
+  known_carrier_in_family: "قريب معروف أنه حامل للتغيّر الجيني"
+  developmental_or_neurological_condition_in_family: "حالة نمائية أو عصبية في العائلة"
+  hearing_or_vision_loss_in_family: "فقدان السمع أو البصر منذ سن مبكرة في العائلة"
+  none_declared: "لا شيء على حدّ علمي"
+
+id_types:
+  emirates_id: "الهوية الإماراتية (Emirates ID): النوع فقط، ولا يُخزَّن أي رقم"
+  cnic: "بطاقة الهوية الوطنية الباكستانية (CNIC): النوع فقط، ولا يُخزَّن أي رقم"
+  none: "لا توجد وثيقة هوية"

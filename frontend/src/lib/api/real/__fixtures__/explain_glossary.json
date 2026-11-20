@@ -1,0 +1,26 @@
+[
+  {
+    "key": "gene",
+    "term": "gene",
+    "definition": "A gene is a set of instructions in your cells. Genes help the body grow and work. You get one copy of each gene from each parent.",
+    "language_status": "draft",
+    "needs_clinician_signoff": true,
+    "source": "Authored for this prototype from general medical knowledge; no third-party text copied; clinical sign-off pending."
+  },
+  {
+    "key": "variant",
+    "term": "gene change (variant)",
+    "definition": "A variant is a difference in the spelling of a gene. Many variants are harmless. Some change how a gene works.",
+    "language_status": "draft",
+    "needs_clinician_signoff": true,
+    "source": "Authored for this prototype from general medical knowledge; no third-party text copied; clinical sign-off pending."
+  },
+  {
+    "key": "carrier",
+    "term": "carrier",
+    "definition": "A carrier has one changed copy of a gene and one usual copy. For most inherited conditions that need two changed copies, a carrier has no symptoms.",
+    "language_status": "draft",
+    "needs_clinician_signoff": true,
+    "source": "Authored for this prototype from general medical knowledge; no third-party text copied; clinical sign-off pending."
+  }
+]

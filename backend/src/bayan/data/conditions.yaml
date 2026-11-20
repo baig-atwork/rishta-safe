@@ -1,0 +1,331 @@
+# Rishta Safe condition catalogue (lane A: genetics). SYNTHETIC-DATA PROTOTYPE. NOT a clinical resource.
+#
+# STATUS: every row, every severity tier and every frequency here needs clinical sign-off before any use
+# (needs_clinician_signoff: true). The clinical owner is "the clinical lead (sign-off pending)".
+#
+# Rules this file follows (docs/spec/00-architecture-and-scope.md section 2):
+#  - rule 3: a frequency has a `source_id` plus the wording or figures it came from, or it is `illustrative: true`.
+#  - rule 8: no AVDB table, no Jain et al. supplement, no GeneReviews or OMIM text is copied. A handful of
+#    published headline numbers are quoted as facts with their citation; nothing else.
+#  - severity tiers A/B/C are this build's own coarse grouping. No source assigns them, so every tier is
+#    `severity_status: illustrative`. They drive only the staff-only review priority, never what a couple sees.
+#
+# "read_status" on a source says honestly what this build looked at. "re-read" means the build fetched the
+# abstract on 2026-11-20; "as reported" means the figure was taken from the cited source during an earlier authoring
+# round and the primary was not re-opened by this build.
+
+version: "0.1-draft"
+status: draft_pending_clinical_signoff
+needs_clinician_signoff: true
+boundary_note: >-
+  Education and decision support only, never clinical advice. This catalogue describes a demonstration panel on
+  synthetic couples. It is not the Abu Dhabi, Dubai or federal programme gene list.
+
+severity_tier_definitions:
+  A: "Usually serious, starts in infancy or childhood, needs lifelong specialist care or can shorten life (illustrative grouping)."
+  B: "Serious, but the age of onset or the course varies from person to person (illustrative grouping)."
+  C: "Variable, often milder, or shows mainly with triggers or in some carriers (illustrative grouping)."
+
+sources:
+  - id: JAIN-2025
+    title: "Jain et al. Pathogenic variation underlying rare diseases in an Arab population: implications for screening programs. Genetics in Medicine Open 2025 (vol 3, 103446), 1,194 Emirati exomes"
+    year: "2025"
+    url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12397869/"
+    read_status: "abstract and results sentences re-read by this build on 2026-11-20 (Europe PMC full text); supplementary tables not opened and not copied"
+  - id: BELHOUL-2013
+    title: "Belhoul KM, Abdulrahman M, Alraei RF. Hemoglobinopathy carrier prevalence in the United Arab Emirates: first analysis of the Dubai Health Authority premarital screening program results. Hemoglobin 2013;37(4):359-368"
+    year: "2013"
+    url: "https://doi.org/10.3109/03630269.2013.791627"
+    read_status: "6,420 UAE nationals, beta-thalassaemia trait 4.56 percent and Hb S 2.9 percent re-read by this build (Europe PMC abstract, 2026-11-20); Hb D-Punjab, Hb Lepore and Hb E counts taken from the same abstract in an earlier authoring round, not re-verified by this build"
+  - id: ABDULRAZZAQ-1999
+    title: "Abdulrazzaq YM et al. Diversity in expression of glucose-6-phosphate dehydrogenase deficiency in females. Clinical Genetics 1999;55(1):13-19 (8,198 newborns, Tawam Hospital, 1994-1996)"
+    year: "1999"
+    url: "https://doi.org/10.1034/j.1399-0004.1999.550103.x"
+    read_status: "abstract summary re-read by this build on 2026-11-20 (Europe PMC); newborn cohort of one hospital, not national"
+  - id: EL-KALLA-1998
+    title: "El-Kalla S, Baysal E. alpha-Thalassemia in the United Arab Emirates. Acta Haematologica 1998 (418 UAE-national cord bloods)"
+    year: "1998"
+    url: "https://doi.org/10.1159/000040863"
+    read_status: "abstract read in an earlier authoring round; this build did not re-open it"
+  - id: BAYSAL-2011
+    title: "Baysal E. Alpha-thalassemia syndromes in the United Arab Emirates. Hemoglobin 2011"
+    year: "2011"
+    url: "https://doi.org/10.3109/03630269.2011.634698"
+    read_status: "abstract read in an earlier authoring round; not re-opened by this build"
+  - id: NHS-REFER
+    title: "NHS England. Sickle cell and thalassaemia screening handbook for antenatal laboratories, chapter 'Referral of antenatal samples for molecular analysis' (updated 2024-10-10, Open Government Licence v3.0)"
+    year: "2024"
+    url: "https://www.gov.uk/government/publications/sct-screening-handbook-for-antenatal-laboratories/referral-of-antenatal-samples-for-molecular-analysis"
+    read_status: "primary read in an earlier authoring round; not re-opened by this build"
+  - id: OZEN-2017
+    title: "Ozen S et al. Front Immunol 2017 (PMC5362626), quoted for variable expression in MEFV heterozygotes"
+    year: "2017"
+    url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5362626/"
+    read_status: "quoted in an earlier authoring round; not re-opened by this build"
+  - id: BIZZARI-2023
+    title: "Bizzari et al. Frontiers in Genetics 2023 (Catalogue for Transmission Genetics in Arabs analysis)"
+    year: "2023"
+    url: "https://www.frontiersin.org/journals/genetics/articles/10.3389/fgene.2023.1177204/full"
+    read_status: "summarised in an earlier authoring round; not re-opened by this build"
+  - id: AVDB-2025
+    title: "AVDB (Arab Variome Database) gene-level carrier figures (all rights reserved: numbers are NOT used as sourced values here)"
+    year: "2025"
+    url: "https://avdb-arabgenome.ae/"
+    read_status: "figures relayed in an earlier authoring round; not re-opened by this build; licence is all rights reserved so no table is copied"
+  - id: M42-DOH-2024
+    title: "M42 and DoH poster, Premarital screening and genetic counseling in the UAE enabled by the Emirati Genome Program"
+    year: "2024"
+    url: "https://m42.ae/media/irlib1qa/premarital-screening-enabled-by-the-emirati-genome-program.pdf"
+    read_status: "used only to choose which conditions to include (top genes among positive couples); no number from it is used"
+  - id: ACMG-2021
+    title: "Gregg AR et al. Screening for autosomal recessive and X-linked conditions during pregnancy and preconception: a practice resource of the ACMG. Genet Med 2021 (PMC8488021)"
+    year: "2021"
+    url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC8488021/"
+    read_status: "read through NCBI E-utilities in an earlier authoring round; not re-opened by this build"
+
+locus_groups:
+  - id: HBB
+    gene: HBB
+    compound_condition_id: hbb_compound_haemoglobin_disorder
+    note: >-
+      Different changes in the same HBB gene can pair into a disease state (for example Hb S with beta-thalassaemia).
+      The NHS referral chapter (NHS-REFER) lists these pairings. The engine therefore pairs
+      carriers across conditions inside this group. Which pairings are mild or severe is a specialist read.
+
+conditions:
+  # ---------------- haemoglobinopathies (HBB locus group) ----------------
+  - id: beta_thalassaemia
+    gene: HBB
+    name_en: "Beta-thalassaemia"
+    inheritance: AR
+    severity_tier: A
+    locus_group: HBB
+    couple_matrix: simple
+    carrier_frequency:
+      value: 0.0456
+      kind: carrier_heterozygote
+      illustrative: false
+      source_id: BELHOUL-2013
+      wording: "Dubai premarital screening, 6,420 UAE nationals 2007-2010: beta-thalassaemia trait 4.56 percent (n=293)"
+      wording_verbatim: false
+      basis: "Phenotype count (CBC plus HPLC, 'suspected carriers'), UAE nationals, one emirate, 2007-2010. Not a genotype frequency and not national."
+    notes: >-
+      Two carriers: 25 in 100 pregnancies with the condition, severity depends on the two changes (NHS referral chapter).
+      Confirmation of the parents' changes by DNA is advisable before fetal sampling (NHS referral chapter).
+  - id: sickle_cell_disease
+    gene: HBB
+    name_en: "Sickle cell disease"
+    inheritance: AR
+    severity_tier: A
+    locus_group: HBB
+    couple_matrix: simple
+    carrier_frequency:
+      value: 0.029
+      kind: carrier_heterozygote
+      illustrative: false
+      source_id: BELHOUL-2013
+      wording: "Dubai premarital screening, 6,420 UAE nationals 2007-2010: Hb S (sickle trait) 2.9 percent (n=186)"
+      wording_verbatim: false
+      basis: "Phenotype count (sickle trait), UAE nationals, one emirate, 2007-2010. Not national."
+    notes: "Carrier here means sickle trait. Two carriers: 25 in 100 pregnancies with sickle cell disease."
+  - id: hbb_compound_haemoglobin_disorder
+    gene: HBB
+    name_en: "Compound haemoglobin disorder (two different changes in the HBB gene)"
+    inheritance: AR
+    severity_tier: A
+    locus_group: HBB
+    couple_matrix: simple
+    derived: true
+    carrier_frequency: null
+    notes: >-
+      A derived row. It is how a laboratory reports a person who has two different HBB changes (for example Hb S with a
+      beta-thalassaemia change), and it is the name the engine gives a shared result when two carriers carry different
+      HBB conditions. Severity depends on the exact pair and is a specialist read.
+  - id: hb_variant_other
+    gene: HBB
+    name_en: "Other haemoglobin variants (for example Hb D-Punjab, Hb E, Hb Lepore)"
+    inheritance: AR
+    severity_tier: B
+    locus_group: HBB
+    couple_matrix: specialist_read
+    carrier_frequency:
+      value: 0.0098
+      kind: carrier_heterozygote
+      illustrative: false
+      source_id: BELHOUL-2013
+      wording: "Hb D-Punjab 0.78 percent (n=50), Hb Lepore 0.17 percent (n=11), Hb E 0.03 percent (n=2) of 6,420 UAE nationals"
+      wording_verbatim: false
+      basis: "Sum of three reported counts, (50+11+2)/6,420. Hb C was not reported in the source, so it is not in this figure."
+      derived: true
+      derivation: "(50 + 11 + 2) / 6420 = 0.00981"
+    notes: >-
+      Pairings of these variants range from mild to serious (for example Hb S with Hb D-Punjab is a sickle syndrome, while
+      some other pairings cause little or no illness). The engine therefore never states a result for them: a couple where
+      both carry one gets 'more information needed' and a specialist read (NHS referral chapter).
+  - id: alpha_thalassaemia_alpha0
+    gene: HBA1/HBA2
+    name_en: "Alpha-thalassaemia (alpha-zero carrier state)"
+    inheritance: AR
+    severity_tier: A
+    couple_matrix: simple
+    carrier_frequency:
+      value: 0.01
+      kind: carrier_heterozygote
+      illustrative: true
+      basis: "No UAE alpha-zero carrier frequency was found. The cited UAE figure (49 percent of 418 cord bloods with an alpha-globin gene defect, El-Kalla 1998) is dominated by alpha-plus and is not an alpha-zero frequency."
+      note: "49 percent alpha-globin gene defect in 418 UAE-national cord bloods (EL-KALLA-1998) is context only, not this value."
+    notes: >-
+      Two alpha-zero carriers: 25 in 100 pregnancies with Hb Bart's hydrops fetalis, with obstetric complications for the
+      mother (NHS referral chapter). Alpha-plus carrier pairs are not a shared
+      result here (the same table gives deletional alpha-plus pairs no expected effect on the fetus; non-deletional alpha changes
+      are frequent in the UAE (BAYSAL-2011) and need DNA). The alpha-globin locus is technically complex to assess (ACMG 2021).
+  - id: hb_h_disease
+    gene: HBA1/HBA2
+    name_en: "Haemoglobin H disease (alpha-thalassaemia)"
+    inheritance: AR
+    severity_tier: B
+    couple_matrix: specialist_read
+    carrier_frequency:
+      value: 0.005
+      kind: carrier_heterozygote
+      illustrative: true
+      basis: "No UAE population frequency for the HbH-disease genotype was found; illustrative placeholder."
+    notes: >-
+      Hb H disease arises from several alpha-gene combinations (alpha-zero with alpha-plus, or non-deletional changes).
+      The simple 25/50/25 table does not describe it, so any couple involving it goes to a specialist read.
+
+  # ---------------- other autosomal recessive conditions ----------------
+  - id: cystic_fibrosis
+    gene: CFTR
+    name_en: "Cystic fibrosis"
+    inheritance: AR
+    severity_tier: A
+    couple_matrix: simple
+    carrier_frequency:
+      value: 0.0068
+      kind: carrier_heterozygote
+      illustrative: false
+      source_id: JAIN-2025
+      wording: "the CFTR gene (Figure 3), had relatively low allele and gene frequencies of 0.08% and 0.34%, respectively"
+      wording_verbatim: true
+      basis: "Gene-level frequency q = 0.34 percent in 1,194 Emirati exomes (a clinical-referral cohort), carrier frequency derived by 2q(1-q)."
+      derived: true
+      derivation: "2 * 0.0034 * (1 - 0.0034) = 0.00678"
+    notes: "Cystic fibrosis is one of the three conditions reported in at least 30 unrelated Emirati families in the CTGA analysis (BIZZARI-2023)."
+  - id: congenital_adrenal_hyperplasia
+    gene: CYP21A2
+    name_en: "Congenital adrenal hyperplasia (21-hydroxylase deficiency)"
+    inheritance: AR
+    severity_tier: B
+    couple_matrix: simple
+    carrier_frequency:
+      value: 0.106
+      kind: carrier_heterozygote
+      illustrative: false
+      source_id: JAIN-2025
+      wording: "The CYP21A2 gene (HGNC:2600) showed the highest carrier rate (10.6%) followed by HBB (HGNC:4827) (9.6%)"
+      wording_verbatim: true
+      basis: "Gene-level carrier rate in 1,194 Emirati exomes (a clinical-referral cohort; Jain et al. call related estimates likely upper bounds)."
+    notes: "Severity ranges from severe classic forms to mild non-classic forms, so the tier is a coarse placeholder."
+  - id: familial_mediterranean_fever
+    gene: MEFV
+    name_en: "Familial Mediterranean fever"
+    inheritance: AR
+    severity_tier: C
+    couple_matrix: simple
+    carrier_frequency:
+      value: 0.059
+      kind: carrier_heterozygote
+      illustrative: false
+      source_id: JAIN-2025
+      wording: "MEFV (HGNC:6998) (5.9%), and ABCA4 (HGNC:34) (4.3%)"
+      wording_verbatim: true
+      basis: "Gene-level carrier rate in 1,194 Emirati exomes (a clinical-referral cohort)."
+    notes: >-
+      Variable expression: Ozen 2017 states that 'a significant proportion of heterozygotes also express the
+      phenotype' (OZEN-2017), so a carrier is not always unaffected. Illustrative tier C for that reason.
+  - id: usher_syndrome_type_2a
+    gene: USH2A
+    name_en: "Usher syndrome type 2A"
+    inheritance: AR
+    severity_tier: B
+    couple_matrix: simple
+    carrier_frequency:
+      value: 0.011
+      kind: carrier_heterozygote
+      illustrative: true
+      basis: "About 1.1 percent carriers is the figure relayed for AVDB (AVDB-2025). AVDB is all rights reserved and the primary was not re-opened, and the Jain et al. abstract does not report USH2A, so the value is used as illustrative only."
+    notes: "Usher syndrome type 2A is among the leading findings in positive couples in the M42 and DoH poster (M42-DOH-2024); chosen for inclusion on that basis only."
+  - id: stargardt_disease
+    gene: ABCA4
+    name_en: "Stargardt disease"
+    inheritance: AR
+    severity_tier: B
+    couple_matrix: simple
+    carrier_frequency:
+      value: 0.043
+      kind: carrier_heterozygote
+      illustrative: false
+      source_id: JAIN-2025
+      wording: "several genes with high carrier rates in Emiratis, including ABCA4 (carrier rate = 4.3%)"
+      wording_verbatim: true
+      basis: "Gene-level carrier rate in 1,194 Emirati exomes (a clinical-referral cohort)."
+    notes: "Stargardt disease is listed among conditions reported in Emirati families in the CTGA analysis (BIZZARI-2023). Onset and course vary."
+  - id: eys_retinal_dystrophy
+    gene: EYS
+    name_en: "EYS-related retinal dystrophy"
+    inheritance: AR
+    severity_tier: B
+    couple_matrix: simple
+    carrier_frequency:
+      value: 0.013
+      kind: carrier_heterozygote
+      illustrative: true
+      basis: "About 1.3 percent carriers is the figure relayed for AVDB (AVDB-2025); not re-opened and not re-licensed, so illustrative only."
+    notes: "EYS is among the top genes in positive couples in the M42 and DoH poster (M42-DOH-2024); included on that basis only."
+  - id: cyp1b1_anterior_segment_dysgenesis
+    gene: CYP1B1
+    name_en: "CYP1B1-related eye development condition (for example primary congenital glaucoma)"
+    inheritance: AR
+    severity_tier: B
+    couple_matrix: simple
+    carrier_frequency:
+      value: 0.01
+      kind: carrier_heterozygote
+      illustrative: true
+      basis: "No carrier frequency for CYP1B1 was found in the sources read; the value is a round illustrative placeholder."
+    notes: "CYP1B1 and anterior segment dysgenesis appear among the leading findings in the M42 and DoH poster (M42-DOH-2024); included on that basis only."
+
+  # ---------------- X-linked ----------------
+  - id: g6pd_deficiency
+    gene: G6PD
+    name_en: "G6PD deficiency"
+    inheritance: XL
+    severity_tier: C
+    couple_matrix: simple
+    carrier_frequency:
+      value: 0.15
+      kind: x_male_hemizygous
+      illustrative: false
+      source_id: ABDULRAZZAQ-1999
+      wording: "Of 8198 infants, 746 (9.1%), comprising 15% of males and 5% of females tested, were found to be G6PD deficient."
+      wording_verbatim: false
+      basis: "Share of male newborns found deficient (Tawam Hospital, Al Ain, 1994-1996), used as the variant allele frequency among males. One hospital, three decades old, not national; a later 20-hospital newborn screen reports a lower overall figure (Rishta Safe authoring note, pending clinical sign-off)."
+    notes: >-
+      X-linked: the value is the share of males affected, not a heterozygote carrier frequency. Female carriers can show
+      symptoms because of skewed X inactivation (ACMG 2021). Many deficient people have no symptoms unless triggered.
+
+  # ---------------- autosomal dominant: documented as out of the couple-level matrix ----------------
+  - id: neurofibromatosis_type_1
+    gene: NF1
+    name_en: "Neurofibromatosis type 1"
+    inheritance: AD
+    severity_tier: B
+    couple_matrix: out_of_scope
+    carrier_frequency: null
+    notes: >-
+      Autosomal dominant conditions have no couple-level carrier matrix, so the engine never builds a shared result
+      for them. A dominant finding in a recessive-carrier panel is a non-targeted finding and is not surfaced without
+      consent (Federal Decree-Law 49/2023 Art. 9 and 33; Rishta Safe authoring note, pending clinical sign-off). The
+      CTGA analysis lists neurofibromatosis type 1 among dominant conditions seen in Emirati families (BIZZARI-2023).
+      Present in the catalogue only to document the exclusion; it is on no panel.

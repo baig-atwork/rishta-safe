@@ -1,0 +1,931 @@
+# Rishta Safe haematology-aid rule table (lane A: haem). DRAFT. SYNTHETIC-DATA PROTOTYPE.
+#
+# STATUS: every rule needs clinician sign-off before any use (needs_clinician_signoff: true on every rule). Nothing
+# here is a clinical recommendation, a diagnosis or clinical advice. The clinical owner is "the clinical lead
+# (sign-off pending)".
+#
+# Derived from research/ch03/01-rules-draft.yaml (2026-11-15): same rules, sources, locators and fixtures. This file adds
+# only (a) the `label` fields that map each rule to the closed vocabulary `HaemLabel` in bayan.core.contracts (three
+# CBC-only labels, eight CBC-plus-HPLC labels), (b) clinician-facing `label_descriptions`, and (c) `expect_label` on each
+# fixture. The draft's own output names are kept in `output` and shown in the rule trace.
+#
+# Design stance (evidence: the NHS, BSH and ACMG sources cited per rule below):
+#  - A CBC alone can only say "indices reduced", "indices not flagged" or "incomplete". It can NEVER say carrier,
+#    not-a-carrier, normal or disease. The loader refuses any other CBC-only label.
+#  - Discriminant indices (Mentzer, Shine-Lal, England-Fraser, Srivastava, Green-King, RDW index) are deliberately NOT rules.
+#  - No numeric ferritin cut-off is written: the engine takes the reporting laboratory's own low / not-low flag.
+#  - Evaluation order: the first matching terminal rule wins; annotate rules add flags and never change the label.
+#  - Label split decided by this build (needs sign-off): rules S2-R09 and S2-R10 give pattern_suggests_alpha_thal_trait
+#    unless the laboratory flags low ferritin, in which case pattern_suggests_iron_deficiency_first.
+#  - Validity rules (validity: true) mark a record as out of scope or unreadable. When one decides the label, no clinical
+#    annotate flags are emitted (a deviation from the draft, ADR 0104): an out-of-scope record must not carry, for
+#    example, an alpha-thalassaemia flag computed with adult cut-offs.
+#  - The label pattern_suggests_possible_compound_or_affected is reserved and has NO rule: no guideline read supports an
+#    automated disease-state output.
+#
+# The 20 fixtures were written by the same author as the rules. They show internal consistency only.
+
+meta:
+  version: 0.1-draft
+  status: draft_pending_clinical_signoff
+  derived_from: 'research/ch03/01-rules-draft.yaml (2026-11-15, 24 rules, 20 fixtures): same structure, sources and fixtures; this file only adds the closed-vocabulary labels of bayan.core.contracts.HaemLabel'
+  date: '2026-11-20'
+  all_fixtures_synthetic: true
+  needs_clinician_signoff_default: true
+  population_caveat: The NHS and BSH rules were written for antenatal screening in England (high and low prevalence areas). Their use for non-pregnant premarital adults in the UAE is an extrapolation that the clinician must accept or reject explicitly.
+  licence_note: Thresholds are facts cited to their sources; no source text is reproduced beyond short quotations. NHS England handbook is Open Government Licence v3.0. SITE 2022 is CC BY 4.0. BSH 2023, TIF booklet and Oman guideline licences were not checked for reuse; cite, do not copy.
+  not_a_diagnosis: This is a screening-support pattern for a clinician. It is not a diagnosis and not clinical advice. A CBC alone can never show whether someone carries a change; confirmation and interpretation belong to an accredited laboratory and a qualified clinician.
+  prior_art_note: 'Prior art: other public tools already interpret laboratory values (haemoglobin, MCV, MCH, HbA2, HbF, ferritin, G6PD) with named sources. This aid is not claimed as new; it is a closed-vocabulary, rule-traced aid in which every rule is gated on clinical sign-off.'
+  fixture_authorship_note: The fixtures were written by the same author as the rules (a research agent), so they show internal consistency only, never clinical validity.
+sources:
+  NHS-INTERP:
+    title: NHS England. Sickle cell and thalassaemia screening handbook for antenatal laboratories, 5th ed., chapter 'Interpretation and reporting of antenatal screening results'
+    year: updated 2024-10-10
+    url: https://www.gov.uk/government/publications/sct-screening-handbook-for-antenatal-laboratories/interpretation-and-reporting-of-antenatal-screening-results
+    tier: P
+  NHS-ANTE:
+    title: NHS England. Same handbook, chapter 'Antenatal screening' (sections 6.4 action values, 8 HbA2 problems, 9 iron deficiency, 10-11 alpha-zero, 12 risk assessment)
+    year: updated 2024-10-10
+    url: https://www.gov.uk/government/publications/sct-screening-handbook-for-antenatal-laboratories/antenatal-screening
+    tier: P
+  NHS-REFER:
+    title: NHS England. Same handbook, chapter 'Referral of antenatal samples for molecular analysis'
+    year: updated 2024-10-10
+    url: https://www.gov.uk/government/publications/sct-screening-handbook-for-antenatal-laboratories/referral-of-antenatal-samples-for-molecular-analysis
+    tier: P
+  BSH-2023:
+    title: 'Bain BJ et al. Significant haemoglobinopathies: a guideline for screening and diagnosis. Br J Haematol 2023;201:1047-1065'
+    year: 2023
+    url: https://doi.org/10.1111/bjh.18794
+    read_from: https://b-s-h.org.uk/media/dkrlxdg2/2023-04-19-significant-haemoglobinopathies-a-guideline-for-screening-and-diagnosis.pdf
+    tier: P
+  TIF-OLD:
+    title: 'Old J. Prevention and diagnosis of haemoglobinopathies: a short guide for health professionals and laboratory scientists. Thalassaemia International Federation (publication no. 21; year not printed in the file)'
+    year: not stated (URL path 2019/11)
+    url: https://www.thalassaemia.org.cy/wp-content/uploads/2019/11/Preventiondiagnosis-of-Hbpathies_BOOKLETNEW-1.pdf
+    tier: P
+  SITE-2022:
+    title: 'Mandrile G et al. First and second level haemoglobinopathies diagnosis: best practices of the Italian Society of Thalassemia and Haemoglobinopathies (SITE). J Clin Med 2022;11(18):5426'
+    year: 2022
+    url: https://doi.org/10.3390/jcm11185426
+    licence: CC BY 4.0
+    tier: P
+  NONE-VALIDATION:
+    title: Input validation; not a clinical rule
+    tier: none
+inputs:
+  age_years:
+    type: number
+    required: true
+  sex:
+    type: enum
+    values:
+    - F
+    - M
+    - unknown
+    note: No source read gives a sex-specific MCV, MCH or HbA2 cut-off; field kept for audit and for reference-range display only.
+  pregnant:
+    type: enum
+    values:
+    - true
+    - false
+    - unknown
+  transfused_last_4_months:
+    type: enum
+    values:
+    - true
+    - false
+    - unknown
+    note: BSH-2023 p.16 says repeat after 4 months; SITE-2022 says 3 months; the stricter 4 months is used.
+  hb_g_per_l:
+    type: number
+    required: true
+    note: NHS uses g/L.
+  mcv_fl:
+    type: number
+    required: true
+  mch_pg:
+    type: number
+    required: true
+  ferritin_status:
+    type: enum
+    values:
+    - low
+    - not_low
+    - not_measured
+    note: As flagged by the reporting laboratory. No numeric cut-off is written because no source read gives one.
+  hba2_pct:
+    type: number
+    required_for_stage: S2
+    note: Must be TOTAL HbA2 including any HbA2 variant peak (NHS-INTERP 1.10). The caller attests this in hba2_is_total.
+  hba2_is_total:
+    type: boolean
+    required_for_stage: S2
+  hbf_pct:
+    type: number
+    required_for_stage: S2
+  variant_detected:
+    type: enum
+    values:
+    - none
+    - S
+    - C
+    - D
+    - E
+    - OArab
+    - Lepore
+    - other_or_unknown
+    required_for_stage: S2
+  single_hba_band_only:
+    type: boolean
+    required_for_stage: S2
+    note: NHS scenarios 1-11 apply only when a single major peak is in the HbA position.
+  alpha0_origin_both_high_or_unknown:
+    type: boolean
+    note: 'NHS-ANTE 11.2: both biological parents of high-risk family origin or unknown. The NHS high-risk list is East and South-East Asian plus East Mediterranean; the UAE is NOT on it, although NHS-ANTE 10.3 reports the --MED allele in the UAE at low frequency. Clinician must decide how to set this for Emirati couples.'
+policy_parameters:
+  screening_policy:
+    values:
+    - complete
+    - primary
+    default: complete
+    evidence: TIF-OLD PDF p.21 recommends complete screening (indices + Hb pattern + HbA2 in everyone) where alpha- and beta-thalassaemia are both common. Dubai premarital (Belhoul 2013) and Oman (2018) run CBC plus HPLC on every client. Primary (index-gated) screening is the NHS low-prevalence model and misses HbS/C/D/E outside risk origins (NHS-ANTE 12).
+  mch_cutoff_pg:
+    default: 27
+    sources:
+    - NHS-INTERP s1.1
+    - BSH-2023 p.4
+    - TIF-OLD p.24
+    - SITE-2022 Recommendations
+  mcv_cutoff_fl:
+    default: 80
+    alternatives:
+      NHS: not used
+      TIF-text: 79
+      TIF-flowchart: 78
+      SITE: 80
+      BSH: not used (MCH preferred)
+    note: Sources disagree. The OR-leg on MCV is supported by TIF-OLD p.21 ('reduced MCV and/or MCH'). Clinician to confirm the value.
+policy_parameters_note: Documentation of where sources disagree. These values are written into the rule conditions below; they are not yet separately configurable (ADR 0104).
+labels:
+  cbc_only:
+  - indices_reduced
+  - indices_not_flagged
+  - cbc_incomplete
+  cbc_plus_hplc:
+  - pattern_suggests_beta_thal_trait
+  - pattern_suggests_alpha_thal_trait
+  - pattern_suggests_hb_variant_trait
+  - pattern_suggests_iron_deficiency_first
+  - pattern_suggests_possible_compound_or_affected
+  - pattern_unclear_refer_for_molecular
+  - no_pattern_flagged_on_this_work_up
+  - work_up_incomplete
+label_descriptions:
+  indices_reduced: Red-cell indices are reduced (MCH or MCV below the screening cut-off). Haemoglobin analysis and iron status are needed next. A CBC cannot say what the cause is.
+  indices_not_flagged: Indices are not flagged by this screen. This does not exclude a carrier state (for example HbS, HbC, HbD or HbE traits, silent or mild beta-thalassaemia, alpha-plus, double heterozygotes). Haemoglobin analysis is still needed.
+  cbc_incomplete: The CBC stage cannot be interpreted (missing input, out-of-scope age, transfusion history, or very low haemoglobin). A clinician reviews.
+  pattern_suggests_beta_thal_trait: With haemoglobin analysis, the pattern is consistent with a beta-thalassaemia trait. Partner testing, counselling and confirmation of the change are needed. Not a diagnosis.
+  pattern_suggests_alpha_thal_trait: With haemoglobin analysis, the pattern may be consistent with an alpha-thalassaemia trait (alpha-zero possible). DNA analysis is the only way to tell the alpha types apart; iron deficiency can look similar. Not a diagnosis.
+  pattern_suggests_hb_variant_trait: A haemoglobin variant is present on the analysis. A specific confirmatory test is required before any statement about which variant. Not a diagnosis.
+  pattern_suggests_iron_deficiency_first: The pattern could be alpha-thalassaemia or iron deficiency, and the laboratory flags low ferritin. Sources disagree on whether to treat iron and repeat or to proceed to DNA; a clinician decides. Not a diagnosis.
+  pattern_suggests_possible_compound_or_affected: 'Reserved: the pattern could indicate a compound or affected state. No automated rule produces this label; compound states need indices, HbA2 and often DNA together, and a clinician decides.'
+  pattern_unclear_refer_for_molecular: The pattern is unclear or needs DNA to separate possibilities (for example delta-beta thalassaemia versus HPFH, very high HbA2, borderline HbA2). Refer for molecular analysis or clinician review.
+  no_pattern_flagged_on_this_work_up: No significant pattern at the action values on this work-up. This does not exclude silent or near-silent beta-thalassaemia, alpha-plus or other conditions listed in the sources.
+  work_up_incomplete: The haemoglobin work-up cannot be interpreted (missing or invalid input, transfusion history, out-of-scope age). A clinician reviews.
+forbidden_outputs_unless_a_cited_guideline_allows:
+- carrier
+- not_a_carrier
+- normal
+- negative
+- disease
+- affected
+- thalassaemia_trait
+- iron_deficiency_anaemia
+- sickle_cell_trait
+forbidden_outputs_note: 'No guideline read allows any of these from a CBC alone. At S2 the NHS handbook itself says "risk in the pregnancy associated with ...", and requires DNA analysis for alpha-zero thalassaemia and confirmation of mutations before prenatal diagnosis. Disease-state (affected) classification has no rule here: no guideline read supports an automated disease-state output, and compound states (HbS/beta-thal vs HbSS) need indices, HbA2 and often DNA together (NHS-INTERP s4).'
+rules:
+- id: V01
+  stage: ALL
+  type: terminal
+  inputs:
+  - age_years
+  - hb_g_per_l
+  - mcv_fl
+  - mch_pg
+  condition: age_years is None or hb_g_per_l is None or mcv_fl is None or mch_pg is None
+  output: INCONCLUSIVE__CLINICIAN_REVIEW
+  reason: missing_required_input
+  source:
+    id: NONE-VALIDATION
+    locator: input validation
+  needs_clinician_signoff: true
+  validity: true
+  label_s1: cbc_incomplete
+  label_s2: work_up_incomplete
+- id: V02
+  stage: ALL
+  type: terminal
+  inputs:
+  - age_years
+  condition: age_years < 16
+  output: INCONCLUSIVE__CLINICIAN_REVIEW
+  reason: paediatric_reference_values_required
+  source:
+    id: SITE-2022
+    locator: 'first-level tests Recommendations: ''age-related normal values should be considered in subjects <16 years'' (Table 2, Figure 1)'
+  needs_clinician_signoff: true
+  validity: true
+  label_s1: cbc_incomplete
+  label_s2: work_up_incomplete
+- id: V03
+  stage: ALL
+  type: terminal
+  inputs:
+  - transfused_last_4_months
+  condition: transfused_last_4_months is not False
+  output: INCONCLUSIVE__CLINICIAN_REVIEW
+  reason: transfusion_or_unknown_transfusion_history
+  source:
+    id: BSH-2023
+    locator: 'PDF p.16, ''Recent blood transfusion'': repeat testing after 4 months; NHS-INTERP preamble requires a universal transfusion footnote; SITE-2022 says 3 months'
+  needs_clinician_signoff: true
+  validity: true
+  label_s1: cbc_incomplete
+  label_s2: work_up_incomplete
+- id: V04
+  stage: S1
+  type: terminal
+  inputs:
+  - hb_g_per_l
+  condition: hb_g_per_l < 80
+  output: INCONCLUSIVE__CLINICIAN_REVIEW
+  reason: hb_below_80_g_per_l_case_by_case
+  source:
+    id: NHS-INTERP
+    locator: 'preamble: ''Laboratories should treat haemoglobin values of less than 80g/L with caution.'''
+  needs_clinician_signoff: true
+  validity: true
+  label_s1: cbc_incomplete
+  label_s2: work_up_incomplete
+- id: S1-A01
+  stage: S1
+  type: annotate
+  inputs:
+  - mch_pg
+  condition: mch_pg < 25
+  flag: ALPHA_THAL_POSSIBLE_CBC_CANNOT_SEPARATE_FROM_IRON_DEFICIENCY
+  source:
+    id: NHS-ANTE
+    locator: 's11.2 and s11.4: 99% of alpha-zero cases have MCH <25 pg; BSH-2023 PDF p.4 ''If the MCH is <25 pg ... alpha-zero'''
+  needs_clinician_signoff: true
+- id: S1-A02
+  stage: ALL
+  type: annotate
+  inputs:
+  - pregnant
+  condition: pregnant is True
+  flag: DO_NOT_DELAY_HB_ANALYSIS_FOR_IRON_TREATMENT
+  source:
+    id: NHS-ANTE
+    locator: s9 Iron deficiency; BSH-2023 PDF p.12 'no justification for delaying ... in pregnant women'
+  needs_clinician_signoff: true
+- id: S1-A03
+  stage: ALL
+  type: annotate
+  inputs:
+  - pregnant
+  - ferritin_status
+  condition: pregnant is not True and ferritin_status == 'low'
+  flag: NON_PREGNANT_IRON_DEFICIENT__SOURCES_SAY_TREAT_AND_REPEAT_BUT_DISAGREE_ON_PREGNANCY
+  source:
+    id: BSH-2023
+    locator: 'PDF p.12: ''Outside of pregnancy, anaemia should be treated and the haemoglobin analysis repeated when the patient is iron replete'' (severe IDA Hb <80 g/L); SITE-2022 and TIF-OLD p.29 similar'
+  needs_clinician_signoff: true
+- id: S1-R01
+  stage: S1
+  type: terminal
+  inputs:
+  - mch_pg
+  - mcv_fl
+  condition: mch_pg < 27 or mcv_fl < 80
+  output: S1_SCREEN_POSITIVE__HB_ANALYSIS_AND_IRON_STATUS_NEEDED
+  source:
+    id: NHS-INTERP
+    locator: s1.1 Scenario 0 (MCH <27 pg -> HPLC or CE); TIF-OLD PDF p.21 and p.24 (MCV and/or MCH); SITE-2022 Recommendations (MCV <80 fL and MCH <27 pg in adults)
+  sources_disagree: 'MCV leg: NHS not used; TIF 79 (text) or 78 (flowchart); SITE 80.'
+  needs_clinician_signoff: true
+  label: indices_reduced
+- id: S1-R02
+  stage: S1
+  type: terminal
+  inputs:
+  - mch_pg
+  - mcv_fl
+  condition: mch_pg >= 27 and mcv_fl >= 80
+  output: S1_SCREEN_NOT_FLAGGED__DOES_NOT_EXCLUDE_CARRIER_STATE
+  mandatory_statement: Normal red-cell indices do not exclude a carrier state (HbS, HbC, HbD, HbE traits; silent or mild beta-thalassaemia; alpha-plus; double heterozygotes). Hb analysis is still required under the complete-screening policy.
+  source:
+    id: NHS-ANTE
+    locator: s12 'Conditions that may be missed' (silent beta carriers, beta carriers with raised MCH, delta-beta with HbF <=5%) and low-prevalence list 'Hb S, C, DPunjab, E, OArab outside the defined at-risk family origins'; TIF-OLD PDF p.24 'Carriers for both alpha- and beta-thalassaemia may have normal MCV and MCH values'
+  needs_clinician_signoff: true
+  label: indices_not_flagged
+- id: S2-V01
+  stage: S2
+  type: terminal
+  inputs:
+  - hba2_pct
+  - hba2_is_total
+  - hbf_pct
+  - variant_detected
+  - single_hba_band_only
+  condition: hba2_pct is None or hbf_pct is None or hba2_is_total is not True or variant_detected is None or single_hba_band_only is None
+  output: INCONCLUSIVE__CLINICIAN_REVIEW
+  reason: hb_analysis_inputs_incomplete_or_hba2_not_total
+  source:
+    id: NHS-INTERP
+    locator: 's1.10 Scenario 8: HbA2 must be the total including any HbA2 variant peak'
+  needs_clinician_signoff: true
+  validity: true
+  label: work_up_incomplete
+- id: S2-R00
+  stage: S2
+  type: terminal
+  inputs:
+  - variant_detected
+  - single_hba_band_only
+  condition: variant_detected != 'none' or single_hba_band_only is False
+  output: S2_HB_VARIANT_PRESENT__CONFIRMATORY_TESTING_REQUIRED
+  note: Relative proportions (NHS-INTERP s2.1-2.4), HbS confirmation by a validated specific HbS test (s1.14), and co-existing beta-thal (s4) are clinician or scientist decisions; no automated sub-classification is written.
+  source:
+    id: NHS-INTERP
+    locator: s1.14, s2, s3, s4
+  needs_clinician_signoff: true
+  label: pattern_suggests_hb_variant_trait
+- id: S2-R01
+  stage: S2
+  type: terminal
+  inputs:
+  - hba2_pct
+  condition: hba2_pct >= 8.0
+  output: S2_HBA2_VERY_HIGH__ALTERNATE_TECHNIQUE_REQUIRED
+  source:
+    id: NHS-INTERP
+    locator: 's1.4 Scenario 2 and s1.6 Scenario 4: HbA2 >=8.0% -> check for other variants by an alternate technique, particularly Hb Lepore'
+  needs_clinician_signoff: true
+  label: pattern_unclear_refer_for_molecular
+- id: S2-R02
+  stage: S2
+  type: terminal
+  inputs:
+  - mch_pg
+  - hba2_pct
+  condition: mch_pg >= 27 and 4.0 <= hba2_pct < 8.0
+  output: S2_PATTERN_BETA_THAL_RISK__PARTNER_TESTING_AND_COUNSELLING
+  source:
+    id: NHS-INTERP
+    locator: s1.4 Scenario 2 (report format 4b)
+  needs_clinician_signoff: true
+  label: pattern_suggests_beta_thal_trait
+- id: S2-R03
+  stage: S2
+  type: terminal
+  inputs:
+  - mch_pg
+  - hba2_pct
+  condition: mch_pg < 27 and 4.0 <= hba2_pct < 8.0
+  output: S2_PATTERN_BETA_THAL_RISK__PARTNER_TESTING_AND_COUNSELLING
+  source:
+    id: NHS-INTERP
+    locator: s1.6 Scenario 4 (report format 4a)
+  needs_clinician_signoff: true
+  label: pattern_suggests_beta_thal_trait
+- id: S2-R04
+  stage: S2
+  type: terminal
+  inputs:
+  - mch_pg
+  - hba2_pct
+  condition: mch_pg < 27 and 3.5 <= hba2_pct < 4.0
+  output: S2_PATTERN_BETA_THAL_RISK__PARTNER_TESTING_AND_COUNSELLING
+  source:
+    id: NHS-INTERP
+    locator: 's1.7 Scenario 5 (format 4b); BSH-2023 PDF p.4: ''HbA2 of 3.5% in the presence of MCH <27 pg indicates heterozygosity for beta thalassaemia'''
+  needs_clinician_signoff: true
+  label: pattern_suggests_beta_thal_trait
+- id: S2-R05
+  stage: S2
+  type: terminal
+  inputs:
+  - mch_pg
+  - hb_g_per_l
+  - hba2_pct
+  condition: mch_pg < 27 and hb_g_per_l < 80 and 3.0 <= hba2_pct < 4.0
+  output: S2_PATTERN_BETA_THAL_RISK__PARTNER_TESTING_AND_COUNSELLING
+  flag: HB_BELOW_80_REVIEW_CASE_BY_CASE
+  note: Must be evaluated before the generic Hb <80 rule at S2. Covers beta-thal carriers whose HbA2 is lowered by severe iron deficiency.
+  source:
+    id: NHS-INTERP
+    locator: s1.8 Scenario 6 (format 4b); BSH-2023 PDF p.12 severe IDA can lower HbA2 by up to 0.5%
+  needs_clinician_signoff: true
+  label: pattern_suggests_beta_thal_trait
+- id: S2-R06
+  stage: S2
+  type: terminal
+  inputs:
+  - mch_pg
+  - hba2_pct
+  - hbf_pct
+  - hb_g_per_l
+  condition: mch_pg >= 27 and hba2_pct < 3.5 and hbf_pct >= 10 and hb_g_per_l >= 80
+  output: S2_PATTERN_DELTA_BETA_THAL_OR_HPFH_RISK__DNA_TO_DISTINGUISH
+  source:
+    id: NHS-INTERP
+    locator: 's1.5 Scenario 3 (format 5a, HPFH); NHS-REFER s2 and TIF-OLD PDF p.21: only DNA analysis distinguishes HPFH from delta-beta'
+  needs_clinician_signoff: true
+  label: pattern_unclear_refer_for_molecular
+- id: S2-R07
+  stage: S2
+  type: terminal
+  inputs:
+  - mch_pg
+  - hba2_pct
+  - hbf_pct
+  condition: mch_pg < 27 and hba2_pct < 3.5 and hbf_pct >= 5.0
+  output: S2_PATTERN_DELTA_BETA_THAL_OR_HPFH_RISK__DNA_TO_DISTINGUISH
+  source:
+    id: NHS-INTERP
+    locator: s1.9 Scenario 7 (format 5b, delta-beta)
+  needs_clinician_signoff: true
+  label: pattern_unclear_refer_for_molecular
+- id: S2-R08
+  stage: S2
+  type: terminal
+  inputs:
+  - mch_pg
+  - hb_g_per_l
+  - hba2_pct
+  - hbf_pct
+  - alpha0_origin_both_high_or_unknown
+  condition: mch_pg < 25 and hba2_pct < 3.5 and hbf_pct < 5.0 and hb_g_per_l >= 80 and alpha0_origin_both_high_or_unknown is True
+  output: S2_ALPHA0_POSSIBLE__PARTNER_AND_DNA_PATHWAY
+  source:
+    id: NHS-INTERP
+    locator: 's1.12 Scenario 10 (format 6a); NHS-ANTE s11.2: DNA analysis required if both parents at risk of alpha-zero'
+  needs_clinician_signoff: true
+  label: pattern_suggests_alpha_thal_trait
+- id: S2-R09
+  stage: S2
+  type: terminal
+  inputs:
+  - mch_pg
+  - hb_g_per_l
+  - hba2_pct
+  - hbf_pct
+  - alpha0_origin_both_high_or_unknown
+  condition: mch_pg < 25 and hba2_pct < 3.5 and hbf_pct < 5.0 and hb_g_per_l >= 80 and alpha0_origin_both_high_or_unknown is not True
+  output: S2_ALPHA_THAL_OR_IRON_DEFICIENCY_POSSIBLE__NO_BETA_PATTERN
+  source:
+    id: NHS-INTERP
+    locator: s1.13 Scenario 11 (format 7a; HbH disease possible with Hb <80 g/L, format 6b)
+  needs_clinician_signoff: true
+  label: pattern_suggests_alpha_thal_trait
+  label_overrides:
+  - condition: ferritin_status == 'low'
+    label: pattern_suggests_iron_deficiency_first
+- id: S2-R10
+  stage: S2
+  type: terminal
+  inputs:
+  - mch_pg
+  - hb_g_per_l
+  - hba2_pct
+  - hbf_pct
+  condition: 25 <= mch_pg < 27 and hba2_pct < 3.5 and hbf_pct < 5.0 and hb_g_per_l >= 80
+  output: S2_ALPHA_THAL_OR_IRON_DEFICIENCY_POSSIBLE__NO_BETA_PATTERN
+  source:
+    id: NHS-INTERP
+    locator: s1.11 Scenario 9 (format 7b; 'negligible risk to the pregnancy')
+  needs_clinician_signoff: true
+  label: pattern_suggests_alpha_thal_trait
+  label_overrides:
+  - condition: ferritin_status == 'low'
+    label: pattern_suggests_iron_deficiency_first
+- id: S2-R11
+  stage: S2
+  type: terminal
+  inputs:
+  - mch_pg
+  - hba2_pct
+  - hbf_pct
+  condition: mch_pg >= 27 and 3.5 <= hba2_pct < 4.0 and hbf_pct < 10
+  output: S2_BORDERLINE_HBA2__CLINICIAN_REVIEW
+  sources_disagree: 'NHS-ANTE s8: HbA2 <4.0% with normal indices and HbF <10% ''not significant for screening purposes''. TIF-OLD PDF p.25: 3.2-3.8% ''further investigation is required''. BSH-2023 PDF p.12: some mild alleles have HbA2 3.5-4.0%; test the partner.'
+  source:
+    id: NHS-ANTE
+    locator: s8 (paragraph beginning 'HbA2 values less than 4.0%')
+  needs_clinician_signoff: true
+  label: pattern_unclear_refer_for_molecular
+- id: S2-R12
+  stage: S2
+  type: terminal
+  inputs:
+  - mch_pg
+  - hb_g_per_l
+  - hba2_pct
+  - hbf_pct
+  condition: mch_pg >= 27 and hba2_pct < 3.5 and hbf_pct < 10 and hb_g_per_l >= 80
+  output: S2_NO_SIGNIFICANT_PATTERN_AT_ACTION_VALUES__DOES_NOT_EXCLUDE_SILENT_CARRIER
+  mandatory_statement: Silent or near-silent beta-thalassaemia, alpha-plus, and other conditions listed in NHS-ANTE s12 are not excluded.
+  source:
+    id: NHS-INTERP
+    locator: 's1.3 Scenario 1 (format 1: ''negligible risk'' at the action values); NHS-ANTE s12 for what it misses'
+  needs_clinician_signoff: true
+  label: no_pattern_flagged_on_this_work_up
+- id: S2-DEFAULT
+  stage: S2
+  type: terminal
+  inputs: []
+  condition: 'True'
+  output: INCONCLUSIVE__CLINICIAN_REVIEW
+  reason: no_cited_rule_matched
+  source:
+    id: NONE-VALIDATION
+    locator: default when no cited rule matched
+  needs_clinician_signoff: true
+  label: pattern_unclear_refer_for_molecular
+rules_deliberately_left_out:
+- rule: Mentzer, Shine-Lal, England-Fraser, Srivastava, Green-King, RDW-index or any other discriminant formula to label iron deficiency vs thalassaemia trait
+  why: BSH-2023 PDF p.7 says such formulae are 'not likely to be reliable in children or pregnant women or in sick patients ... their use is not recommended'; published sensitivity for the same formula ranges from 66 to 100 percent between studies (report section 2); the best-performing index in a 99-article meta-analysis (M/H ratio) needs a specific analyser output and is still 'not high enough for making a definitive diagnosis' (Hoffmann 2015).
+- rule: Numeric ferritin cut-off for iron deficiency
+  why: NHS, BSH, SITE and TIF say to assess iron status but give no numeric cut-off; WHO ferritin guidance was not read. The engine takes the lab's own flag.
+- rule: Any CBC-only output of carrier, not-a-carrier, normal, or disease
+  why: No guideline read allows it (see output_vocabulary.forbidden_outputs_unless_a_cited_guideline_allows).
+- rule: HbA2 3.0-3.5 percent with normal indices -> silent beta-thal
+  why: TIF-OLD says DNA 'in diagnostic cases'; NHS-ANTE says such cases are missed by design. Clinical decision, not an automated rule.
+- rule: Sex-specific indices or HbA2 cut-offs
+  why: None found in NHS, BSH, TIF or SITE as read.
+- rule: HbS, HbC, HbD, HbE trait proportions (30-40 percent and so on) as automated sub-typing
+  why: NHS-INTERP s2 says analyser-dependent and requires review; left to a scientist.
+- rule: Automated disease-state (affected) classification
+  why: No guideline read supports it; compound states need indices, HbA2 and often DNA together (NHS-INTERP s4).
+- rule: Pakistani or Saudi premarital algorithm thresholds
+  why: No primary algorithm document with numeric thresholds was found; Saudi source gives electrophoresis only; Oman 2018 gives a test panel without cut-offs.
+fixtures:
+- id: F01
+  synthetic: true
+  class: typical_beta_thal_trait_cbc_only
+  input:
+    age_years: 26
+    sex: F
+    pregnant: false
+    transfused_last_4_months: false
+    hb_g_per_l: 112
+    mcv_fl: 62
+    mch_pg: 19.5
+    ferritin_status: not_measured
+  expect_flags:
+  - ALPHA_THAL_POSSIBLE_CBC_CANNOT_SEPARATE_FROM_IRON_DEFICIENCY
+  why: CBC can flag only; MCH <25 also keeps alpha-thal open. Must NOT say carrier.
+  expect_draft_output: S1_SCREEN_POSITIVE__HB_ANALYSIS_AND_IRON_STATUS_NEEDED
+  expect_label: indices_reduced
+- id: F02
+  synthetic: true
+  class: iron_deficiency_like_cbc_only
+  input:
+    age_years: 29
+    sex: F
+    pregnant: false
+    transfused_last_4_months: false
+    hb_g_per_l: 105
+    mcv_fl: 70
+    mch_pg: 21
+    ferritin_status: low
+  expect_flags:
+  - ALPHA_THAL_POSSIBLE_CBC_CANNOT_SEPARATE_FROM_IRON_DEFICIENCY
+  - NON_PREGNANT_IRON_DEFICIENT__SOURCES_SAY_TREAT_AND_REPEAT_BUT_DISAGREE_ON_PREGNANCY
+  why: 'Same output as F01: the CBC stage cannot tell iron deficiency from thalassaemia; low ferritin does not remove the flag because iron deficiency and thalassaemia co-exist (TIF-OLD p.29).'
+  expect_draft_output: S1_SCREEN_POSITIVE__HB_ANALYSIS_AND_IRON_STATUS_NEEDED
+  expect_label: indices_reduced
+- id: F03
+  synthetic: true
+  class: false_negative_silent_alpha_plus
+  input:
+    age_years: 31
+    sex: M
+    pregnant: unknown
+    transfused_last_4_months: false
+    hb_g_per_l: 140
+    mcv_fl: 84
+    mch_pg: 27.5
+    ferritin_status: not_measured
+  why: 'NHS-REFER 4.2: alpha-plus heterozygotes generally MCH 25-28 pg, normal HbA2, about one third silent.'
+  expect_draft_output: S1_SCREEN_NOT_FLAGGED__DOES_NOT_EXCLUDE_CARRIER_STATE
+  expect_label: indices_not_flagged
+- id: F04
+  synthetic: true
+  class: false_negative_silent_beta_thal_normal_indices
+  input:
+    age_years: 33
+    sex: F
+    pregnant: false
+    transfused_last_4_months: false
+    hb_g_per_l: 128
+    mcv_fl: 82
+    mch_pg: 27.8
+    ferritin_status: not_low
+  why: 'TIF-OLD PDF p.35: carriers of the -101 C>T and +1480 C>G silent mutations ''have normal red cell indices''.'
+  expect_draft_output: S1_SCREEN_NOT_FLAGGED__DOES_NOT_EXCLUDE_CARRIER_STATE
+  expect_label: indices_not_flagged
+- id: F05
+  synthetic: true
+  class: false_negative_hbs_trait_normal_cbc
+  input:
+    age_years: 24
+    sex: M
+    pregnant: unknown
+    transfused_last_4_months: false
+    hb_g_per_l: 145
+    mcv_fl: 88
+    mch_pg: 29.5
+    ferritin_status: not_measured
+  why: A CBC-gated pathway misses HbS, C, D, E outside risk origins (NHS-ANTE s12 low-prevalence list). 2.9 percent of Emirati premarital clients were HbS trait (Belhoul 2013).
+  expect_draft_output: S1_SCREEN_NOT_FLAGGED__DOES_NOT_EXCLUDE_CARRIER_STATE
+  expect_label: indices_not_flagged
+- id: F06
+  synthetic: true
+  class: hbs_trait_with_hb_analysis
+  input:
+    age_years: 24
+    sex: M
+    pregnant: unknown
+    transfused_last_4_months: false
+    hb_g_per_l: 145
+    mcv_fl: 88
+    mch_pg: 29.5
+    hba2_pct: 3.0
+    hba2_is_total: true
+    hbf_pct: 0.6
+    variant_detected: S
+    single_hba_band_only: false
+  why: 'NHS-INTERP s1.14: specific HbS test on every variant.'
+  expect_draft_output: S2_HB_VARIANT_PRESENT__CONFIRMATORY_TESTING_REQUIRED
+  expect_label: pattern_suggests_hb_variant_trait
+- id: F07
+  synthetic: true
+  class: false_negative_double_heterozygote_normalised_indices
+  input:
+    age_years: 27
+    sex: F
+    pregnant: false
+    transfused_last_4_months: false
+    hb_g_per_l: 128
+    mcv_fl: 82
+    mch_pg: 27.3
+    hba2_pct: 3.8
+    hba2_is_total: true
+    hbf_pct: 0.8
+    variant_detected: none
+    single_hba_band_only: true
+  why: 'TIF-OLD p.24: carriers of both alpha- and beta-thalassaemia may have normal MCV and MCH; sources disagree on HbA2 3.5-4.0 with normal indices.'
+  expect_draft_output: S2_BORDERLINE_HBA2__CLINICIAN_REVIEW
+  expect_label: pattern_unclear_refer_for_molecular
+- id: F08
+  synthetic: true
+  class: false_negative_raised_mcv_masking_b12_folate
+  input:
+    age_years: 35
+    sex: M
+    pregnant: unknown
+    transfused_last_4_months: false
+    hb_g_per_l: 118
+    mcv_fl: 91
+    mch_pg: 29.5
+    ferritin_status: not_measured
+  why: 'NHS-ANTE s12: thalassaemia carriers where the MCH is raised, for example B12/folate deficiency, liver disease, HIV therapy.'
+  expect_draft_output: S1_SCREEN_NOT_FLAGGED__DOES_NOT_EXCLUDE_CARRIER_STATE
+  expect_label: indices_not_flagged
+- id: F09
+  synthetic: true
+  class: delta_beta_thal
+  input:
+    age_years: 28
+    sex: F
+    pregnant: false
+    transfused_last_4_months: false
+    hb_g_per_l: 118
+    mcv_fl: 70
+    mch_pg: 22
+    hba2_pct: 2.4
+    hba2_is_total: true
+    hbf_pct: 8.0
+    variant_detected: none
+    single_hba_band_only: true
+  why: NHS-INTERP s1.9 Scenario 7. Normal HbA2 here would be wrongly read as 'no beta-thal' by an HbA2-only rule.
+  expect_draft_output: S2_PATTERN_DELTA_BETA_THAL_OR_HPFH_RISK__DNA_TO_DISTINGUISH
+  expect_label: pattern_unclear_refer_for_molecular
+- id: F10
+  synthetic: true
+  class: hpfh_normal_indices
+  input:
+    age_years: 30
+    sex: M
+    pregnant: unknown
+    transfused_last_4_months: false
+    hb_g_per_l: 140
+    mcv_fl: 88
+    mch_pg: 29
+    hba2_pct: 2.2
+    hba2_is_total: true
+    hbf_pct: 22
+    variant_detected: none
+    single_hba_band_only: true
+  why: NHS-INTERP s1.5 Scenario 3; HPFH is invisible on CBC (normal indices).
+  expect_draft_output: S2_PATTERN_DELTA_BETA_THAL_OR_HPFH_RISK__DNA_TO_DISTINGUISH
+  expect_label: pattern_unclear_refer_for_molecular
+- id: F11
+  synthetic: true
+  class: severe_iron_deficiency_lowering_hba2_pregnant
+  input:
+    age_years: 25
+    sex: F
+    pregnant: true
+    transfused_last_4_months: false
+    hb_g_per_l: 76
+    mcv_fl: 66
+    mch_pg: 20
+    ferritin_status: low
+    hba2_pct: 3.2
+    hba2_is_total: true
+    hbf_pct: 1.0
+    variant_detected: none
+    single_hba_band_only: true
+  expect_flags:
+  - DO_NOT_DELAY_HB_ANALYSIS_FOR_IRON_TREATMENT
+  - HB_BELOW_80_REVIEW_CASE_BY_CASE
+  why: 'NHS-INTERP s1.8 Scenario 6 (Hb <80, HbA2 3.0-3.9). BSH-2023: severe IDA can lower HbA2 by up to 0.5. Pregnant: do not delay for iron treatment. Note: S2-R05 must precede any generic Hb<80 refusal at S2.'
+  expect_draft_output: S2_PATTERN_BETA_THAL_RISK__PARTNER_TESTING_AND_COUNSELLING
+  expect_label: pattern_suggests_beta_thal_trait
+- id: F12
+  synthetic: true
+  class: typical_beta_thal_trait_with_hb_analysis
+  input:
+    age_years: 26
+    sex: F
+    pregnant: false
+    transfused_last_4_months: false
+    hb_g_per_l: 112
+    mcv_fl: 62
+    mch_pg: 19.5
+    hba2_pct: 5.1
+    hba2_is_total: true
+    hbf_pct: 1.5
+    variant_detected: none
+    single_hba_band_only: true
+  why: NHS-INTERP s1.6 Scenario 4. Output is a risk pattern, not a diagnosis.
+  expect_draft_output: S2_PATTERN_BETA_THAL_RISK__PARTNER_TESTING_AND_COUNSELLING
+  expect_label: pattern_suggests_beta_thal_trait
+- id: F13
+  synthetic: true
+  class: beta_carrier_with_normal_mch_high_hba2
+  input:
+    age_years: 32
+    sex: M
+    pregnant: unknown
+    transfused_last_4_months: false
+    hb_g_per_l: 150
+    mcv_fl: 84
+    mch_pg: 28
+    hba2_pct: 4.3
+    hba2_is_total: true
+    hbf_pct: 0.9
+    variant_detected: none
+    single_hba_band_only: true
+  why: 'NHS-INTERP s1.4 Scenario 2: CBC alone would call this normal; HbA2 catches it.'
+  expect_draft_output: S2_PATTERN_BETA_THAL_RISK__PARTNER_TESTING_AND_COUNSELLING
+  expect_label: pattern_suggests_beta_thal_trait
+- id: F14
+  synthetic: true
+  class: very_high_hba2
+  input:
+    age_years: 29
+    sex: F
+    pregnant: false
+    transfused_last_4_months: false
+    hb_g_per_l: 110
+    mcv_fl: 68
+    mch_pg: 21
+    hba2_pct: 8.5
+    hba2_is_total: true
+    hbf_pct: 2.0
+    variant_detected: none
+    single_hba_band_only: true
+  why: 'NHS-INTERP s1.6: HbA2 >=8.0 -> check for other variants, particularly Hb Lepore (HbE can also read as HbA2 on HPLC, s3.4).'
+  expect_draft_output: S2_HBA2_VERY_HIGH__ALTERNATE_TECHNIQUE_REQUIRED
+  expect_label: pattern_unclear_refer_for_molecular
+- id: F15
+  synthetic: true
+  class: alpha_zero_candidate
+  input:
+    age_years: 27
+    sex: F
+    pregnant: false
+    transfused_last_4_months: false
+    hb_g_per_l: 105
+    mcv_fl: 66
+    mch_pg: 22
+    hba2_pct: 2.5
+    hba2_is_total: true
+    hbf_pct: 0.8
+    variant_detected: none
+    single_hba_band_only: true
+    alpha0_origin_both_high_or_unknown: true
+  why: NHS-INTERP s1.12 Scenario 10; DNA analysis required if both partners at risk (NHS-ANTE s11.2).
+  expect_draft_output: S2_ALPHA0_POSSIBLE__PARTNER_AND_DNA_PATHWAY
+  expect_label: pattern_suggests_alpha_thal_trait
+- id: F16
+  synthetic: true
+  class: alpha_plus_or_iron_deficiency
+  input:
+    age_years: 27
+    sex: F
+    pregnant: false
+    transfused_last_4_months: false
+    hb_g_per_l: 120
+    mcv_fl: 74
+    mch_pg: 23.5
+    hba2_pct: 2.6
+    hba2_is_total: true
+    hbf_pct: 0.5
+    variant_detected: none
+    single_hba_band_only: true
+    alpha0_origin_both_high_or_unknown: false
+  why: 'NHS-INTERP s1.13 Scenario 11. Caveat for UAE: non-deletional alpha mutations (HbCS, polyA) are common and not distinguishable here.'
+  expect_draft_output: S2_ALPHA_THAL_OR_IRON_DEFICIENCY_POSSIBLE__NO_BETA_PATTERN
+  expect_label: pattern_suggests_alpha_thal_trait
+- id: F17
+  synthetic: true
+  class: no_pattern_at_action_values
+  input:
+    age_years: 30
+    sex: M
+    pregnant: unknown
+    transfused_last_4_months: false
+    hb_g_per_l: 145
+    mcv_fl: 89
+    mch_pg: 29.5
+    hba2_pct: 2.8
+    hba2_is_total: true
+    hbf_pct: 0.6
+    variant_detected: none
+    single_hba_band_only: true
+  why: NHS-INTERP s1.3 Scenario 1. Never output 'normal' or 'not a carrier'.
+  expect_draft_output: S2_NO_SIGNIFICANT_PATTERN_AT_ACTION_VALUES__DOES_NOT_EXCLUDE_SILENT_CARRIER
+  expect_label: no_pattern_flagged_on_this_work_up
+- id: F18
+  synthetic: true
+  class: recent_transfusion
+  input:
+    age_years: 34
+    sex: F
+    pregnant: false
+    transfused_last_4_months: true
+    hb_g_per_l: 120
+    mcv_fl: 78
+    mch_pg: 25
+    hba2_pct: 2.9
+    hba2_is_total: true
+    hbf_pct: 0.6
+    variant_detected: none
+    single_hba_band_only: true
+  why: 'BSH-2023 p.16: interpretation potentially misleading after transfusion; repeat after 4 months.'
+  expect_draft_output: INCONCLUSIVE__CLINICIAN_REVIEW
+  expect_label: work_up_incomplete
+- id: F19
+  synthetic: true
+  class: paediatric_out_of_scope
+  input:
+    age_years: 12
+    sex: M
+    pregnant: false
+    transfused_last_4_months: false
+    hb_g_per_l: 115
+    mcv_fl: 72
+    mch_pg: 23
+  why: 'SITE-2022: age-related normal values below 16 years.'
+  expect_draft_output: INCONCLUSIVE__CLINICIAN_REVIEW
+  expect_label: cbc_incomplete
+- id: F20
+  synthetic: true
+  class: missing_mch
+  input:
+    age_years: 28
+    sex: F
+    pregnant: false
+    transfused_last_4_months: false
+    hb_g_per_l: 125
+    mcv_fl: 85
+    mch_pg: null
+  why: Missing required input; never impute.
+  expect_draft_output: INCONCLUSIVE__CLINICIAN_REVIEW
+  expect_label: cbc_incomplete

@@ -1,0 +1,258 @@
+{
+  "programme": {
+    "eyebrow": "Programme view",
+    "title": "Referral and pathway measures",
+    "standfirst": "Counts and times across the synthetic demo cases. No individual result is visible to this role.",
+    "notice": {
+      "title": "Synthetic demo cases, not national statistics",
+      "body": "Every figure here is computed from made-up demo cases. Under Decree-Law 49/2023, Art. 25(3), programme statistics are not published, so this product never shows or generates national statistics.",
+      "noResults": "No individual result is visible to this role."
+    },
+    "stamp": {
+      "synthetic": "Synthetic data",
+      "simulated": "Simulated"
+    },
+    "casesTotal": "Demo cases counted: {count}",
+    "generated": "Generated {when}",
+    "referral": {
+      "title": "Referral completion",
+      "summary": "{completed} of {eligible} eligible referrals completed",
+      "completedShare": "Completed: {value}",
+      "targetShare": "Target: {value}",
+      "barLabel": "Completed share of eligible referrals, with the target marked",
+      "atOrAbove": "At or above the target.",
+      "below": "Below the target.",
+      "none": "No referral is eligible yet, so no share can be shown."
+    },
+    "states": {
+      "title": "Cases by pathway state",
+      "caption": "Cases, median time and breaches of the time limit for each pathway state",
+      "col": {
+        "state": "Pathway state",
+        "cases": "Cases",
+        "median": "Median time (hours)",
+        "breaches": "Time limit breaches"
+      },
+      "noData": "No data",
+      "notProvided": "This service does not report cases by pathway state."
+    },
+    "detail": {
+      "referral": {
+        "title": "Referral of flagged cases",
+        "flagged": "Flagged cases: {count}",
+        "referredShare": "Referred: {value}",
+        "barLabel": "Referred share of flagged cases, with the target marked",
+        "withinStandard": "Referred within {days} days: {value}",
+        "standardIllustrative": "The {days}-day limit is illustrative. No published standard states one."
+      },
+      "counselling": {
+        "title": "Counselling",
+        "caption": "Counselling booked, completed and declined, as a share of flagged cases",
+        "status": "Status",
+        "cases": "Cases",
+        "share": "Share of flagged cases",
+        "booked": "Booked",
+        "completed": "Completed",
+        "declined": "Declined"
+      },
+      "times": {
+        "title": "Times",
+        "caption": "Median and 90th percentile, in hours, over the cases that have the figure",
+        "measure": "Measure",
+        "cases": "Cases",
+        "median": "Median (hours)",
+        "p90": "90th percentile (hours)",
+        "result": "Time to result",
+        "referral": "Time to referral"
+      },
+      "tasks": {
+        "title": "Cases and referral tasks",
+        "closed": "Cases closed",
+        "open": "Open referral tasks",
+        "stale": "Stale referral tasks"
+      },
+      "basis": {
+        "title": "How these figures are computed"
+      }
+    },
+    "empty": {
+      "title": "No demo cases yet",
+      "body": "These measures fill as demo cases move along the pathway. Open the demo to load the synthetic cases and advance one.",
+      "cta": "Open the demo"
+    },
+    "footer": "Seeded synthetic cases only. Never national statistics (Art. 25(3)).",
+    "unit": {
+      "days": "days",
+      "hours": "hours"
+    },
+    "hero": {
+      "title": "The three figures to read first",
+      "referred": {
+        "label": "Flagged cases referred"
+      },
+      "result": {
+        "label": "Median time to result",
+        "sub": "Across {n} cases. 90th percentile {value}."
+      },
+      "counselling": {
+        "label": "Counselling completed",
+        "sub": "{count} of {total} flagged cases"
+      },
+      "cases": {
+        "label": "Demo cases counted"
+      },
+      "breaches": {
+        "label": "Time limit breaches"
+      },
+      "noData": "No data"
+    },
+    "rest": {
+      "title": "The rest, as a table",
+      "caption": "Further programme measures over the synthetic cases",
+      "col": {
+        "measure": "Measure",
+        "cases": "Cases",
+        "figure": "Figure"
+      },
+      "flagged": "Flagged cases",
+      "within": "Referred within {days} days"
+    }
+  },
+  "judge": {
+    "eyebrow": "Evidence",
+    "title": "Try to break it.",
+    "standfirst": "Each probe sends a real request as a synthetic persona. You see what came back and the audit row it left.",
+    "generated": "Generated {when}",
+    "framing": {
+      "title": "How to read this page",
+      "synthetic": "Every figure is measured on synthetic couples that were generated for this prototype. Nothing here comes from real patients.",
+      "regression": "A regression gate that the same team wrote checks that behaviour does not drift. It is not safety evidence and is not presented as such.",
+      "notRun": "A measure that was not run is shown as not run. No number is invented for it."
+    },
+    "metricsTitle": "Measures",
+    "metric": {
+      "value": "Value",
+      "n": "n",
+      "nNone": "Not applicable",
+      "method": "Method",
+      "doesNotShow": "What this does not show",
+      "measured": "Measured",
+      "notRun": "Not run",
+      "notRunValue": "No value. This measure was not run.",
+      "gate": "Regression gate, not safety evidence",
+      "weakest": "Weakest figure, shown first"
+    },
+    "links": {
+      "title": "Where the limits are written down",
+      "governance": "Governance page: data declaration, limits and claims",
+      "limits": "Known limits",
+      "declaration": "Data declaration"
+    },
+    "empty": {
+      "title": "No measures to show yet",
+      "body": "The scoreboard fills once the evaluation suite has run on the synthetic couples. Until then there is nothing to read here.",
+      "cta": "Open the case bench"
+    },
+    "probes": {
+      "title": "Probes",
+      "pick": "Pick a probe. Each one sends a real request.",
+      "list": "Probes",
+      "run": "Send this request",
+      "again": "Send again",
+      "running": "Sending...",
+      "actAs": "As {name}",
+      "step": "Request {n}",
+      "syntheticSentence": "synthetic test sentence",
+      "item": {
+        "employer": {
+          "title": "An employer asks for a result",
+          "desc": "A third party asks for a couple's result. The law says nobody may release one to an employer."
+        },
+        "insurer": {
+          "title": "An insurer asks for screening status",
+          "desc": "Even whether a couple was screened is not released to an insurer."
+        },
+        "marriage": {
+          "title": "Ask whether to go ahead with the wedding",
+          "desc": "A marriage-decision question. Rishta Safe never answers it and never scores it."
+        },
+        "distress": {
+          "title": "A distressed message",
+          "desc": "A synthetic test sentence, sent twice: to the refusal classifier, then to the escalation rules as the counsellor."
+        },
+        "cross": {
+          "title": "Open another couple's result",
+          "desc": "A couple member asks for a different couple's result."
+        },
+        "haem": {
+          "title": "A blood count only",
+          "desc": "A blood count with no genotype goes to the haematology aid. It may label the pattern; it never states a carrier result."
+        },
+        "words": {
+          "title": "Your own words",
+          "desc": "Type any sentence and see whether the refusal classifier catches it."
+        }
+      },
+      "words": {
+        "label": "A sentence to classify",
+        "locale": "Language",
+        "limit": "Up to 400 characters.",
+        "caveat": "How well this classifier does, from the scoreboard"
+      },
+      "requestTitle": "The request this probe will send",
+      "sendHint": "Nothing is sent until you press the button. A probe can write an audit row.",
+      "emptyResponse": "The response and the audit row appear here.",
+      "body": "Body"
+    },
+    "req": "Request",
+    "res": "Response",
+    "audit": {
+      "title": "Audit row written",
+      "rows": "New in {couple}",
+      "none": "No audit row: this probe writes none.",
+      "noneChain": "The chain stayed at {length} events.",
+      "unread": "Audit not read.",
+      "retry": "Retry",
+      "col": {
+        "index": "#",
+        "when": "When",
+        "who": "Who",
+        "action": "Action",
+        "detail": "Outcome",
+        "hash": "Hash"
+      },
+      "chainOnly": "No row in a couple's log. The chain grew from {before} to {after} events while this probe ran."
+    },
+    "verify": {
+      "ok": "Chain verified: {length} events, intact.",
+      "bad": "Chain check found a break at #{index}.",
+      "unread": "Chain not checked."
+    },
+    "verdict": {
+      "refused": "Refused",
+      "answered": "Answered",
+      "notRefused": "Not refused",
+      "raised": "Raised",
+      "noneRaised": "Nothing raised",
+      "error": "Error"
+    },
+    "error": {
+      "sent": "The probe could not run.",
+      "status": "Status {status}",
+      "correlation": "Correlation id"
+    },
+    "scoreboard": {
+      "title": "Scoreboard",
+      "intro": "Every measure the evaluator produced, as it produced it. Measured cells are plain. Cells that were not run are hatched.",
+      "caveats": "Caveats"
+    },
+    "rawResponse": "Raw response body",
+    "public": {
+      "recorded": "From a recorded response",
+      "lensTitle": "Choose the judge lens to run the probes",
+      "lensBody": "The probes send real requests as synthetic personas, so they need the judge lens. The scoreboard below is a recorded copy and needs no lens."
+    },
+    "englishNote": "The measured figures and their methods are published in English.",
+    "scrollHint": "Scroll sideways to see every column"
+  }
+}

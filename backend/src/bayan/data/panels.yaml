@@ -1,0 +1,85 @@
+# Rishta Safe demonstration panels (lane A: genetics). SYNTHETIC-DATA PROTOTYPE.
+#
+# These are NOT the Abu Dhabi (570 genes), Dubai (782 genes) or federal programme panels, and they are not any
+# laboratory's real panel. They are small, hand-written demonstration panels over the conditions in conditions.yaml.
+#
+# Detection rates are ASSUMED. No published per-panel detection rate for any UAE panel was found while authoring
+# (ACMG 2021 asks laboratories to state panel content and detection rate; the real
+# values must come from the reporting laboratory). Every rate below is therefore `assumed: true`,
+# `illustrative: true` and `needs_clinician_signoff: true`, and the product shows it as "assumed, illustrative".
+
+version: "0.1-draft"
+status: draft_pending_clinical_signoff
+note: >-
+  Demonstration panels over synthetic couples. Rates are assumptions for demonstration, not measured performance of
+  any real test.
+
+panels:
+  - id: uae_demo_panel_v1
+    name_en: "UAE demo panel v1 (synthetic, illustrative)"
+    description: >-
+      A small demonstration panel: haemoglobinopathies (HBB and alpha-globin changes), cystic fibrosis, congenital adrenal
+      hyperplasia, familial Mediterranean fever, Usher syndrome type 2A, Stargardt disease, EYS and CYP1B1 conditions and
+      G6PD deficiency. It stands in for a large programme panel and covers only these conditions.
+    condition_ids:
+      - beta_thalassaemia
+      - sickle_cell_disease
+      - hbb_compound_haemoglobin_disorder
+      - hb_variant_other
+      - alpha_thalassaemia_alpha0
+      - hb_h_disease
+      - cystic_fibrosis
+      - congenital_adrenal_hyperplasia
+      - familial_mediterranean_fever
+      - usher_syndrome_type_2a
+      - stargardt_disease
+      - eys_retinal_dystrophy
+      - cyp1b1_anterior_segment_dysgenesis
+      - g6pd_deficiency
+    assumed_detection_rate: 0.90
+    assumed: true
+    illustrative: true
+    needs_clinician_signoff: true
+    rate_basis: >-
+      Round assumed value for demonstration. No published detection rate for a UAE panel was found; the reporting
+      laboratory must supply the real per-gene figures.
+    detection_by_condition:
+      alpha_thalassaemia_alpha0: 0.80
+      hb_h_disease: 0.80
+    detection_by_condition_basis: >-
+      Illustrative lower values for the alpha-globin locus, which ACMG 2021 describes as technically complex to assess
+      (ACMG 2021). The numbers themselves are assumptions.
+    limits:
+      - "The panel covers only the listed conditions, not every gene."
+      - "A panel finds known types of change; it does not find every change in a covered gene."
+      - "The alpha-globin locus is technically complex to assess, so results there are less certain."
+      - "A result of no shared change found on this panel means lower, not zero."
+
+  - id: haemoglobinopathy_demo_panel_v1
+    name_en: "Haemoglobinopathy demo panel v1 (synthetic, illustrative)"
+    description: >-
+      A narrower demonstration panel covering only the haemoglobin conditions (HBB and alpha-globin changes). It exists to
+      show what happens when two partners were tested on different panels.
+    condition_ids:
+      - beta_thalassaemia
+      - sickle_cell_disease
+      - hbb_compound_haemoglobin_disorder
+      - hb_variant_other
+      - alpha_thalassaemia_alpha0
+      - hb_h_disease
+    assumed_detection_rate: 0.95
+    assumed: true
+    illustrative: true
+    needs_clinician_signoff: true
+    rate_basis: >-
+      Round assumed value for demonstration, higher than the broad panel because it is a focused test. No published
+      figure; assumption only.
+    detection_by_condition:
+      alpha_thalassaemia_alpha0: 0.80
+      hb_h_disease: 0.80
+    detection_by_condition_basis: >-
+      Same illustrative alpha-globin assumption as the broad panel (ACMG 2021: technically complex locus).
+    limits:
+      - "The panel covers only haemoglobin conditions, not other genes."
+      - "The alpha-globin locus is technically complex to assess, so results there are less certain."
+      - "A result of no shared change found on this panel means lower, not zero."

@@ -1,0 +1,35 @@
+{
+  "couple_id": "cpl-demo-02",
+  "created_at": "2026-10-25T07:27:27.033351Z",
+  "members": [
+    {
+      "person_id": "prs-02a",
+      "display_name": "Layla Demo",
+      "sex": "female",
+      "age": 24,
+      "language": "en",
+      "family_history": [
+        "known_carrier_in_family"
+      ]
+    },
+    {
+      "person_id": "prs-02b",
+      "display_name": "Anwar Demo",
+      "sex": "male",
+      "age": 27,
+      "language": "ar",
+      "family_history": [
+        "known_carrier_in_family"
+      ]
+    }
+  ],
+  "relationship": "first_cousin",
+  "emirate_policy": "abu_dhabi",
+  "id_type": "emirates_id",
+  "preliminary_risk_opt_in": false,
+  "state": "counselling_done",
+  "result_category": "shared_result_found",
+  "flagged": true,
+  "closed": false,
+  "synthetic": true
+}

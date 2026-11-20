@@ -1,0 +1,516 @@
+# Explainer templates, Urdu (اردو). Draft translation of templates.en.yaml (adapted, not word for word).
+#
+# Rules are the same as for the English file (enforced by tests/explain):
+#   * Slots are written {name} and are copied byte for byte from the English template.
+#   * No digit is typed into the text. Numbers arrive only through slots.
+#   * No banned word (templates.banned.yaml, `en` and `ur` lists).
+#   * Same template ids, same slots, same kind/tone/polarity/glossary/source as English.
+#
+# Status: needs_clinician_signoff: true. language_status: draft. This Urdu text was drafted with an
+# LLM assistant and has NOT been read by a native clinical reader. Nobody has reviewed the wording.
+# The clinical lead (sign-off pending) flips language_status only once a real sign-off exists.
+meta:
+  schema_version: 1
+  locale: ur
+  direction: rtl
+  digit_system: western
+  language_status: draft
+  needs_clinician_signoff: true
+  authoring: >-
+    Static text. Drafted at authoring time with an LLM assistant (no personal or couple data was
+    given to it). It is a draft that has not been reviewed by a native clinical reader of Urdu.
+    There is no runtime LLM (ADR 0003).
+  wording_basis: >-
+    Non-stigmatising, non-directive. Words the official materials use that this product avoids:
+    compatible, non-compatible, abnormal, positive findings, high-risk marriage (Rishta Safe authoring note, pending clinical sign-off). Official wording kept: carrier, shared genetic change, detection limits.
+
+engine_slots: [gene, genes, per_100, affected, carrier, neither, detection_rate_label, variant, shared_count, rate_num, rate_den]
+
+# Short Urdu phrases that identify each result category in rendered text. Each phrase occurs verbatim
+# in at least one template of its own category and in no template of another category.
+polarity_markers:
+  shared:
+    - "مشترک نتیجہ ملا"
+    - "ایسا نتیجہ جو آپ دونوں میں مشترک ہے"
+    - "موروثی بیماری والے بچے کے امکان"
+    - "جین کی تبدیلی کے کیریئر ہیں"
+  no_shared:
+    - "کوئی مشترک تبدیلی نہیں ملی"
+    - "آپ دونوں میں ایک ہی جین میں ہو"
+  more_info:
+    - "مزید معلومات درکار ہیں"
+    - "واضح جواب نہیں دے سکتی"
+
+templates:
+  # ---------------------------------------------------------------- notices on every document
+  status.draft_notice:
+    kind: callout
+    tone: info
+    polarity: neutral
+    text: "یہ وضاحت ایک مسودہ ہے۔ کلینیکل سربراہ کی منظوری ابھی باقی ہے۔"
+
+  status.synthetic_notice:
+    kind: callout
+    tone: info
+    polarity: neutral
+    text: "یہ ایک نمونہ (پروٹوٹائپ) ہے جس میں فرضی (synthetic) ڈیٹا استعمال ہوا ہے۔ یہ کوئی طبی آلہ نہیں ہے اور نہ ہی کوئی طبی خدمت۔"
+
+  boundary.education_decision_support:
+    kind: disclaimer
+    tone: care
+    polarity: neutral
+    source: "Rishta Safe scope rules (docs/spec/00-architecture-and-scope.md, rule 10); Challenge 03 requirement 3 (boundary between education, decision support and clinical advice)"
+    text: "یہ صفحہ معلومات اور فیصلے میں مدد کے لیے ہے۔ یہ طبی مشورہ نہیں ہے۔ پیچیدہ یا بڑے اثر والے نتائج کی وضاحت کوئی تسلیم شدہ ماہرِ صحت کرتے ہیں، جیسے جینیاتی کونسلر یا تربیت یافتہ ڈاکٹر۔"
+
+  # ---------------------------------------------------------------- result: shared
+  result.shared.heading:
+    kind: heading
+    polarity: shared
+    text: "مشترک نتیجہ ملا ہے"
+
+  result.shared.summary:
+    kind: paragraph
+    polarity: shared
+    glossary: [shared_result, carrier]
+    text: "اسکریننگ رپورٹ میں ایسا نتیجہ جو آپ دونوں میں مشترک ہے سامنے آیا ہے۔ اس سے موروثی بیماری والے بچے کے امکان کا اشارہ ملتا ہے۔ یہ امکان کی بات ہے۔ یہ آپ دونوں میں سے کسی کی تشخیص نہیں ہے۔"
+
+  shared.basis.both_carriers:
+    kind: paragraph
+    polarity: shared
+    glossary: [carrier, gene]
+    text: "آپ دونوں {gene} جین کی تبدیلی کے کیریئر ہیں۔ کیریئر کے پاس جین کی ایک بدلی ہوئی کاپی ہوتی ہے۔ زیادہ تر کیریئر افراد میں کوئی علامت نہیں ہوتی۔"
+
+  shared.basis.affected_partner_and_carrier:
+    kind: paragraph
+    polarity: shared
+    glossary: [carrier, gene, affected]
+    text: "آپ دونوں میں سے ایک کی رپورٹ میں {gene} جین کی دونوں کاپیوں میں تبدیلی درج ہے۔ دوسرے میں ایک بدلی ہوئی کاپی ہے۔ کونسلر سمجھائیں گے کہ آپ میں سے ہر ایک کے لیے اس کا کیا مطلب ہے۔"
+
+  shared.basis.both_affected:
+    kind: paragraph
+    polarity: shared
+    glossary: [gene, affected]
+    text: "رپورٹ میں آپ دونوں میں سے ہر ایک کے لیے {gene} جین کی دونوں کاپیوں میں تبدیلیاں درج ہیں۔ کونسلر سمجھائیں گے کہ آپ کے لیے اس کا کیا مطلب ہے۔"
+
+  shared.basis.x_linked_carrier_female:
+    kind: paragraph
+    polarity: shared
+    glossary: [x_linked, carrier, gene]
+    text: "{gene} جین X کروموسوم پر ہے۔ خاتون ساتھی میں اس کی ایک بدلی ہوئی کاپی ہے۔ اس کا اثر بیٹوں اور بیٹیوں پر مختلف طرح سے ہو سکتا ہے۔"
+
+  shared.basis.x_linked_affected_male:
+    kind: paragraph
+    polarity: shared
+    glossary: [x_linked, gene, affected]
+    text: "{gene} جین X کروموسوم پر ہے۔ مرد ساتھی کے اس جین میں تبدیلی ہے۔ اس کا اثر بیٹیوں اور بیٹوں پر مختلف طرح سے ہو سکتا ہے۔"
+
+  shared.outcomes.intro:
+    kind: paragraph
+    polarity: shared
+    glossary: [natural_frequency]
+    text: "حمل کے لیے اس نتیجے کا کیا مطلب ہو سکتا ہے، وہ نیچے دیا گیا ہے۔ نیچے ہر گروپ {denominator} حمل میں سے گنا گیا ہے۔"
+
+  icon_array.caption.any_child:
+    kind: item
+    polarity: shared
+    text: "اوسطاً، اس نتیجے والے {denominator} حمل میں سے تقریباً {affected} میں بچے کو یہ بیماری ہوتی ہے، تقریباً {carrier} میں بچہ کیریئر ہوتا ہے، اور تقریباً {neither} میں نہ بیماری ہوتی ہے اور نہ بچہ کیریئر ہوتا ہے۔"
+
+  icon_array.caption.son:
+    kind: item
+    polarity: shared
+    text: "بیٹے: اوسطاً، {denominator} میں سے تقریباً {affected} کو یہ بیماری ہوتی ہے، تقریباً {carrier} کیریئر ہوتے ہیں، اور تقریباً {neither} کو نہ بیماری ہوتی ہے اور نہ وہ کیریئر ہوتے ہیں۔"
+
+  icon_array.caption.daughter:
+    kind: item
+    polarity: shared
+    text: "بیٹیاں: اوسطاً، {denominator} میں سے تقریباً {affected} کو یہ بیماری ہوتی ہے، تقریباً {carrier} کیریئر ہوتی ہیں، اور تقریباً {neither} کو نہ بیماری ہوتی ہے اور نہ وہ کیریئر ہوتی ہیں۔"
+
+  outcome.affected.any_child:
+    kind: item
+    polarity: shared
+    text: "{denominator} حمل میں سے {per_100} میں: بچے کو یہ بیماری ہوتی ہے۔"
+  outcome.carrier.any_child:
+    kind: item
+    polarity: shared
+    text: "{denominator} حمل میں سے {per_100} میں: بچہ کیریئر ہوتا ہے۔ زیادہ تر کیریئر افراد میں کوئی علامت نہیں ہوتی۔"
+  outcome.neither.any_child:
+    kind: item
+    polarity: shared
+    text: "{denominator} حمل میں سے {per_100} میں: بچے کو یہ بیماری نہیں ہوتی اور وہ کیریئر بھی نہیں ہوتا۔"
+  outcome.affected.son:
+    kind: item
+    polarity: shared
+    text: "بیٹے: {denominator} میں سے {per_100} کو یہ بیماری ہوتی ہے۔"
+  outcome.carrier.son:
+    kind: item
+    polarity: shared
+    text: "بیٹے: {denominator} میں سے {per_100} کیریئر ہوتے ہیں۔"
+  outcome.neither.son:
+    kind: item
+    polarity: shared
+    text: "بیٹے: {denominator} میں سے {per_100} کو نہ بیماری ہوتی ہے اور نہ وہ کیریئر ہوتے ہیں۔"
+  outcome.affected.daughter:
+    kind: item
+    polarity: shared
+    text: "بیٹیاں: {denominator} میں سے {per_100} کو یہ بیماری ہوتی ہے۔"
+  outcome.carrier.daughter:
+    kind: item
+    polarity: shared
+    text: "بیٹیاں: {denominator} میں سے {per_100} کیریئر ہوتی ہیں۔"
+  outcome.neither.daughter:
+    kind: item
+    polarity: shared
+    text: "بیٹیاں: {denominator} میں سے {per_100} کو نہ بیماری ہوتی ہے اور نہ وہ کیریئر ہوتی ہیں۔"
+
+  shared.outcomes.each_pregnancy:
+    kind: paragraph
+    polarity: shared
+    text: "ہر حمل کے امکانات ایک جیسے ہوتے ہیں۔ پہلے کے حمل ان امکانات کو نہیں بدلتے۔"
+
+  shared.next:
+    kind: paragraph
+    polarity: shared
+    glossary: [genetic_counselling]
+    text: "اگلا قدم کسی جینیاتی کونسلر یا تربیت یافتہ ڈاکٹر سے بات کرنا ہو سکتا ہے۔ وہ نتیجہ سمجھا سکتے ہیں، آپ کے سوالوں کے جواب دے سکتے ہیں، اور بتا سکتے ہیں کہ کون سے اختیارات موجود ہیں۔ آپ جو بھی فیصلہ کریں، وہ آپ کی اپنی مرضی ہے۔"
+
+  # ---------------------------------------------------------------- result: no shared change
+  result.no_shared.heading:
+    kind: heading
+    polarity: no_shared
+    text: "اس ٹیسٹ میں کوئی مشترک تبدیلی نہیں ملی"
+
+  result.no_shared.summary:
+    kind: paragraph
+    polarity: no_shared
+    glossary: [panel, detection_rate]
+    text: "اس ٹیسٹ میں کوئی ایسی تبدیلی نہیں ملی جو آپ دونوں میں ایک ہی جین میں ہو۔ یہ کوئی ضمانت نہیں ہے۔ ٹیسٹ جینز کی ایک منتخب فہرست دیکھتا ہے اور ہر تبدیلی نہیں ڈھونڈ سکتا۔ براہِ کرم نیچے پڑھ لیں کہ ٹیسٹ کیا ڈھونڈ سکتا ہے اور کیا نہیں۔"
+
+  no_shared.next:
+    kind: paragraph
+    polarity: no_shared
+    glossary: [genetic_counselling]
+    text: "اگر آپ کے سوالات ہیں، یا آپ کے خاندان میں کوئی موروثی بیماری چلی آ رہی ہے، تو کونسلر آپ سے بات کر سکتے ہیں۔ آپ کسی بھی وقت اس کے لیے کہہ سکتے ہیں۔"
+
+  # ---------------------------------------------------------------- result: more information needed
+  result.more_info.heading:
+    kind: heading
+    polarity: more_info
+    text: "مزید معلومات درکار ہیں"
+
+  result.more_info.summary:
+    kind: paragraph
+    polarity: more_info
+    text: "رپورٹ ابھی واضح جواب نہیں دے سکتی۔ یہ کسی بھی سمت میں کوئی نتیجہ نہیں ہے۔ اس کا مطلب یہ نہیں کہ کچھ ملا ہے، اور یہ بھی نہیں کہ کچھ نہیں ملا۔ کوئی اہل ماہر بتائیں گے کہ کیا درکار ہے۔"
+
+  reason.vus_present:
+    kind: item
+    polarity: more_info
+    glossary: [vus, variant]
+    text: "ایک ایسی تبدیلی ملی ہے جس کا مطلب ابھی واضح نہیں۔ ڈاکٹروں کو ابھی معلوم نہیں کہ یہ کسی بیماری کا سبب بنتی ہے یا نہیں۔ اسے نتیجے میں شمار نہیں کیا جاتا۔"
+
+  reason.pending_confirmation:
+    kind: item
+    polarity: more_info
+    glossary: [confirmatory_test]
+    text: "جو کچھ ملا ہے اس کی تصدیق ابھی دوسرے ٹیسٹ سے ہونی باقی ہے۔ تب تک اسے نتیجے میں شمار نہیں کیا جاتا۔"
+
+  reason.haem_cbc_only:
+    kind: item
+    polarity: more_info
+    glossary: [cbc, carrier, hplc]
+    text: "صرف خون کی بنیادی گنتی (CBC) کی گئی ہے۔ اس سے یہ پتا نہیں چل سکتا کہ کوئی کیریئر ہے یا نہیں۔ خون کے مزید ٹیسٹ (جیسے HPLC) درکار ہیں۔"
+
+  reason.panel_mismatch:
+    kind: item
+    polarity: more_info
+    glossary: [panel]
+    text: "جو ٹیسٹ کیا گیا ہے وہ اس جین یا بیماری کو نہیں دیکھتا جس کی بات ہو رہی ہے۔ کسی دوسرے ٹیسٹ کی ضرورت پڑ سکتی ہے۔"
+
+  reason.generic:
+    kind: item
+    polarity: more_info
+    text: "کچھ معلومات موجود نہیں یا واضح نہیں ہیں۔ کوئی اہل ماہر آپ کے ساتھ رپورٹ دیکھیں گے۔"
+
+  reason.specialist_read_needed:
+    kind: item
+    polarity: more_info
+    text: "اس رپورٹ کی وضاحت سے پہلے کسی ماہر کو اسے پڑھنا ہوگا۔ جن نتائج کو سمجھنا مشکل ہو ان کے لیے یہ ایک معمول کا قدم ہے۔"
+
+  more_info.next:
+    kind: paragraph
+    polarity: more_info
+    glossary: [genetic_counselling]
+    text: "کونسلر یا ڈاکٹر بتائیں گے کہ کون سا اضافی ٹیسٹ یا جائزہ درکار ہے، اور اس میں کتنا وقت لگ سکتا ہے۔"
+
+  # ---------------------------------------------------------------- withheld
+  withheld.heading:
+    kind: heading
+    polarity: withheld
+    text: "آپ کا نتیجہ ابھی یہاں نہیں دکھایا گیا"
+
+  withheld.counselling_first:
+    kind: paragraph
+    polarity: withheld
+    glossary: [genetic_counselling]
+    text: "آپ کا نتیجہ کونسلنگ کی ملاقات میں بتایا جائے گا۔ اس طرح تربیت یافتہ ماہر آپ کو آمنے سامنے سمجھا سکتے ہیں اور آپ کے سوالوں کے جواب دے سکتے ہیں۔"
+
+  withheld.awaiting_partner_consent:
+    kind: paragraph
+    polarity: withheld
+    text: "اس نتیجے کا ایک حصہ دکھانے سے پہلے آپ کے ساتھی کی رضامندی درکار ہے۔ یہ رازداری کے لاگو قواعد کا حصہ ہے۔ آپ کے کونسلر اگلا قدم سمجھا سکتے ہیں۔"
+
+  withheld.right_not_to_know:
+    kind: paragraph
+    polarity: withheld
+    glossary: [right_not_to_know]
+    source: "Federal Decree-Law 49/2023, Art. 9(2) and the disclosure exception for a threat to life"
+    text: "آپ نے یہ نتیجہ نہ دیکھنے کا انتخاب کیا ہے۔ یہ قانون کے تحت آپ کا حق ہے (وفاقی فرمانِ قانون نمبر {law_number}/{law_year}، دفعہ {art_9} کی ذیلی شق {art_9_para})۔ آپ کسی بھی وقت اپنے کونسلر سے کہہ کر اپنا فیصلہ بدل سکتے ہیں۔ نادر صورتوں میں، جیسے جان کو خطرہ ہو، قانون معلومات دینے کا تقاضا کرتا ہے۔"
+
+  withheld.generic:
+    kind: paragraph
+    polarity: withheld
+    text: "آپ کا نتیجہ اس صفحے پر آپ کے لیے دستیاب نہیں ہے۔ براہِ کرم اپنے کونسلر یا اسکریننگ سینٹر سے بات کریں۔"
+
+  withheld.next:
+    kind: paragraph
+    polarity: withheld
+    text: "اس صفحے پر کوئی نتیجہ نہیں دکھایا گیا۔ یہ صفحہ اس بارے میں کچھ نہیں کہتا کہ نتیجہ کیا ہے۔"
+
+  # ---------------------------------------------------------------- meaning
+  meaning.heading:
+    kind: heading
+    polarity: neutral
+    text: "نتیجے کا کیا مطلب ہے اور کیا نہیں"
+
+  meaning.risk_not_diagnosis:
+    kind: paragraph
+    polarity: neutral
+    glossary: [risk, diagnosis]
+    text: "اسکریننگ کا نتیجہ امکان کے بارے میں ہوتا ہے۔ یہ تشخیص نہیں ہے۔ اس کا مطلب یہ نہیں کہ کوئی فرد بیمار ہے۔"
+
+  meaning.carrier_not_illness:
+    kind: paragraph
+    polarity: neutral
+    glossary: [carrier, gene]
+    text: "کیریئر کے پاس جین کی ایک بدلی ہوئی کاپی ہوتی ہے۔ کیریئر ہونا کوئی بیماری نہیں ہے۔ زیادہ تر کیریئر افراد میں کوئی علامت نہیں ہوتی۔"
+
+  meaning.most_people_carry:
+    kind: paragraph
+    polarity: neutral
+    glossary: [carrier, gene]
+    source: "Rishta Safe authoring note, pending clinical sign-off: AVDB-derived estimate of carried genes (illustrative); no number is shown"
+    text: "زیادہ تر لوگوں میں جین کی کم از کم ایک تبدیلی ہوتی ہے اور انہیں کبھی پتا نہیں چلتا۔ اصل بات یہ ہے کہ دو ساتھیوں میں ایک ہی جین میں تبدیلی ہے یا نہیں۔"
+
+  # ---------------------------------------------------------------- limits
+  limits.heading:
+    kind: heading
+    polarity: neutral
+    text: "یہ ٹیسٹ کیا ڈھونڈ سکتا ہے اور کیا نہیں"
+
+  limits.panel_not_complete:
+    kind: paragraph
+    polarity: neutral
+    glossary: [panel, detection_rate]
+    source: "DoH Abu Dhabi Premarital Screening Standard V3, App. 15 footnote: couples must be informed that the screening does not cover or detect all genetic disorders"
+    text: "یہ ٹیسٹ جینز کی ایک منتخب فہرست دیکھتا ہے۔ یہ ہر جین کی ہر تبدیلی نہیں ڈھونڈتا، اور ہر موروثی بیماری کا احاطہ بھی نہیں کرتا۔"
+
+  limits.detection.generic:
+    kind: paragraph
+    polarity: neutral
+    glossary: [detection_rate]
+    text: "اس ٹیسٹ کی شناخت کی شرح (detection rate): {detection_rate_label}۔ شناخت کی شرح بتاتی ہے کہ جو تبدیلی واقعی موجود ہو، ٹیسٹ اسے کتنی بار پکڑ لیتا ہے۔ کوئی ٹیسٹ ہر تبدیلی نہیں ڈھونڈتا۔"
+
+  limits.detection.panel_rate_assumed:
+    kind: paragraph
+    polarity: neutral
+    glossary: [detection_rate]
+    source: "genetics/detection.py statement key detection.panel_rate_assumed; the rate is assumed and illustrative (data/panels.yaml)"
+    text: "اس ٹیسٹ کی شناخت کی شرح: ان جینز میں معلوم تبدیلیوں میں سے تقریباً {rate_den} میں سے {rate_num}۔ یہ شرح فرضی اور مثالی ہے۔ یہ ناپی ہوئی شرح نہیں ہے۔ کوئی ٹیسٹ ہر تبدیلی نہیں ڈھونڈ سکتا۔"
+
+  limits.detection.alpha_globin_locus_limit:
+    kind: paragraph
+    polarity: neutral
+    glossary: [detection_rate]
+    source: "genetics/detection.py statement key detection.alpha_globin_locus_limit; the rate is assumed and illustrative (data/panels.yaml)"
+    text: "الفا گلوبن جینز کے لیے شناخت کی شرح تقریباً {rate_den} میں سے {rate_num} ہے۔ یہ شرح فرضی اور مثالی ہے، ناپی ہوئی نہیں۔ ڈی این اے کا یہ حصہ تکنیکی طور پر جانچنا مشکل ہے۔"
+
+  limits.detection.related_couple_shared_misses:
+    kind: paragraph
+    polarity: neutral
+    glossary: [detection_rate]
+    source: "genetics/detection.py statement key detection.related_couple_shared_misses; the rate is assumed and illustrative (data/panels.yaml)"
+    text: "شناخت کی شرح تقریباً {rate_den} میں سے {rate_num} ہے (فرضی)۔ چونکہ آپ دونوں آپس میں رشتہ دار ہیں، اس لیے امکان ہے کہ جو تبدیلی یہ ٹیسٹ نہ پکڑ سکے وہ آپ دونوں میں نہ پکڑی جائے۔"
+
+  limits.detection.assumed_note:
+    kind: paragraph
+    polarity: neutral
+    text: "یہ شرح اس پروٹوٹائپ میں ایک مفروضے کے طور پر استعمال ہوئی ہے۔ کلینیکل سربراہ کی منظوری ابھی باقی ہے۔"
+
+  limits.related_couple:
+    kind: callout
+    tone: care
+    polarity: neutral
+    glossary: [consanguinity, detection_rate]
+    source: "Rishta Safe's own gene-dropping simulation (Rishta Safe authoring note, pending clinical sign-off): the naive independent update understates the chance by about 16 to 60 times for first cousins; ACMG advises reporting the detection rate, not a residual figure"
+    text: "آپ آپس میں رشتہ دار ہیں، اس لیے اگر ٹیسٹ میں کوئی تبدیلی نہ ملے تو بھی امکان اس طرح کم نہیں ہوتا جیسے ان ساتھیوں کے لیے ہوتا ہے جو آپس میں رشتہ دار نہیں۔ ایک ہی بزرگ سے کوئی تبدیلی آپ دونوں تک پہنچ سکتی ہے، اور جو تبدیلی ٹیسٹ سے چھوٹ جائے وہ آپ دونوں میں چھوٹ جائے گی۔ اسی لیے ٹیسٹ میں کوئی تبدیلی نہ ملنے کے بعد کوئی چھوٹا عدد نہیں دکھایا جاتا۔"
+
+  # ---------------------------------------------------------------- own and partner views
+  own.heading:
+    kind: heading
+    polarity: neutral
+    text: "آپ کی اپنی رپورٹ"
+
+  own.finding.carrier:
+    kind: item
+    polarity: neutral
+    glossary: [carrier]
+    text: "آپ کی رپورٹ میں {gene} جین کی ایک بدلی ہوئی کاپی درج ہے۔ اس کا مطلب ہے کہ آپ اس جین کے کیریئر ہیں۔"
+
+  own.finding.affected:
+    kind: item
+    polarity: neutral
+    glossary: [affected]
+    text: "آپ کی رپورٹ میں {gene} جین میں ایسی تبدیلیاں درج ہیں جو کسی بیماری سے جڑی ہیں۔ کونسلر سمجھائیں گے کہ آپ کے لیے اس کا کیا مطلب ہے۔ یہ صفحہ تشخیص نہیں دے سکتا۔"
+
+  own.finding.vus:
+    kind: item
+    polarity: neutral
+    glossary: [vus]
+    text: "آپ کی رپورٹ میں {gene} جین میں ایک ایسی تبدیلی درج ہے جس کا مطلب ابھی واضح نہیں۔ اسے نتیجے میں شمار نہیں کیا جاتا۔"
+
+  own.finding.not_detected:
+    kind: item
+    polarity: neutral
+    text: "اس ٹیسٹ میں {gene} جین میں کوئی تبدیلی نہیں ملی۔ براہِ کرم نیچے ٹیسٹ کی حدود دیکھ لیں۔"
+
+  partner.heading:
+    kind: heading
+    polarity: neutral
+    text: "آپ کے ساتھی کی رپورٹ"
+
+  partner.none:
+    kind: paragraph
+    polarity: neutral
+    text: "آپ جوڑے کا نتیجہ دیکھ سکتے ہیں۔ آپ کے ساتھی کی اپنی رپورٹ آپ کو تب تک نہیں دکھائی جاتی جب تک آپ کے ساتھی رضامند نہ ہوں۔"
+
+  partner.gene_only:
+    kind: item
+    polarity: neutral
+    text: "آپ کے ساتھی کی رپورٹ میں {gene} جین کا ذکر ہے۔"
+
+  partner.variant_unknown:
+    kind: item
+    polarity: neutral
+    text: "تبدیلی کا نام درج نہیں"
+
+  partner.full.carrier:
+    kind: item
+    polarity: neutral
+    glossary: [carrier]
+    text: "آپ کے ساتھی کی رپورٹ میں {gene} جین کی ایک بدلی ہوئی کاپی درج ہے ({variant})۔"
+
+  partner.full.affected:
+    kind: item
+    polarity: neutral
+    glossary: [affected]
+    text: "آپ کے ساتھی کی رپورٹ میں {gene} جین میں ایسی تبدیلیاں درج ہیں جو کسی بیماری سے جڑی ہیں ({variant})۔"
+
+  partner.full.vus:
+    kind: item
+    polarity: neutral
+    glossary: [vus]
+    text: "آپ کے ساتھی کی رپورٹ میں {gene} جین میں ایک ایسی تبدیلی درج ہے جس کا مطلب ابھی واضح نہیں ({variant})۔"
+
+  partner.full.not_detected:
+    kind: item
+    polarity: neutral
+    text: "آپ کے ساتھی کی رپورٹ میں {gene} جین میں کوئی تبدیلی درج نہیں ({variant})۔"
+
+  # ---------------------------------------------------------------- privacy, policy, certificate
+  privacy.heading:
+    kind: heading
+    polarity: neutral
+    text: "کون دیکھ سکتا ہے"
+
+  privacy.who_can_see:
+    kind: paragraph
+    polarity: neutral
+    source: "Federal Decree-Law 49/2023, Art. 9(1) and Art. 19 to 21"
+    text: "آپ اپنا نتیجہ دیکھ سکتے ہیں۔ آپ کے ساتھی تفصیلات تب ہی دیکھ سکتے ہیں جب آپ رضامند ہوں۔ ملازمت دینے والے ادارے اور انشورنس کمپنیاں جینیاتی نتائج مانگ نہیں سکتیں اور انہیں استعمال بھی نہیں کر سکتیں (وفاقی فرمانِ قانون نمبر {law_number}/{law_year}، دفعہ {art_19} سے {art_21} تک)۔"
+
+  privacy.state_recipient:
+    kind: paragraph
+    polarity: neutral
+    source: "Federal Decree-Law 49/2023, Art. 26(2)"
+    text: "قانون اسکریننگ سینٹرز سے تقاضا کرتا ہے کہ وہ اسکریننگ کا ڈیٹا قومی جینوم ڈیٹا بیس کو بھیجیں (دفعہ {art_26} کی ذیلی شق {art_26_para})۔ یہ ٹول ڈیٹا کو صحت کے حکام سے نہیں چھپاتا۔"
+
+  policy.abu_dhabi:
+    kind: paragraph
+    polarity: neutral
+    source: "DoH Abu Dhabi Premarital Screening Standard V3, App. 2: the doctor meets both partners together after obtaining the consent of the person with the abnormal result"
+    text: "ابوظہبی میں، جب کسی نتیجے میں کوئی بات سامنے آئے تو ڈاکٹر ساتھی کو بتانے سے پہلے اس شخص سے پوچھتے ہیں جس کا وہ نتیجہ ہے۔"
+
+  policy.dubai:
+    kind: paragraph
+    polarity: neutral
+    source: "DHA Standards for Premarital Screening Services V1, 9.1.4: disclosed exclusively to the affected individual; the partner only with explicit consent"
+    text: "دبئی میں، جس نتیجے میں کوئی بات سامنے آئے وہ پہلے صرف اسی شخص کو بتایا جاتا ہے جس کا وہ نتیجہ ہے۔ ساتھی کو صرف اس شخص کی واضح رضامندی سے بتایا جاتا ہے۔"
+
+  certificate.refusal_tension:
+    kind: callout
+    tone: care
+    polarity: neutral
+    source: "DoH Abu Dhabi Standard V3, 3.3.12.1; DHA Standard V1, 9.1.10b: the certificate is withheld if a partner refuses to share or sign"
+    text: "ابوظہبی اور دبئی میں، اگر کوئی ایک ساتھی نتیجہ بتانے یا اقرار نامے پر دستخط کرنے سے انکار کرے تو شادی کے معاہدے کے لیے درکار رپورٹ جاری نہیں کی جا سکتی۔ اس طرح آپ کی رازداری کے انتخاب اور سرٹیفکیٹ آپس میں جڑے ہوئے ہیں۔ کونسلر سمجھا سکتے ہیں کہ آپ کے لیے اس کا کیا مطلب ہے۔"
+
+  certificate.generic:
+    kind: callout
+    tone: care
+    polarity: neutral
+    text: "اس معاملے پر سرٹیفکیٹ سے متعلق ایک نوٹ لاگو ہوتا ہے۔ کونسلر اسے سمجھا سکتے ہیں۔"
+
+  # ---------------------------------------------------------------- options pane
+  options.heading:
+    kind: heading
+    polarity: neutral
+    text: "موجود اختیارات"
+
+  options.intro:
+    kind: paragraph
+    polarity: neutral
+    text: "یہ وہ اختیارات ہیں جو موجود ہیں۔ انہیں ترجیح کی کسی ترتیب سے نہیں لکھا گیا، اور ترتیب سب کے لیے ایک جیسی ہے۔ یہاں کوئی آپ کو یہ نہیں بتا رہا کہ آپ کون سا اختیار اپنائیں۔ کونسلر ہر ایک کی وضاحت کر سکتے ہیں۔"
+
+  options.item.preimplantation:
+    kind: item
+    polarity: neutral
+    source: "Federal Decree-Law 49/2023, Art. 11"
+    text: "حمل شروع ہونے سے پہلے لائسنس یافتہ تولیدی مراکز میں ٹیسٹ، تاکہ موروثی بیماریوں کی نشاندہی ہو سکے اور ان سے بچاؤ ممکن ہو (دفعہ {art_11})۔"
+
+  options.item.prenatal_diagnosis:
+    kind: item
+    polarity: neutral
+    source: "Federal Decree-Law 49/2023, Art. 12"
+    text: "حمل کے دوران ٹیسٹ، تاکہ معلوم ہو کہ بچے کو کوئی بیماری ہے یا نہیں۔ قانون اس کی اجازت دیتا ہے (دفعہ {art_12})۔ اگر کوئی سنگین بیماری سامنے آئے تو قانون کہتا ہے کہ نافذ قوانین کے مطابق طبی اختیارات دستیاب ہیں۔"
+
+  options.item.specialist_discussion:
+    kind: item
+    polarity: neutral
+    glossary: [genetic_counselling]
+    text: "کسی ماہر سے نتیجے کے بارے میں بات کرنا: اس کا آپ کے خاندان کے لیے کیا مطلب ہے، اور کسی بھی حمل کے لیے اس کا کیا مطلب ہے۔"
+
+  options.rights:
+    kind: paragraph
+    polarity: neutral
+    glossary: [right_not_to_know]
+    source: "Federal Decree-Law 49/2023, Art. 9(2)"
+    text: "آپ اپنے کچھ یا تمام نتائج نہ جاننے کا انتخاب کر سکتے ہیں۔ یہ آپ کا حق ہے (وفاقی فرمانِ قانون نمبر {law_number}/{law_year}، دفعہ {art_9} کی ذیلی شق {art_9_para})۔ آپ بعد میں اپنا فیصلہ بدل سکتے ہیں۔"
+
+  options.closing:
+    kind: paragraph
+    polarity: neutral
+    text: "یہ ٹول آپ کی جگہ فیصلے نہیں کرتا۔ آپ کسی بھی وقت مدد مانگ سکتے ہیں۔"
+
+  options.pointer:
+    kind: paragraph
+    polarity: neutral
+    text: "“موجود اختیارات” کے نام سے ایک صفحہ ان اختیارات کی وضاحت کرتا ہے جن کی قانون اجازت دیتا ہے۔ یہ انہیں ترجیح کی کسی ترتیب کے بغیر دکھاتا ہے۔"

@@ -1,0 +1,46 @@
+{
+  "couple_id": "cpl-demo-02",
+  "locale": "en",
+  "result_category": "shared_result_found",
+  "correct_count": 3,
+  "item_count": 5,
+  "items": [
+    {
+      "item_id": "sr1",
+      "answered": "a",
+      "correct": true,
+      "correct_option": "a",
+      "explanation": "A shared result points to a chance for a child. It is not a diagnosis of either partner, and it is not a ruling on a marriage."
+    },
+    {
+      "item_id": "sr2",
+      "answered": "false",
+      "correct": true,
+      "correct_option": "false",
+      "explanation": "A carrier has one changed copy of a gene. Most carriers have no symptoms."
+    },
+    {
+      "item_id": "sr3",
+      "answered": "a",
+      "correct": true,
+      "correct_option": "a",
+      "explanation": "The chart is out of 100 pregnancies. It describes the chance for a pregnancy. It does not say how many children you will have."
+    },
+    {
+      "item_id": "sr4",
+      "answered": "a",
+      "correct": false,
+      "correct_option": "b",
+      "explanation": "The choice is yours. A counsellor explains the choices that exist and does not tell you what to decide."
+    },
+    {
+      "item_id": "sr5",
+      "answered": "b",
+      "correct": false,
+      "correct_option": "a",
+      "explanation": "A counsellor can explain the result and the choices. Screening is done at licensed centres, not at home."
+    }
+  ],
+  "results_note": "Your answers are shown with a short explanation. There is no cut-off.",
+  "scoring_note": "Deterministic: one point for each answer equal to the key, out of five. Not-sure and blank answers score zero and are reported as such. There is no cut-off and no verdict."
+}

@@ -1,0 +1,141 @@
+# Pathway texts, Urdu. Same keys as pathway.en.yaml.
+# Every outside system label ends with the simulated marker (فرضی (سمولیٹڈ)).
+# Status: needs_clinician_signoff: true; language_status: draft (no native clinical reader has looked at this wording).
+meta:
+  schema_version: 1
+  locale: ur
+  direction: rtl
+  language_status: draft
+  needs_clinician_signoff: true
+  authoring: "Urdu draft of static text, drafted at authoring time with an LLM assistant. No personal data was given to the assistant. No native clinical reader has reviewed it. No runtime LLM."
+
+notices:
+  simulated: "اس صفحے پر دکھایا گیا ہر بیرونی نظام فرضی (سمولیٹڈ) ہے۔ کچھ بک، ارسال یا جاری نہیں ہوتا۔"
+  synthetic: "اس نمونے (پروٹوٹائپ) میں تمام لوگ اور نتائج فرضی ہیں (مصنوعی ڈیٹا)۔"
+  draft: "یہ عنوانات ابتدائی مسودہ ہیں۔ کلینیکل سربراہ کے دستخط ابھی باقی ہیں۔"
+  certificate_expired: "یہاں دکھائی گئی سرٹیفکیٹ کی تاریخیں ختم ہو چکی ہیں۔ نیا سرٹیفکیٹ درکار ہو گا۔"
+  certificate_valid_until: "اس تاریخ تک معتبر"
+  preliminary_risk_off: "ابتدائی اندازہ نہیں مانگا گیا۔"
+  preliminary_risk_unavailable: "ابتدائی اندازہ مانگا گیا تھا، مگر اس ورژن میں اس کا کوئی ذریعہ نہیں ہے۔ کچھ نہیں دکھایا جا رہا۔"
+  stale_task: "اس کام میں بہت دیر سے کوئی تبدیلی نہیں ہوئی۔ اسے یہاں اس لیے دکھایا گیا ہے کہ یہ گم نہ ہو جائے۔"
+  standard_illustrative: "یہ وقت کی حد صرف مثال کے لیے ہے۔ کوئی شائع شدہ معیار ایسی حد نہیں بتاتا۔"
+
+steps:
+  registered:
+    label: "جانچ کی ملاقات کا وقت لینا"
+    description: "آپ دونوں لائسنس یافتہ جانچ مرکز اور وقت چنتے ہیں۔ اس نمونے میں بکنگ فرضی (سمولیٹڈ) ہے اور کچھ بک نہیں ہوتا۔"
+  consult_completed:
+    label: "رضامندی اور ڈاکٹر سے ملاقات"
+    description: "آپ رضامندی کے فارم پر دستخط کرتے ہیں اور ڈاکٹر سے ملتے ہیں، ہر ساتھی الگ الگ۔ ڈاکٹر آپ کی صحت اور خاندان کے بارے میں پوچھتا ہے۔"
+  sample_collected:
+    label: "خون کا نمونہ"
+    description: "تربیت یافتہ شخص اسی ملاقات کے دوران مرکز میں خون لیتا ہے۔ نمونے لیبارٹریوں کو بھیجے جاتے ہیں۔"
+  lab_started:
+    label: "لیبارٹری کا کام شروع"
+    description: "لیبارٹری نمونہ وصول کرتی ہے اور ٹیسٹ شروع کرتی ہے۔"
+  joint_report_ready:
+    label: "مشترکہ رپورٹ تیار ہے"
+    description: "جوڑے کے لیے ایک مشترکہ رپورٹ بنتی ہے اور ڈاکٹر کو بھیجی جاتی ہے۔ جینیاتی حصے میں باقی ٹیسٹوں سے زیادہ وقت لگتا ہے۔"
+  result_communicated:
+    label: "نتیجہ سمجھایا جاتا ہے"
+    description: "ڈاکٹر نتیجہ بتاتا ہے۔ ہر ساتھی سے الگ بھی رابطہ ہو سکتا ہے۔"
+  counselling_booked:
+    label: "کاؤنسلنگ کا وقت لیا جاتا ہے"
+    description: "اگر نتیجے کی وجہ سے ضرورت ہو تو کاؤنسلنگ کی ملاقات رکھی جاتی ہے۔ آپ «نہیں، شکریہ» بھی کہہ سکتے ہیں۔"
+  counselling_completed:
+    label: "کاؤنسلنگ مکمل"
+    description: "تربیت یافتہ ماہر نتیجہ اور موجود اختیارات سمجھاتا ہے۔ وہ آپ کو یہ نہیں بتاتا کہ آپ کیا فیصلہ کریں۔"
+  declaration_signed:
+    label: "اقرار نامے پر دستخط"
+    description: "آپ ایک بیان پر دستخط کرتے ہیں کہ نتیجہ آپ کو سمجھا دیا گیا ہے۔"
+  certificate_issued:
+    label: "سرٹیفکیٹ جاری ہوتا ہے"
+    description: "شادی کے معاہدے کے لیے درکار جانچ کی رپورٹ جاری کی جاتی ہے۔ یہ محدود مدت کے لیے معتبر ہوتی ہے۔"
+  judicial_handoff_sent:
+    label: "رپورٹ عدالتی محکمے کو جاتی ہے"
+    description: "رپورٹ عدالتی محکمے کو دستیاب کر دی جاتی ہے۔ اس نمونے میں یہ حوالگی فرضی (سمولیٹڈ) ہے۔"
+  case_closed:
+    label: "کیس بند ہوتا ہے"
+    description: "اگلے مراحل مکمل ہو چکے ہیں یا ان سے انکار کیا گیا ہے، اور کیس بند ہو جاتا ہے۔"
+
+events:
+  consult_completed: "رضامندی اور ڈاکٹر سے ملاقات کو مکمل درج کریں"
+  sample_collected: "خون کا نمونہ لیا جانا درج کریں"
+  lab_started: "درج کریں کہ لیبارٹری نے کام شروع کر دیا"
+  joint_report_ready: "درج کریں کہ مشترکہ رپورٹ تیار ہے"
+  result_communicated: "درج کریں کہ نتیجہ سمجھا دیا گیا"
+  counselling_booked: "کاؤنسلنگ کا وقت لیں"
+  counselling_missed: "چھوٹ جانے والی کاؤنسلنگ ملاقات درج کریں"
+  counselling_completed: "درج کریں کہ کاؤنسلنگ مکمل ہو گئی"
+  counselling_declined: "درج کریں کہ کاؤنسلنگ نہ کرنے کا انتخاب کیا گیا"
+  referral_rejected: "درج کریں کہ ریفرل مسترد ہوا"
+  partner_declined_to_share: "درج کریں کہ ایک ساتھی نے شیئر نہ کرنے کا انتخاب کیا"
+  declaration_signed: "دستخط شدہ اقرار نامہ درج کریں"
+  certificate_issued: "درج کریں کہ سرٹیفکیٹ جاری ہوا"
+  judicial_handoff_sent: "عدالتی محکمے کو حوالگی درج کریں"
+  case_closed: "کیس بند کریں"
+  brief_generated: "درج کریں کہ کاؤنسلر کا خلاصہ تیار ہوا"
+  confirmatory_test_ordered: "تصدیقی ٹیسٹ کا آرڈر دیں"
+  confirmatory_test_resulted: "تصدیقی ٹیسٹ کا نتیجہ درج کریں"
+  specialist_referral_requested: "ماہر کے پاس بھیجنے کی درخواست کریں"
+  specialist_referral_completed: "ماہر سے ملاقات درج کریں"
+
+external_systems:
+  licensed_centre: "لائسنس یافتہ جانچ مرکز - فرضی (سمولیٹڈ)"
+  standard_lab: "عام ٹیسٹوں کی لیبارٹری - فرضی (سمولیٹڈ)"
+  genomic_lab: "جینومک لیبارٹری - فرضی (سمولیٹڈ)"
+  result_feed: "لیبارٹری اور ڈاکٹر کے درمیان رپورٹ کا ذریعہ - فرضی (سمولیٹڈ)"
+  certificate_service: "ڈیجیٹل سرٹیفکیٹ سروس - فرضی (سمولیٹڈ)"
+  judicial_department: "عدالتی محکمے کو حوالگی - فرضی (سمولیٹڈ)"
+  national_genomic_database: "قومی جینومک ڈیٹا بیس کا ڈیٹا ذریعہ - فرضی (سمولیٹڈ)"
+
+sla_status:
+  on_time: "وقت پر"
+  at_risk: "دیر ہونے کا خدشہ"
+  breached: "دیر سے"
+
+step_status:
+  done: "مکمل"
+  current: "اب"
+  upcoming: "بعد میں"
+  not_applicable: "درکار نہیں"
+  skipped: "انکار کیا گیا"
+  blocked: "عارضی طور پر موقوف"
+
+task_codes:
+  counselling: "جینیاتی کاؤنسلنگ"
+  confirmatory_testing: "تصدیقی ٹیسٹ"
+  specialist_referral: "ماہر کے پاس ریفرل"
+
+task_status:
+  requested: "درخواست کی گئی"
+  accepted: "قبول کیا گیا"
+  in-progress: "جاری ہے"
+  on-hold: "عارضی طور پر موقوف"
+  completed: "مکمل"
+  rejected: "مسترد"
+  failed: "مکمل نہیں ہو سکا"
+  cancelled: "بند کر دیا گیا"
+
+status_reasons:
+  patient_declined: "شخص نے یہ کام نہ کرنے کا انتخاب کیا"
+  no_show: "ملاقات نہیں ہوئی"
+  provider_unavailable: "خدمت دستیاب نہیں تھی"
+  timeout: "مقررہ وقت میں کوئی جواب نہیں آیا"
+  wrong_destination: "غلط خدمت کو بھیج دیا گیا"
+
+family_history:
+  blood_disease_in_family: "خاندان میں خون کی کوئی بیماری"
+  thalassaemia_in_family: "خاندان میں تھیلیسیمیا"
+  sickle_cell_disease_in_family: "خاندان میں سِکل سیل بیماری"
+  childhood_death_in_family: "خاندان میں کوئی بچہ جو کم عمری میں فوت ہوا"
+  previous_child_with_inherited_condition: "پہلے کا کوئی بچہ جسے موروثی حالت تھی"
+  known_carrier_in_family: "کوئی رشتہ دار جو کیریئر معلوم ہو"
+  developmental_or_neurological_condition_in_family: "خاندان میں نشوونما یا اعصاب کی کوئی حالت"
+  hearing_or_vision_loss_in_family: "خاندان میں کم عمری سے سماعت یا بینائی کی کمی"
+  none_declared: "میرے علم میں کوئی نہیں"
+
+id_types:
+  emirates_id: "ایمریٹس آئی ڈی (Emirates ID): صرف قسم، کوئی نمبر ذخیرہ نہیں کیا جاتا"
+  cnic: "شناختی کارڈ (CNIC): صرف قسم، کوئی نمبر ذخیرہ نہیں کیا جاتا"
+  none: "کوئی شناختی دستاویز نہیں"

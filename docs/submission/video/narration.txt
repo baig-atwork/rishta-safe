@@ -1,0 +1,19 @@
+A screening result can leave a couple asking what it means, who may see it, and what happens next. Rishta Safe is a prototype for the UAE premarital genetic screening pathway that addresses them. Everything you see is synthetic data.
+
+Ten synthetic cases, each crossed with the roles that may open them. The programme role sees aggregates only. We open case two: first cousins who carry the same condition.
+
+Before a result is shown, each person chooses how to meet it: now, with a counsellor first, not yet, or not at all. Nothing is preselected. Choosing not to know is recorded as a legal right, Federal Decree-Law 49 of 2023, Article 9(2).
+
+The result is read together: the same text in English and Arabic, with one hundred pregnancies as a grid. It states a chance, never a diagnosis. The headline is one of three categories, not a severity scale. The Arabic is a machine draft awaiting native clinical review.
+
+Who sees what: only the first column is the person's to change. The care team, the national genomic database, employers and insurers are fixed by the rules. Sharing gene names with the partner writes a row to the audit log.
+
+Staff get a queue, a one-page brief and a trace, side by side. Every line of the brief links to the rule and source behind it. Nothing is generated, and it recommends nothing. The rule text is English and pending clinical sign-off.
+
+Now try to break it. Each probe sends a real request as a synthetic persona, and shows the response and the audit row it wrote. An employer asks for a result: refused, and logged. Asking whether to go ahead with the wedding: refused, never answered, never scored.
+
+The scoreboard shows its weakest figure first: our refusal classifier refused thirty-six of fifty-nine held-out prompts on its first run, sixty-one percent. The hundred percent figures are regression gates, not safety evidence. Two measures are hatched: not run.
+
+What is not done: no clinical review, no comprehension study, no real patient data, and no connection to any UAE health system. Arabic and Urdu text are drafts awaiting native review.
+
+Rishta Safe explains. People decide.

@@ -1,0 +1,114 @@
+{
+  "closure": {
+    "eyebrow": "Closing the loop",
+    "title": "Tell us how the explanation worked",
+    "standfirst": "Eight short questions about the explanation you were given, and one optional question about future services. They are about the explanation, not about you.",
+    "syntheticNote": "Answers here are for made-up (synthetic) people only. Do not enter real health or family details.",
+    "empty": {
+      "title": "The questions are not available yet",
+      "body": "The questions load from the service, and none came back. Your pathway page is the place to start again.",
+      "cta": "Back to your pathway"
+    },
+    "partial": {
+      "service": "The future-services question could not be loaded, so it is left out for now. The questions below are complete."
+    },
+    "draftStamp": "Draft translation: clinical lead sign-off pending",
+    "item": {
+      "position": "Question {position} of {total}",
+      "optional": "Optional",
+      "textHint": "Write as much or as little as you like, up to {max} characters.",
+      "integerHint": "A whole number from 0 to 100.",
+      "scaleHint": "Choose a number from 1 to 5.",
+      "chooseOne": "Choose one."
+    },
+    "tfu": {
+      "true": "True",
+      "false": "False",
+      "not_sure": "Not sure"
+    },
+    "scale": {
+      "low": "Strongly disagree",
+      "high": "Strongly agree"
+    },
+    "service": {
+      "optional": "This question is optional. Nothing is selected unless you choose it.",
+      "clear": "Clear my answer",
+      "topicsPrompt": "Which topics interest you?",
+      "topicsHint": "Optional. Select any that apply."
+    },
+    "errors": {
+      "required": "Please answer this question.",
+      "integerWhole": "Enter a whole number, for example 25.",
+      "integerRange": "Enter a number between 0 and 100.",
+      "tooLong": "Please keep this under {max} characters.",
+      "interestInvalid": "Choose one of the options, or clear your answer.",
+      "summary": "Please check the answers marked below ({count})."
+    },
+    "submit": "Send my answers",
+    "submitNote": "Sent to this demo only. No total score is calculated.",
+    "success": {
+      "title": "Thank you",
+      "body": "Your answers are saved in this demo only.",
+      "reference": "Reference:",
+      "simulated": "simulated record"
+    },
+    "error": {
+      "title": "Your answers were not sent",
+      "body": "Nothing was lost on this page. You can try again.",
+      "retry": "Try again"
+    }
+  },
+  "quiz": {
+    "eyebrow": "Practice",
+    "title": "Practise what you have learned",
+    "standfirst": "Short questions to check that the explanation was clear. They are practice for understanding, not a test of you.",
+    "empty": {
+      "title": "No practice questions yet",
+      "body": "Practice questions appear once your result is available. Your pathway page shows where you are.",
+      "cta": "Back to your pathway"
+    },
+    "draftStamp": "Draft translation: clinical lead sign-off pending",
+    "intro": {
+      "heading": "Check that the explanation made sense",
+      "body": "There are no marks to earn and nobody is judging your answers. If a question is unclear, that tells us the explanation can be better. You can leave any question blank and try again as often as you like."
+    },
+    "form": {
+      "label": "Practice questions"
+    },
+    "question": {
+      "position": "Question {position} of {total}"
+    },
+    "tfu": {
+      "true": "True",
+      "false": "False",
+      "not_sure": "Not sure"
+    },
+    "submit": "Check my answers",
+    "submitNote": "Answered {answered} of {total}. You can leave any question blank.",
+    "result": {
+      "summary": "{correct} of {total} answers matched the explanation",
+      "note": "This is practice for understanding. There is no cut-off, and each answer comes with a short explanation.",
+      "yourAnswer": "Your answer:",
+      "notAnswered": "Not answered",
+      "matched": "Matches the explanation",
+      "notThisTime": "Different from the explanation",
+      "tryAgain": "Try again"
+    },
+    "error": {
+      "title": "Your answers could not be checked",
+      "body": "Nothing was lost on this page. You can try again.",
+      "retry": "Try again"
+    },
+    "view": {
+      "next": "Next question",
+      "back": "Previous question",
+      "skipLabel": "Leave blank and go on"
+    },
+    "cells": {
+      "label": "Your answers, one cell per question",
+      "matched": "matches the explanation",
+      "different": "different from the explanation",
+      "none": "not answered"
+    }
+  }
+}

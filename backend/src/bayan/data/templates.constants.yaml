@@ -1,0 +1,49 @@
+# Locale-neutral constants that templates may print. The ONLY digits that may appear in a rendered
+# explainer, besides numbers handed over by the engine (DisclosedResult), come from here.
+# The numeric-fidelity checker re-reads this file independently of the renderer.
+#
+# origin: template_constant (core/contracts.py NumberRef.origin).
+# Article numbers are cited from the official English text of Federal Decree-Law 49/2023;
+# the statute itself was not re-read for this build (legal read pending).
+meta:
+  needs_clinician_signoff: true
+  note: "Constants are statutory citations and one framing choice. None is a clinical number."
+
+constants:
+  denominator:
+    value: 100
+    note: >-
+      Fixed denominator of every natural-frequency statement and icon array. A pre-registered
+      framing choice: part-to-whole arrays of 100 help people attend to the denominator, and
+      1,000-icon arrays make a risk feel more serious than 100-icon arrays
+      (Garcia-Retamero and Cokely; a visual-aids review).
+  law_number:
+    value: 49
+    note: "Federal Decree-Law number 49 of 2023 on the Use of the Human Genome."
+  law_year:
+    value: 2023
+    note: "Year of Federal Decree-Law 49/2023."
+  art_9:
+    value: 9
+    note: "Art. 9(1) to (6): right to request own results; written unwillingness to know."
+  art_9_para:
+    value: 2
+    note: "Art. 9(2): the right not to know (docs/spec/00-architecture-and-scope.md, rule 9)."
+  art_11:
+    value: 11
+    note: "Art. 11: gamete and embryo screening at licensed reproduction centres."
+  art_12:
+    value: 12
+    note: "Art. 12: prenatal screening permitted."
+  art_19:
+    value: 19
+    note: "Art. 19 to 21: employers and insurers may not require or use results."
+  art_21:
+    value: 21
+    note: "Art. 19 to 21, last article of the range."
+  art_26:
+    value: 26
+    note: "Art. 26(2): every party performing genetic screening gives the data to the National Genomic Database."
+  art_26_para:
+    value: 2
+    note: "Paragraph 2 of Art. 26."

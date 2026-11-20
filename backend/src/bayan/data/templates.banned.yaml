@@ -1,0 +1,141 @@
+# Banned-word guard for every user-facing string (hard rule 4, spec section 2).
+# Used by explain/checker.py on every rendered document and by the static audit tests on every
+# template, glossary entry, pathway label and closure string, in all three languages.
+#
+# match: word       -> whole-word, case-insensitive, whitespace and hyphen interchangeable
+# match: substring  -> substring after Arabic normalisation (diacritics and tatweel removed).
+#                      Arabic attaches clitics to words (wa-, bi-, li-, al-), so whole-word
+#                      matching would miss "والمتوافق"; the stems below are chosen so that they
+#                      do not occur inside ordinary words.
+#
+# Status: needs_clinician_signoff: true. language_status: draft (Arabic and Urdu lists are
+# drafted at authoring time with an LLM assistant; no native clinical reader has reviewed them).
+meta:
+  needs_clinician_signoff: true
+  language_status: draft
+  rule: "spec section 2 rule 4 (closed result vocabulary)"
+  note: >-
+    The words are banned because they turn a screening result into a verdict on a couple
+    (compatible, pass, fail), promise certainty (no risk, safe) or tell people what to do
+    (should, must not, proceed with the marriage, cancel). The official standards use some
+    of them (Rishta Safe authoring note, pending clinical sign-off); this product does not.
+
+en:
+  match: word
+  terms:
+    - compatible
+    - incompatible
+    - compatibility
+    - non-compatible
+    - noncompatible
+    - pass
+    - passed
+    - passes
+    - fail
+    - failed
+    - fails
+    - failure
+    - no risk
+    - zero risk
+    - risk free
+    - safe
+    - unsafe
+    - high risk
+    - moderate risk
+    - low risk
+    - should
+    - shouldn't
+    - must not
+    - mustn't
+    - you must
+    - cannot marry
+    - proceed with the marriage
+    - proceed with marriage
+    - go ahead with the marriage
+    - cancel
+    - cancelled
+    - canceled
+    - cancellation
+    - fit for marriage
+    - unfit
+    - healthy couple
+    - bad genes
+    - defective
+
+ar:
+  match: substring
+  terms:
+    - متوافق
+    - توافق
+    - غير متوافق
+    - عدم توافق
+    - اجتاز
+    - اجتياز
+    - ناجح
+    - نجح
+    - راسب
+    - رسب
+    - فشل
+    - لا خطر
+    - بلا خطر
+    - لا توجد خطورة
+    - لا يوجد خطر
+    - خطر مرتفع
+    - خطر عال
+    - خطورة عالية
+    - عالي الخطورة
+    - مرتفع الخطورة
+    - خطر متوسط
+    - خطورة متوسطة
+    - خطر منخفض
+    - خطورة منخفضة
+    - منخفض الخطورة
+    - آمن
+    - غير آمن
+    - يجب
+    - ينبغي
+    - لا يجوز
+    - لا يجب
+    - المضي في الزواج
+    - إتمام الزواج
+    - مواصلة الزواج
+    - إلغاء
+    - الغاء
+    - غير لائق
+    - جينات سيئة
+
+ur:
+  match: word
+  terms:
+    - ہم آہنگ
+    - غیر ہم آہنگ
+    - موافق
+    - غیر موافق
+    - مطابقت
+    - کامیاب
+    - ناکام
+    - پاس ہو
+    - پاس ہونا
+    - فیل
+    - کوئی خطرہ نہیں
+    - خطرہ نہیں
+    - بے خطر
+    - محفوظ
+    - غیر محفوظ
+    - زیادہ خطرہ
+    - اعلیٰ خطرہ
+    - اعلی خطرہ
+    - درمیانہ خطرہ
+    - متوسط خطرہ
+    - کم خطرہ
+    - چاہیے
+    - چاہئے
+    - ضروری ہے
+    - ہرگز نہ کریں
+    - شادی کریں
+    - شادی کے ساتھ آگے بڑھیں
+    - شادی جاری رکھیں
+    - منسوخ
+    - منسوخی
+    - ناموزوں
+    - خراب جینز

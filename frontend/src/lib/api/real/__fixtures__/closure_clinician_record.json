@@ -1,0 +1,60 @@
+{
+  "record_id": "closure-cpl-demo-02-002",
+  "couple_id": "cpl-demo-02",
+  "kind": "clinician",
+  "submitted_at": "2026-11-20T07:27:38.228069Z",
+  "patient": null,
+  "clinician": {
+    "proforma": {
+      "encounter": {
+        "mode": "in_person",
+        "duration_minutes": 30,
+        "session_language": "en",
+        "interpreter_used": false
+      },
+      "findings_discussed": [
+        {
+          "finding_ref": "couple_result",
+          "explained_as_chance_not_diagnosis": true,
+          "flagged_uncertain": false
+        }
+      ],
+      "information_given": {
+        "carrier_vs_disease": true,
+        "couple_numbers": true,
+        "test_limits": true,
+        "options_neutral_order": true,
+        "right_not_to_know": true,
+        "who_can_see_result": true,
+        "how_to_reach_us": true
+      },
+      "options_discussed": [],
+      "options_presented_in_neutral_order": true,
+      "next_step_status": "decided",
+      "teach_back_done": true,
+      "teach_back_result": "accurate",
+      "patient_questions_invited": true,
+      "patient_questions_answered": true,
+      "plan": [
+        {
+          "action": "referral",
+          "owner_role": "counsellor",
+          "due_date": "2026-12-01"
+        }
+      ],
+      "patient_copy_given": true,
+      "consent_record_ids": [],
+      "free_text_note": null
+    },
+    "risk_signal_at": "2026-11-06T16:27:27.033526Z",
+    "referral_task_ids": [
+      "task-cpl-demo-02-001"
+    ],
+    "service_preference_answered_by": [
+      "prs-02a"
+    ],
+    "completed_by_role": "clinician",
+    "completed_by_id": "stf-clinician-01"
+  },
+  "synthetic": true
+}

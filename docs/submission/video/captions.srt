@@ -1,0 +1,144 @@
+1
+00:00:03,000 --> 00:00:09,124
+A screening result can leave a couple asking what it
+means, who may see it, and what happens next.
+
+2
+00:00:09,174 --> 00:00:14,630
+Rishta Safe is a prototype for the UAE premarital
+genetic screening pathway that addresses them.
+
+3
+00:00:14,680 --> 00:00:17,434
+Everything you see is synthetic data.
+
+4
+00:00:18,634 --> 00:00:22,968
+Ten synthetic cases, each crossed with the
+roles that may open them.
+
+5
+00:00:23,018 --> 00:00:25,923
+The programme role sees aggregates only.
+
+6
+00:00:25,973 --> 00:00:30,342
+We open case two: first cousins who
+carry the same condition.
+
+7
+00:00:31,542 --> 00:00:39,271
+Before a result is shown, each person chooses how to meet it: now,
+with a counsellor first, not yet, or not at all.
+
+8
+00:00:39,321 --> 00:00:41,460
+Nothing is preselected.
+
+9
+00:00:41,510 --> 00:00:49,961
+Choosing not to know is recorded as a legal right,
+Federal Decree-Law 49 of 2023, Article 9(2).
+
+10
+00:00:55,161 --> 00:01:01,600
+The result is read together: the same text in English and
+Arabic, with one hundred pregnancies as a grid.
+
+11
+00:01:01,650 --> 00:01:05,089
+It states a chance, never a diagnosis.
+
+12
+00:01:05,139 --> 00:01:09,439
+The headline is one of three
+categories, not a severity scale.
+
+13
+00:01:09,489 --> 00:01:13,518
+The Arabic is a machine draft awaiting
+native clinical review.
+
+14
+00:01:14,718 --> 00:01:18,952
+Who sees what: only the first column is
+the person's to change.
+
+15
+00:01:19,002 --> 00:01:25,091
+The care team, the national genomic database,
+employers and insurers are fixed by the rules.
+
+16
+00:01:25,141 --> 00:01:29,230
+Sharing gene names with the partner
+writes a row to the audit log.
+
+17
+00:01:32,431 --> 00:01:37,395
+Staff get a queue, a one-page brief and
+a trace, side by side.
+
+18
+00:01:37,445 --> 00:01:41,101
+Every line of the brief links to the
+rule and source behind it.
+
+19
+00:01:41,151 --> 00:01:44,607
+Nothing is generated, and it recommends nothing.
+
+20
+00:01:44,657 --> 00:01:48,406
+The rule text is English and pending clinical sign-off.
+
+21
+00:01:49,607 --> 00:01:51,551
+Now try to break it.
+
+22
+00:01:51,601 --> 00:01:57,632
+Each probe sends a real request as a synthetic persona, and
+shows the response and the audit row it wrote.
+
+23
+00:01:57,682 --> 00:02:02,048
+An employer asks for a result: refused, and logged.
+
+24
+00:02:02,098 --> 00:02:08,097
+Asking whether to go ahead with the wedding:
+refused, never answered, never scored.
+
+25
+00:02:10,498 --> 00:02:19,872
+The scoreboard shows its weakest figure first: our refusal
+classifier refused thirty-six of fifty-nine held-out prompts
+on its first run, sixty-one percent.
+
+26
+00:02:19,922 --> 00:02:24,531
+The hundred percent figures are regression
+gates, not safety evidence.
+
+27
+00:02:24,581 --> 00:02:27,670
+Two measures are hatched: not run.
+
+28
+00:02:29,470 --> 00:02:38,254
+What is not done: no clinical review, no
+comprehension study, no real patient data, and no
+connection to any UAE health system.
+
+29
+00:02:38,304 --> 00:02:42,093
+Arabic and Urdu text are drafts awaiting native review.
+
+30
+00:02:43,693 --> 00:02:45,952
+Rishta Safe explains.
+
+31
+00:02:46,002 --> 00:02:47,976
+People decide.

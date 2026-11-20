@@ -1,0 +1,254 @@
+# Disclosure policies, consent purposes and the refusal classifier data (lane B, governance).
+#
+# Status of everything in this file:
+#   needs_clinician_signoff: true   (the clinical lead's sign-off is pending)
+#   needs_legal_read: true          (statute readings are authoring notes, not a re-read
+#                                    of the Decree-Law; see docs/decisions/0122 and 0123)
+#   language_status: draft          (Arabic and Urdu strings were drafted at authoring time with an
+#                                    LLM assistant; no native clinical reader has reviewed them)
+#
+# Sources (facts quoted by clause, no tables copied):
+#   D1  DoH Abu Dhabi, Premarital Screening Standard, DoH/STD/PSS/V3, Sept 2024
+#       https://doh.gov.ae/-/media/Feature/Resources/Standards/Premarital-Screening-standard-for-publication.ashx
+#   D2  DHA Dubai, Standards for Premarital Screening Services, V1, DHA/PHPD/ST-01, effective 27 Mar 2026
+#       https://dha.gov.ae/uploads/032026/Standards for Premarital Screening Services2026327321.pdf
+#   DL  Federal Decree-Law 49/2023 on the Use of the Human Genome (the statute itself was not
+#       re-read for this build)
+
+meta:
+  version: 1
+  needs_clinician_signoff: true
+  needs_legal_read: true
+  language_status: draft
+
+# --- Consent purposes (closed list; consent governs voluntary and secondary uses and SHARING) ---
+# The mandatory couple screening itself is NOT consent-based (DL Art. 4(2)(a) and Art. 15), so it is
+# not a purpose here: it is recorded with basis `statutory_obligation` and confers no sharing scope.
+consent_purposes:
+  partner_disclosure: "Share my findings with my partner, to the scope I choose"
+  couple_counselling: "Share my findings with the counsellor or clinician for the couple's counselling"
+  service_referral: "Share my findings with a referral service I choose"
+  service_interest_follow_up: "Contact me about services I opted into"
+  research_secondary_use: "Use my data for an extra purpose (DL Art. 7(5): fresh written consent)"
+
+# Roles that may be named as a consent RECIPIENT. `programme`, `judge` and `external` never receive
+# individual results (programme: aggregates only; judge: staff view of synthetic cases by role, not
+# by grant; external: nothing), so a grant to them is refused rather than silently ignored.
+recipient_roles_allowed: [couple_member, counsellor, clinician]
+
+# --- Disclosure policies ---------------------------------------------------------------------
+common:
+  # Shared-condition bases whose result belongs to ONE person (an X-linked finding and an affected partner
+  # need consent-gated display; flagged for a legal read).
+  # Under EVERY policy the other partner sees the couple-level category only after the owner
+  # has granted at least `couple_result_only`.
+  individual_owned_shared_bases: [x_linked_carrier_female, x_linked_affected_male]
+  # The life or fetal-life exception to the right not to know (DL Art. 9): the person's
+  # app view stays withheld and a human accredited professional is escalated to make the statutory
+  # disclosure with counselling. This is an interpretation; it is flagged for a legal read.
+  rntk_override_trigger: rntk_life_threat_override
+
+policies:
+  abu_dhabi:
+    label: "Abu Dhabi (DoH Premarital Screening Standard V3, Sept 2024)"
+    # Joint report: one couple-level report; the couple-level category is released to BOTH partners
+    # after post-test counselling. The affected individual's consent gates the joint counselling
+    # meeting and what is shown about the partner's own findings (the per-person scope), not the
+    # couple-level category itself.
+    category_gate: joint_report
+    counselling_first_categories: [shared_result_found, more_information_needed]
+    certificate_note_key: certificate_note.abu_dhabi
+    sources:
+      - ref: "D1 App. 1b item 6"
+        says: "positive results: both parties are contacted separately and asked to return to the clinic"
+      - ref: "D1 App. 2"
+        says: "after the affected individual consents, the doctor meets both partners together"
+      - ref: "D1 App. 5a"
+        says: "the joint genetic report states negative or positive only, without gene or variant detail, for the privacy of both parties"
+      - ref: "D1 3.3.12.1"
+        says: "the certificate is withheld if a partner refuses to share or sign (the certificate-refusal tension)"
+  dubai:
+    label: "Dubai (DHA Standards for Premarital Screening Services V1, effective 27 Mar 2026)"
+    # Affected individual first: where a condition is found the result is disclosed exclusively to
+    # the affected individual; the partner is informed only with that person's explicit consent.
+    # Modelled here: the couple-level `shared_result_found` is withheld from a member until every
+    # OTHER member who has an abnormal finding has granted at least `couple_result_only`.
+    category_gate: affected_individual_first
+    # The DHA text on counselling-before-release was not confirmed in the DHA text read for this build, so this list is a
+    # product safeguard that mirrors Abu Dhabi (Art. 9 counselling after results); sign-off pending.
+    counselling_first_categories: [shared_result_found, more_information_needed]
+    certificate_note_key: certificate_note.dubai
+    sources:
+      - ref: "D2 9.1.4"
+        says: "the result is disclosed exclusively to the affected individual; the partner is informed only with explicit consent"
+      - ref: "D2 9.1.10b"
+        says: "the certificate is withheld if a partner refuses to share or sign (the certificate-refusal tension)"
+
+# --- Refusal classifier (EN, AR, UR) ----------------------------------------------------------
+# Deterministic keyword and pattern matching on normalised text (text.normalize). It is NOT
+# language understanding. Patterns of ALL locales are applied to every request (people code-switch);
+# the locale only selects the language of the refusal message. Patterns are lower case and written
+# without apostrophes. Arabic and Urdu patterns are folded with text.fold_pattern at load.
+refusal:
+  needs_clinician_signoff: true
+  language_status: draft
+  # What the product refuses (a refusal list plus other-person results).
+  # `escalate`: the request cannot be answered safely, so a human counsellor is also notified
+  # (design rule; no guideline text found).
+  categories:
+    diagnosis:
+      escalate: false
+      legal_basis: "Boundary: education and decision support, never clinical advice (docs/spec/00-architecture-and-scope.md, rule 10)"
+      messages:
+        en: "Rishta Safe explains a reported result. It cannot diagnose a condition for you or your child. A doctor or a genetics professional can talk this through with you."
+        ar: "Rishta Safe يشرح نتيجة مُبلَّغ عنها، ولا يستطيع تشخيص حالة لك أو لطفلك. يمكن لطبيب أو لمختص في الوراثة أن يناقش ذلك معك."
+        ur: "Rishta Safe رپورٹ شدہ نتیجے کی وضاحت کرتا ہے۔ وہ آپ یا آپ کے بچے کی کسی بیماری کی تشخیص نہیں کر سکتا۔ ڈاکٹر یا جینیات کے ماہر آپ کے ساتھ اس پر بات کر سکتے ہیں۔"
+    treatment_advice:
+      escalate: false
+      legal_basis: "Boundary: education and decision support, never clinical advice (docs/spec/00-architecture-and-scope.md, rule 10)"
+      messages:
+        en: "Rishta Safe does not give advice about medicines or treatment. A doctor or a genetics professional can go through this with you."
+        ar: "Rishta Safe لا يقدّم نصائح عن الأدوية أو العلاج. يمكن لطبيب أو لمختص في الوراثة أن يستعرض ذلك معك."
+        ur: "Rishta Safe ادویات یا علاج کے بارے میں مشورہ نہیں دیتا۔ ڈاکٹر یا جینیات کے ماہر آپ کے ساتھ اس پر بات کر سکتے ہیں۔"
+    marriage_decision:
+      escalate: true
+      legal_basis: "The decision to marry is for the couple and the judicial authorities (D1 App. 2); no marriage-decision field (docs/spec/00-architecture-and-scope.md, rule 6)"
+      messages:
+        en: "Rishta Safe does not advise on whether to marry or to change plans. That decision is yours, and a counsellor can talk through the information with you."
+        ar: "Rishta Safe لا يقدّم نصيحة بشأن الزواج أو تغيير الخطط. القرار قرارك، ويمكن لمستشار أن يناقش المعلومات معك."
+        ur: "Rishta Safe شادی کرنے یا منصوبہ بدلنے کے بارے میں مشورہ نہیں دیتا۔ یہ فیصلہ آپ کا اپنا ہے، اور کونسلر معلومات پر آپ کے ساتھ بات کر سکتا ہے۔"
+    termination_advice:
+      escalate: true
+      legal_basis: "Neutral options only (Federal Decree-Law 49/2023 Art. 11 and 12); no directive advice"
+      messages:
+        en: "Rishta Safe cannot advise on a decision about a pregnancy. A genetics professional or a doctor can go through every available option with you, in a neutral way."
+        ar: "Rishta Safe لا يستطيع تقديم نصيحة بشأن قرار يخص الحمل. يمكن لمختص في الوراثة أو لطبيب أن يستعرض معك كل الخيارات المتاحة بحيادية."
+        ur: "Rishta Safe حمل سے متعلق فیصلے پر مشورہ نہیں دے سکتا۔ جینیات کا ماہر یا ڈاکٹر تمام دستیاب راستوں پر غیر جانب داری سے آپ کے ساتھ بات کر سکتا ہے۔"
+    lineage_inference:
+      escalate: true
+      legal_basis: "DL Art. 9: lineage and racial-origin results only to the owner; breach is an offence (Art. 33)"
+      messages:
+        en: "Rishta Safe does not work out ancestry, family lineage or how people are related from genetic results. Decree-Law 49/2023 Art. 9 limits that kind of result to the person it belongs to."
+        ar: "Rishta Safe لا يستنتج النسب أو الأصل أو صلة القرابة من النتائج الوراثية. المادة 9 من المرسوم بقانون اتحادي رقم 49 لسنة 2023 تقصر هذا النوع من النتائج على صاحبها."
+        ur: "Rishta Safe جینیاتی نتائج سے نسب، خاندانی نسل یا رشتے داری کا اندازہ نہیں لگاتا۔ وفاقی فرمان بقانون 49/2023 کی شق 9 اس قسم کے نتائج کو صرف اسی شخص تک محدود رکھتی ہے جس کے وہ ہیں۔"
+    employer_insurer:
+      escalate: false
+      legal_basis: "DL Art. 19 to 21: employers and insurers may not require genetic screening or request or use previous results"
+      messages:
+        en: "Employers and insurers may not require or use genetic results (Decree-Law 49/2023 Art. 19 to 21). Rishta Safe does not share results with them, and nobody has to share results with them."
+        ar: "ليس لأصحاب العمل ولا لشركات التأمين أن يطلبوا النتائج الوراثية أو يستخدموها (المواد 19 إلى 21 من المرسوم بقانون اتحادي رقم 49 لسنة 2023). Rishta Safe لا يشارك النتائج معهم، ولا يُلزَم أحد بمشاركتها معهم."
+        ur: "آجر اور بیمہ کمپنیاں جینیاتی نتائج مانگ نہیں سکتیں اور انہیں استعمال نہیں کر سکتیں (وفاقی فرمان بقانون 49/2023 کی شقیں 19 تا 21)۔ Rishta Safe ان کے ساتھ نتائج شیئر نہیں کرتا، اور کسی پر لازم نہیں کہ وہ انہیں شیئر کرے۔"
+    other_person_result:
+      escalate: true
+      legal_basis: "DL Art. 9(1): each person may request their own results; no disclosure of another person's results without their consent"
+      messages:
+        en: "Rishta Safe shows each person their own results. What you can see about your partner follows what your partner chose to share."
+        ar: "Rishta Safe يعرض لكل شخص نتائجه هو. وما يمكنك رؤيته عن شريكك يتبع ما اختار شريكك مشاركته."
+        ur: "Rishta Safe ہر شخص کو اس کے اپنے نتائج دکھاتا ہے۔ آپ اپنے ساتھی کے بارے میں جو دیکھ سکتے ہیں وہ اس پر منحصر ہے جو آپ کے ساتھی نے شیئر کرنے کا انتخاب کیا ہے۔"
+
+  patterns:
+    # ---------------- English ----------------
+    - {id: en.dx.1, locale: en, category: diagnosis, pattern: '\b(do|does|did) (i|we|he|she|they|my (?:child|baby|son|daughter|husband|wife|partner|fiance|fiancee|brother|sister)) (?:\w+ ){0,2}(have|has)\b.{0,40}\b(disease|disorder|thalass\w*|sickle|cystic|syndrome|anaemia|anemia|illness)\b'}
+    - {id: en.dx.2, locale: en, category: diagnosis, pattern: '\bam i (sick|ill|diseased)\b'}
+    - {id: en.dx.3, locale: en, category: diagnosis, pattern: '\bdiagnos(e|ing) (me|us|him|her|my|our|them)\b'}
+    - {id: en.dx.4, locale: en, category: diagnosis, pattern: '\b(give|make|do) (me|us) a diagnosis\b'}
+    - {id: en.dx.5, locale: en, category: diagnosis, pattern: '\bwhat (disease|illness|condition|disorder) (do|does) (i|we|he|she|they|my \w+) have\b'}
+    - {id: en.dx.6, locale: en, category: diagnosis, pattern: '\bwhat is wrong with (me|my|our|him|her)\b'}
+    - {id: en.dx.7, locale: en, category: diagnosis, pattern: '\btell me (if|whether) (i|we|he|she|my \w+) (am|are|is|have|has)\b.{0,30}\b(sick|ill|disease|disorder)'}
+    - {id: en.dx.8, locale: en, category: diagnosis, pattern: '\bis (my|our|the) (child|baby|son|daughter|kid) (sick|ill|diseased)\b'}
+    - {id: en.rx.1, locale: en, category: treatment_advice, pattern: '\bwhat (medicine|medication|drug|treatment|therapy|dose|dosage)\b.{0,30}\b(take|use|give|start|need)\b'}
+    - {id: en.rx.2, locale: en, category: treatment_advice, pattern: '\b(prescribe|prescription)\b'}
+    - {id: en.rx.3, locale: en, category: treatment_advice, pattern: '\bshould (i|we) (take|start|stop|give) (the |any |a )?(medic\w+|drug|pill|treatment|tablet)'}
+    - {id: en.mar.1, locale: en, category: marriage_decision, pattern: '\bshould (we|i|they|he|she) (still |even |really )?(get married|marry|go ahead|go through with|call off|break off|cancel|postpone|continue|proceed|end it|separate|split)\b'}
+    - {id: en.mar.2, locale: en, category: marriage_decision, pattern: '\b(call off|calling off|cancel|cancelling|canceling|break off|breaking off|postpone|postponing|end|ending|stop|stopping|drop|dropping|abandon|abandoning) (the |our |my |this |that )?(marriage|wedding|engagement|nikah|nikkah|betrothal|proposal)\b'}
+    - {id: en.mar.3, locale: en, category: marriage_decision, pattern: '\b(is it|would it be|will it be) (ok|okay|alright|fine|wise|right|advisable|acceptable|allowed|permitted|a good idea) (for us )?to (get married|marry|go ahead|proceed|continue)\b'}
+    - {id: en.mar.4, locale: en, category: marriage_decision, pattern: '\bcan (we|i|they) (still |safely |even )?(get married|marry|go ahead with (the|our) (marriage|wedding))\b'}
+    - {id: en.mar.5, locale: en, category: marriage_decision, pattern: '\b(are|is|am) (we|he|she|they|i|my partner|my fiance|my fiancee)( \w+)? (compatible|incompatible|suitable|a good match|a match|a mismatch|fit to marry|fit for marriage)\b'}
+    - {id: en.mar.6, locale: en, category: marriage_decision, pattern: '\bdo you (recommend|advise|suggest|think) (that )?(we|i|they) (should )?(marry|get married|cancel|call off|go ahead|proceed|separate)\b'}
+    - {id: en.mar.7, locale: en, category: marriage_decision, pattern: '\bwill (we|they) be (allowed|able|permitted) to (get married|marry)\b'}
+    - {id: en.mar.8, locale: en, category: marriage_decision, pattern: '\bis (this|our|the) (marriage|wedding|match) (ok|okay|wise|advisable|a good idea|right|safe)\b'}
+    - {id: en.ter.1, locale: en, category: termination_advice, pattern: '\babort(ion|ed|ing)?\b'}
+    - {id: en.ter.2, locale: en, category: termination_advice, pattern: '\b(terminate|terminating|termination|end|ending|stop|stopping|get rid of) (of )?(the |my |her |this |our |a )?(pregnancy|baby|fetus|foetus|unborn)\b'}
+    - {id: en.ter.3, locale: en, category: termination_advice, pattern: '\bshould (i|we|she) (keep|continue|go ahead with|have|abort|terminate) (the |this |my |her |our )?(pregnancy|baby)\b'}
+    - {id: en.ter.4, locale: en, category: termination_advice, pattern: '\b(keep|keeping|continue|continuing) (with )?(the |this |my |her |our )?(baby|pregnancy)\b'}
+    - {id: en.lin.1, locale: en, category: lineage_inference, pattern: '\b(paternity|maternity|ancestry|ancestral|lineage|bloodline|ethnic origin|ethnic background|racial origin|tribal origin|tribe)\b'}
+    - {id: en.lin.2, locale: en, category: lineage_inference, pattern: '\bwhos (my|the) (real |biological |true )?(father|mother|dad|parent)\b'}
+    - {id: en.lin.3, locale: en, category: lineage_inference, pattern: '\b(are we|am i|is he|is she|are they) (really |genetically |biologically )?(related|cousins|kin|blood relatives)\b'}
+    - {id: en.lin.4, locale: en, category: lineage_inference, pattern: '\b(prove|show|confirm|test|check) (that )?(we are|i am|he is|she is|they are)? ?(related|cousins|biological)'}
+    - {id: en.lin.5, locale: en, category: lineage_inference, pattern: '\bis (this|the|my) (child|baby|kid|son|daughter) (really )?(mine|his|hers|ours)\b'}
+    - {id: en.lin.6, locale: en, category: lineage_inference, pattern: '\b(biological|real|true) (father|mother|parent)\b'}
+    - {id: en.emp.1, locale: en, category: employer_insurer, pattern: '\b(employer|boss|manager|hr|human resources|workplace|my company|recruiter|hiring)\b.{0,60}\b(result|results|screening|test|genetic|genes|report|certificate|fit|fitness)\b'}
+    - {id: en.emp.2, locale: en, category: employer_insurer, pattern: '\b(result|results|screening|genetic|genes|report|certificate|fitness)\b.{0,60}\b(employer|boss|manager|hr|human resources|workplace|recruiter|hiring)\b'}
+    - {id: en.emp.3, locale: en, category: employer_insurer, pattern: '\b(insurer|insurance|insured|takaful|underwriter|underwriting)\b.{0,60}\b(result|results|screening|test|genetic|genes|report|certificate|premium|cover|coverage)\b'}
+    - {id: en.emp.4, locale: en, category: employer_insurer, pattern: '\b(result|results|screening|genetic|genes|report|certificate)\b.{0,60}\b(insurer|insurance|takaful|underwriter|underwriting)\b'}
+    - {id: en.emp.5, locale: en, category: employer_insurer, pattern: '\bfit for (work|employment|duty|insurance|the job)\b'}
+    - {id: en.emp.6, locale: en, category: employer_insurer, pattern: '\bcan (my |the )?(employer|insurer|boss|insurance company) (see|get|ask|request|require|access|use|know)\b'}
+    - {id: en.oth.1, locale: en, category: other_person_result, pattern: '\b(show|tell|give|send|share) (me )?(my |our )?(partner|spouse|husband|wife|fiance|fiancee|brother|sister|mother|father|cousin|friend|neighbour|neighbor|colleague|in law|daughter|son)s? (genetic )?(result|results|report|genes|variants?|carrier status)\b'}
+    - {id: en.oth.2, locale: en, category: other_person_result, pattern: '\b(his|her|their) (genetic )?(result|results|report|genes|variants?|carrier status)\b'}
+    - {id: en.oth.3, locale: en, category: other_person_result, pattern: '\b(partner|spouse|husband|wife|fiance|fiancee|brother|sister|cousin|friend|colleague)s (genetic )?(result|results|report|genes|variants?|carrier status)\b'}
+    - {id: en.oth.4, locale: en, category: other_person_result, pattern: '\b(what|which) (is|are|was|were) (my |our )?(partner|spouse|husband|wife|fiance|fiancee|brother|sister|cousin|friend)s? (genetic )?(result|results|genes|variants?)\b'}
+    # ---------------- Arabic (draft) ----------------
+    - {id: ar.dx.1, locale: ar, category: diagnosis, pattern: 'هل (?:انا|اني|ابني|ابنتي|طفلي|ولدي|بنتي|زوجي|زوجتي|خطيبي|خطيبتي|هو|هي)? ?(?:مصاب\w*|مريض\w*)'}
+    - {id: ar.dx.2, locale: ar, category: diagnosis, pattern: 'هل (?:عندي|لدي|عندنا|لدينا|عنده|عندها|لديه|لديها|عند \w+|لدي \w+)(?: \w+){0,2} (?:مرض|ثلاسيميا|الثلاسيميا|تليف|فقر الدم|انيميا|الانيميا|اضطراب|متلازمه)'}
+    - {id: ar.dx.3, locale: ar, category: diagnosis, pattern: '(?:شخصني|شخص حالتي|شخص لي|اعطني تشخيص|تشخيص (?:حالتي|حالتنا|طفلي|ابني|ابنتي))'}
+    - {id: ar.dx.4, locale: ar, category: diagnosis, pattern: 'ما (?:هو )?(?:المرض|مرضي|مرض (?:طفلي|ابني|ابنتي|زوجي|زوجتي))'}
+    - {id: ar.dx.5, locale: ar, category: diagnosis, pattern: 'ما (?:المرض|الحاله) (?:الذي|اللي) (?:عندي|لدي|عند \w+|لدي \w+)'}
+    - {id: ar.rx.1, locale: ar, category: treatment_advice, pattern: 'ما (?:هو |هي )?(?:ال)?(?:دواء|علاج|عقار|جرعه)'}
+    - {id: ar.rx.2, locale: ar, category: treatment_advice, pattern: 'هل (?:اتناول|اخذ|ابدا|اوقف|ابدأ) (?:ال)?(?:دواء|علاج|عقار)'}
+    - {id: ar.rx.3, locale: ar, category: treatment_advice, pattern: '(?:اصرف|اوصف|وصفه|وصفة) (?:لي )?(?:دواء|علاج)'}
+    - {id: ar.mar.1, locale: ar, category: marriage_decision, pattern: 'هل (?:نتزوج|اتزوج|يتزوجان|نكمل الزواج|نستمر في الزواج|نتم الزواج|نمضي في الزواج|نواصل الزواج|يمكننا الزواج|يمكنني الزواج|يجوز لنا الزواج|يجوز ان نتزوج)'}
+    - {id: ar.mar.2, locale: ar, category: marriage_decision, pattern: 'هل (?:الغي|نلغي|نفسخ|افسخ|نؤجل|اؤجل|ننهي|انهي) (?:ال)?(?:زواج|زواجنا|زواجي|خطوبتنا|خطوبتي|خطوبه|خطبه|زفاف|عرس|عقد|ارتباط)'}
+    - {id: ar.mar.3, locale: ar, category: marriage_decision, pattern: '(?:الغاء|فسخ|تاجيل|انهاء|وقف) (?:ال)?(?:زواج|زواجنا|زواجي|خطوبتنا|خطوبتي|خطوبه|خطبه|زفاف|عرس|ارتباط)'}
+    - {id: ar.mar.4, locale: ar, category: marriage_decision, pattern: 'هل (?:تنصح|تنصحني|تنصحنا|تنصحوننا|تنصحوني|توصي|توصون|ترى|ترون) (?:ب|بان |ان |اننا )?(?:الزواج|نتزوج|اتزوج|الغاء|فسخ|التاجيل)'}
+    - {id: ar.mar.5, locale: ar, category: marriage_decision, pattern: 'هل (?:نحن|انا|هو|هي|هما|هم) (?:متوافق|مناسب|ملائم|مطابق)\w*'}
+    - {id: ar.mar.6, locale: ar, category: marriage_decision, pattern: 'هل (?:هذا|هذه) (?:الزواج|الارتباط) (?:مناسب|امن|صحيح|جائز|ينفع)'}
+    - {id: ar.mar.7, locale: ar, category: marriage_decision, pattern: '(?:يجوز|يصح|ينفع|ممكن) (?:ان )?(?:نتزوج|اتزوج|نكمل)'}
+    - {id: ar.ter.1, locale: ar, category: termination_advice, pattern: '(?:ال)?(?:اجهاض|اسقاط)'}
+    - {id: ar.ter.2, locale: ar, category: termination_advice, pattern: 'انهاء (?:ال)?حمل'}
+    - {id: ar.ter.3, locale: ar, category: termination_advice, pattern: 'التخلص من (?:ال)?(?:جنين|حمل)'}
+    - {id: ar.ter.4, locale: ar, category: termination_advice, pattern: 'هل (?:اكمل|نكمل|استمر|نستمر|اجهض|نجهض|اسقط|نسقط) (?:ال)?(?:حمل|جنين)'}
+    - {id: ar.lin.1, locale: ar, category: lineage_inference, pattern: '(?<![ء-ي])(?:ال|وال|بال|لل)?(?:نسب|انساب)(?:ي|نا)?(?![ء-ي])'}
+    - {id: ar.lin.2, locale: ar, category: lineage_inference, pattern: '(?:اثبات|فحص|تحليل|اختبار) (?:ال)?(?:نسب|ابوه|بنوه|قرابه|بصمه وراثيه)'}
+    - {id: ar.lin.3, locale: ar, category: lineage_inference, pattern: '(?:اصل|اصول|اصلي|اصلنا) (?:ال)?(?:عرقي|عرقيه|عرق|قبيله|عائله)'}
+    - {id: ar.lin.4, locale: ar, category: lineage_inference, pattern: '(?<![ء-ي])(?:ال)?(?:عرق|اعراق|سلاله|قبيله|قبائل)(?![ء-ي])'}
+    - {id: ar.lin.5, locale: ar, category: lineage_inference, pattern: 'من (?:هو )?(?:ال)?(?:اب|والد|ابو) (?:ال)?(?:حقيقي|بيولوجي|طفل|ولد)'}
+    - {id: ar.lin.6, locale: ar, category: lineage_inference, pattern: 'هل (?:هذا|هذه) (?:ال)?(?:طفل|ولد|بنت|مولود) (?:هو |هي )?(?:ابني|ابنتي|ابنه|ابنها)'}
+    - {id: ar.lin.7, locale: ar, category: lineage_inference, pattern: 'هل (?:نحن|انا|هو|هي) (?:من )?(?:اقارب|قرايب|ذوي قربى|قرابه)'}
+    - {id: ar.lin.8, locale: ar, category: lineage_inference, pattern: 'هل (?:بيننا|بينهما) (?:صله )?قرابه'}
+    - {id: ar.emp.1, locale: ar, category: employer_insurer, pattern: '(?:صاحب العمل|رب العمل|جهه العمل|مديري|مدير العمل|المدير|الشركه|شركتي|الموارد البشريه|شركه التامين|شركات التامين|شركه تامين|التامين|المومن|جهه التامين).{0,60}(?:نتيج\w*|فحص\w*|تحليل\w*|جين\w*|وراث\w*|تقرير\w*|لياقه|شهاده|سجل\w*)'}
+    - {id: ar.emp.2, locale: ar, category: employer_insurer, pattern: '(?:نتيج\w*|فحص\w*|تحليل\w*|جين\w*|وراث\w*|تقرير\w*|لياقه|شهاده|سجل\w*).{0,60}(?:صاحب العمل|رب العمل|جهه العمل|مديري|مدير العمل|المدير|الشركه|شركتي|الموارد البشريه|شركه التامين|شركات التامين|شركه تامين|التامين|المومن|جهه التامين)'}
+    - {id: ar.emp.3, locale: ar, category: employer_insurer, pattern: 'لائق (?:ل)?(?:لعمل|للوظيفه|للتامين)'}
+    - {id: ar.oth.1, locale: ar, category: other_person_result, pattern: '(?:نتيج\w*|تقرير\w*|جينات\w*) (?:ال)?(?:زوج|زوجه|خطيب|شريك|اخ|اخت|ام|اب|قريب|صديق|عم|خال|ابن|بنت)(?:ي|ها|ه|ك|تي)?(?![ء-ي])'}
+    - {id: ar.oth.2, locale: ar, category: other_person_result, pattern: '(?:اريد|ابغي|ابي|اظهر|اعرض|اعطني|قل لي|اخبرني|ارني) .{0,25}(?:نتيج|تقرير|جينات).{0,10} (?:ال)?(?:زوج|زوجه|خطيب|شريك|اخ|اخت|قريب|صديق)'}
+    # ---------------- Urdu (draft) ----------------
+    - {id: ur.dx.1, locale: ur, category: diagnosis, pattern: 'کیا (?:مجھے|ہمیں|میرے بچے کو|بچے کو|اسے|ان کو|میری بیوی کو|میرے شوہر کو|میرے بیٹے کو|میری بیٹی کو)(?: \w+){0,3} (?:بیماری|تھیلیسیمیا|تھیلی سیمیا|تھلیسیمیا|سکل سیل|سسٹک)'}
+    - {id: ur.dx.2, locale: ur, category: diagnosis, pattern: '(?:مجھے|ہمیں|میرے بچے کو|بچے کو) (?:کون سی|کیا) بیماری'}
+    - {id: ur.dx.3, locale: ur, category: diagnosis, pattern: 'کیا (?:میں|ہم|وہ|میرا بچہ|میری بیوی|میرے شوہر) (?:بیمار|مریض)'}
+    - {id: ur.dx.4, locale: ur, category: diagnosis, pattern: 'تشخیص (?:کر|کیجئے|کیجیے|کریں|بتا|بتائیں)'}
+    - {id: ur.dx.5, locale: ur, category: diagnosis, pattern: '(?:میری|ہماری|بچے کی) تشخیص'}
+    - {id: ur.rx.1, locale: ur, category: treatment_advice, pattern: 'کون سی (?:دوا|دوائی|علاج)'}
+    - {id: ur.rx.2, locale: ur, category: treatment_advice, pattern: '(?:دوا|دوائی|علاج|خوراک) (?:کیا )?(?:لوں|شروع|بتائیں|تجویز)'}
+    - {id: ur.rx.3, locale: ur, category: treatment_advice, pattern: 'کیا (?:میں )?(?:دوا|دوائی) (?:لوں|لینی|شروع|بند)'}
+    - {id: ur.mar.1, locale: ur, category: marriage_decision, pattern: '(?:شادی|نکاح|رشتہ|منگنی) (?:ختم|منسوخ|ملتوی|توڑ|کینسل|روک)'}
+    - {id: ur.mar.2, locale: ur, category: marriage_decision, pattern: '(?:شادی|نکاح) (?:نہیں |نہ )?(?:کرنی|کرنا|کرنے|کر لینی|کر لینا|جاری رکھنی|جاری رکھنا) (?:چاہیے|چاہئے|چاہیئے)'}
+    - {id: ur.mar.3, locale: ur, category: marriage_decision, pattern: 'کیا (?:ہم|میں|ہمیں) (?:شادی|نکاح) کر (?:سکتے|سکتا|سکتی|لیں|لوں|یں|وں)'}
+    - {id: ur.mar.4, locale: ur, category: marriage_decision, pattern: 'کیا (?:ہم|ہمیں|وہ|یہ) (?:آپس میں )?(?:موزوں|مطابق|ہم آہنگ|سازگار|مناسب)'}
+    - {id: ur.mar.5, locale: ur, category: marriage_decision, pattern: 'کیا (?:ہمیں|مجھے) (?:شادی|نکاح)'}
+    - {id: ur.mar.6, locale: ur, category: marriage_decision, pattern: 'کیا (?:یہ )?(?:شادی|رشتہ) (?:ٹھیک|درست|مناسب|جائز)'}
+    - {id: ur.ter.1, locale: ur, category: termination_advice, pattern: '(?:اسقاط|ابورشن)'}
+    - {id: ur.ter.2, locale: ur, category: termination_advice, pattern: 'حمل (?:ضائع|گرا|ختم|گرانا|گروا)'}
+    - {id: ur.ter.3, locale: ur, category: termination_advice, pattern: 'بچہ (?:گرا|ضائع)'}
+    - {id: ur.ter.4, locale: ur, category: termination_advice, pattern: 'حمل جاری رکھ'}
+    - {id: ur.ter.5, locale: ur, category: termination_advice, pattern: 'بچے سے (?:چھٹکارا|جان)'}
+    - {id: ur.lin.1, locale: ur, category: lineage_inference, pattern: '(?<![ء-ي])(?:نسب|ولدیت|پیٹرنٹی|شجرہ نسب)(?![ء-ي])'}
+    - {id: ur.lin.2, locale: ur, category: lineage_inference, pattern: '(?:اصل|حقیقی|بائیولوجیکل) (?:باپ|والد|ماں)'}
+    - {id: ur.lin.3, locale: ur, category: lineage_inference, pattern: 'باپ کون'}
+    - {id: ur.lin.4, locale: ur, category: lineage_inference, pattern: '(?:خاندانی|نسلی) (?:پس منظر|نسل|اصل)'}
+    - {id: ur.lin.5, locale: ur, category: lineage_inference, pattern: '(?:قبیلہ|قبیلے)'}
+    - {id: ur.lin.6, locale: ur, category: lineage_inference, pattern: 'کیا ہم (?:آپس میں )?(?:رشتہ دار|رشتے دار|خون کے رشتے دار|کزن)'}
+    - {id: ur.lin.7, locale: ur, category: lineage_inference, pattern: 'ڈی این اے (?:سے )?(?:رشتہ|نسب|ثابت)'}
+    - {id: ur.lin.8, locale: ur, category: lineage_inference, pattern: 'کیا (?:یہ )?بچہ (?:میرا|میری|اس کا|ان کا) (?:ہے|نہیں)'}
+    - {id: ur.emp.1, locale: ur, category: employer_insurer, pattern: '(?:آجر|ملازمت|مالک|باس|کمپنی|ایچ آر|انشورنس|اینشورنس|بیمہ|ادارہ|دفتر|سیٹھ|ایمپلائر).{0,60}(?:نتیج\w*|نتائج|ٹیسٹ|رپورٹ|جین\w*|جینیاتی|فٹنس|فٹ|سرٹیفکیٹ)'}
+    - {id: ur.emp.2, locale: ur, category: employer_insurer, pattern: '(?:نتیج\w*|نتائج|ٹیسٹ|رپورٹ|جین\w*|جینیاتی|فٹنس|سرٹیفکیٹ).{0,60}(?:آجر|ملازمت|مالک|باس|کمپنی|ایچ آر|انشورنس|اینشورنس|بیمہ|ادارہ|دفتر|سیٹھ|ایمپلائر)'}
+    - {id: ur.oth.1, locale: ur, category: other_person_result, pattern: '(?:شوہر|بیوی|منگیتر|بھائی|بہن|امی|ابو|کزن|دوست|ساتھی)(?: کا| کی| کے) .{0,15}(?:نتیج\w*|نتائج|رپورٹ|جین\w*)'}
+    - {id: ur.oth.2, locale: ur, category: other_person_result, pattern: '(?:اس|ان)(?: کا| کے| کی) (?:جینیاتی )?(?:نتیج\w*|نتائج|رپورٹ)'}

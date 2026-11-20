@@ -1,0 +1,52 @@
+{
+  "type": "https://bayan.invalid/problems/validation_error",
+  "title": "Validation failed",
+  "status": 422,
+  "detail": "The request is not valid.",
+  "code": "validation_error",
+  "instance": "/v1/couples/cpl-demo-02/closure/clinician",
+  "correlation_id": "808a362d8d8843318b390c4e6775ed3f",
+  "errors": [
+    {
+      "loc": [
+        "body",
+        "encounter",
+        "duration_minutes"
+      ],
+      "msg": "Input should be greater than or equal to 1",
+      "type": "greater_than_equal"
+    },
+    {
+      "loc": [
+        "body",
+        "information_given"
+      ],
+      "msg": "Field required",
+      "type": "missing"
+    },
+    {
+      "loc": [
+        "body",
+        "next_step_status"
+      ],
+      "msg": "Field required",
+      "type": "missing"
+    },
+    {
+      "loc": [
+        "body",
+        "teach_back_done"
+      ],
+      "msg": "Field required",
+      "type": "missing"
+    },
+    {
+      "loc": [
+        "body",
+        "patient_questions_invited"
+      ],
+      "msg": "Field required",
+      "type": "missing"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "consent_id": "consent-00001",
+  "couple_id": "cpl-demo-02",
+  "subject_person_id": "prs-02a",
+  "recipient": "prs-02b",
+  "recipient_kind": "person",
+  "scope": "couple_result_only",
+  "purpose": "partner_disclosure",
+  "basis": "explicit_consent",
+  "granted_at": "2026-11-20T07:27:38.136350Z",
+  "expires_at": null,
+  "revoked_at": "2026-11-20T07:27:38.142945Z"
+}

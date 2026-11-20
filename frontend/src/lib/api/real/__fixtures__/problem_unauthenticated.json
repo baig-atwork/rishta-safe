@@ -1,0 +1,10 @@
+{
+  "type": "https://bayan.invalid/problems/unauthenticated",
+  "title": "Unauthenticated",
+  "status": 401,
+  "detail": "a bearer token is required",
+  "code": "unauthenticated",
+  "instance": "/v1/couples/cpl-demo-03/result",
+  "correlation_id": "db45f0daf782459ea81ed6260f72f3c7",
+  "reason": "missing_token"
+}

@@ -1,0 +1,31 @@
+# Maps the keys that other lanes emit to template ids, so the wording lives once per language.
+# Locale-neutral. A key that is neither a template id nor listed here falls back to the safe
+# generic template of its group (reason.generic, certificate.generic, limits.detection.generic).
+#
+# Sources of the keys: genetics/engine.py (REASON_*), genetics/detection.py (KEY_*),
+# data/consent_policies.yaml (certificate_note_key).
+meta:
+  needs_clinician_signoff: true
+
+reason:
+  result_pending_confirmation: pending_confirmation
+  haem_work_up_cbc_only: haem_cbc_only
+  haem_work_up_hplc_unconfirmed: pending_confirmation
+  vus_present: vus_present
+  panel_mismatch: panel_mismatch
+  finding_outside_declared_panel: panel_mismatch
+  finding_inconsistent_with_sex: generic
+  finding_inconsistent_with_catalogue: generic
+  duplicate_findings_same_locus: generic
+  specialist_read_needed: specialist_read_needed
+  x_linked_clinical_read_needed: specialist_read_needed
+  x_linked_sex_pair_needed: generic
+
+certificate:
+  certificate_note.abu_dhabi: refusal_tension
+  certificate_note.dubai: refusal_tension
+
+limits_detection:
+  detection.panel_rate_assumed: panel_rate_assumed
+  detection.alpha_globin_locus_limit: alpha_globin_locus_limit
+  detection.related_couple_shared_misses: related_couple_shared_misses

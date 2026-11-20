@@ -1,0 +1,106 @@
+{
+  "couple_id": "cpl-demo-02",
+  "locale": "en",
+  "language_status": "draft",
+  "result_category": "shared_result_found",
+  "intro": "Five short questions to check that the explanation was clear. They test the explanation, not you.",
+  "items": [
+    {
+      "id": "sr1",
+      "prompt": "What does a shared result mean?",
+      "format": "single_choice",
+      "options": [
+        {
+          "id": "a",
+          "label": "The two of you share a result that points to a chance of a child with a condition"
+        },
+        {
+          "id": "b",
+          "label": "One of you is ill now"
+        },
+        {
+          "id": "c",
+          "label": "A marriage is not allowed"
+        }
+      ]
+    },
+    {
+      "id": "sr2",
+      "prompt": "Being a carrier means a person is ill.",
+      "format": "true_false_not_sure",
+      "options": [
+        {
+          "id": "true",
+          "label": "True"
+        },
+        {
+          "id": "false",
+          "label": "False"
+        },
+        {
+          "id": "not_sure",
+          "label": "Not sure"
+        }
+      ]
+    },
+    {
+      "id": "sr3",
+      "prompt": "The chart shows 100 figures. What do they stand for?",
+      "format": "single_choice",
+      "options": [
+        {
+          "id": "a",
+          "label": "100 pregnancies of couples who have this same result"
+        },
+        {
+          "id": "b",
+          "label": "100 couples in the country"
+        },
+        {
+          "id": "c",
+          "label": "100 children you will have"
+        }
+      ]
+    },
+    {
+      "id": "sr4",
+      "prompt": "Who decides what to do next?",
+      "format": "single_choice",
+      "options": [
+        {
+          "id": "a",
+          "label": "The screening centre decides for you"
+        },
+        {
+          "id": "b",
+          "label": "You decide, with support from a counsellor if you want it"
+        },
+        {
+          "id": "c",
+          "label": "Your relatives decide"
+        }
+      ]
+    },
+    {
+      "id": "sr5",
+      "prompt": "What is a next step that is offered?",
+      "format": "single_choice",
+      "options": [
+        {
+          "id": "a",
+          "label": "Talk with a genetic counsellor or a trained physician"
+        },
+        {
+          "id": "b",
+          "label": "Wait and tell nobody"
+        },
+        {
+          "id": "c",
+          "label": "Repeat the test at home"
+        }
+      ]
+    }
+  ],
+  "design_note": "Intended for a within-subject, counterbalanced design (each volunteer sees vignettes of different result types in a rotated order). Three arms of 10 volunteers would detect only gaps of about 55 to 65 points (Rishta Safe authoring note, pending clinical sign-off). The test has NOT been run on people.",
+  "human_comprehension_test_run": false
+}

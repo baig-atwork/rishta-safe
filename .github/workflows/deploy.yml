@@ -1,0 +1,140 @@
+# SECURITY (review of 2026-11-20): dispatch is main-only and deploys github.sha; there is no ref input.
+# Deploys new images of the Rishta Safe demo to Azure App Service for Containers (Linux). Manual only (workflow_dispatch).
+#
+# STATE: written 2026-11-20. NO GitHub repository and NO OIDC identity exist yet, so NOTHING here has run: this file is
+# UNVERIFIED. The first deployment is done from a laptop with infra/scripts/deploy.ps1, which creates the group, the registry,
+# the plan and the apps. This workflow only ships NEW IMAGES to apps that already exist (az webapp config set, then restart).
+#
+# One-time setup (docs/runbook.md, "Deploying from GitHub"):
+#   1. Create the repository and the GitHub environment `demo` (deployment branches: main only).
+#   2. Run deploy.ps1 -Action Deploy once with -GitHubOwner/-GitHubOwnerId/-GitHubRepoId: that creates id-bayan-deployer with a
+#      federated credential for `repo:<owner>@<ownerId>/<repo>@<repoId>:environment:demo` (GitHub issues the immutable subject
+#      form to repositories created after 15 July 2026; the sibling project hit AADSTS700213 on the classic form). The
+#      identity is Contributor on Rishta Safe's own resource group, which holds everything, so it needs no permission anywhere else.
+#   3. Set the variables below on the `demo` environment. They are identifiers, not secrets. There is no Azure secret.
+#
+#   Variables
+#     AZURE_CLIENT_ID  AZURE_TENANT_ID  AZURE_SUBSCRIPTION_ID   the deployer identity (deploy output deployerClientId)
+#     AZURE_RESOURCE_GROUP                                       rg-bayan-demo-<region> (the region ADR 0187 ends with)
+#     ACR_NAME                                                   the registry created by deploy.ps1 (acrbayan...)
+#
+# Every action is pinned to a full commit SHA, release in the trailing comment, looked up 2026-11-20. No third-party build
+# action is used (plain `docker build` and `docker push`), so the Azure session may stay open for the whole job.
+name: deploy
+on:
+  # No `ref` input: a dispatch always deploys the commit it was started from (github.sha). The `demo` environment limits
+  # deployment branches to main, and its secrets and Azure identity are never exposed to code from another ref. Add required
+  # reviewers to the `demo` environment as well (runbook, "Deploying from GitHub").
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write # the OIDC token for azure/login
+concurrency:
+  group: deploy-demo
+  cancel-in-progress: false
+env:
+  # `azure/login` warns that a command's output can carry a secret into the log. Commands that need output pass `-o tsv` and
+  # a --query, which outrank this.
+  AZURE_CORE_OUTPUT: none
+  RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP }}
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    environment: demo
+    steps:
+      - name: Refuse anything that is not main
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "deploy.yml deploys main only (this run is on ${GITHUB_REF})." >&2
+          exit 1
+
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          persist-credentials: false
+
+      - name: Image tag
+        env:
+          ACR_NAME: ${{ vars.ACR_NAME }}
+        run: |
+          {
+            echo "TAG=$(git rev-parse --short=12 HEAD)"
+            echo "ACR=${ACR_NAME}.azurecr.io"
+          } >> "$GITHUB_ENV"
+
+      - name: Azure login
+        uses: azure/login@a641126d1b8aa4d1fa005f4f92df94a3a4c4c906 # v3.1.0
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      # The app names carry a suffix derived in Bicep from the subscription id, so they are read back from the group.
+      - name: Find the apps
+        run: |
+          api_app="$(az webapp list --resource-group "$RESOURCE_GROUP" --query "[?starts_with(name,'bayan-api-')].name" -o tsv | head -n 1)"
+          web_app="$(az webapp list --resource-group "$RESOURCE_GROUP" --query "[?starts_with(name,'bayan-web-')].name" -o tsv | head -n 1)"
+          case "$api_app:$web_app" in
+            :* | *:) echo "both apps must exist: run deploy.ps1 -Action Deploy -WithWeb once first" >&2; exit 1 ;;
+            *[!A-Za-z0-9:-]*) echo "unexpected app name" >&2; exit 1 ;;
+            *) ;;
+          esac
+          {
+            echo "API_APP=$api_app"
+            echo "WEB_APP=$web_app"
+            echo "API_HOST=$(az webapp show --name "$api_app" --resource-group "$RESOURCE_GROUP" --query defaultHostName -o tsv)"
+            echo "WEB_HOST=$(az webapp show --name "$web_app" --resource-group "$RESOURCE_GROUP" --query defaultHostName -o tsv)"
+          } >> "$GITHUB_ENV"
+
+      - name: Log in to the registry
+        env:
+          ACR_NAME: ${{ vars.ACR_NAME }}
+        run: az acr login --name "$ACR_NAME"
+
+      - name: Build and push the api image
+        run: |
+          docker build --platform linux/amd64 --file infra/docker/backend.Dockerfile --tag "$ACR/bayan-api:$TAG" backend
+          docker push "$ACR/bayan-api:$TAG"
+
+      # The api is public on this design (App Service Basic has no private networking); its address is the web server's
+      # BAYAN_API_URL, read at request time by the server and given to the build as well (infra/docker/frontend.Dockerfile).
+      - name: Build and push the web image
+        run: |
+          docker build --platform linux/amd64 --file infra/docker/frontend.Dockerfile \
+            --build-arg "BAYAN_API_URL=https://${API_HOST}" --tag "$ACR/bayan-web:$TAG" frontend
+          docker push "$ACR/bayan-web:$TAG"
+
+      # One instance each: the api keeps its state in memory (ADR 0182), so a deploy resets the demo.
+      - name: Point the apps at the new images and restart
+        run: |
+          az webapp config set --name "$API_APP" --resource-group "$RESOURCE_GROUP" --linux-fx-version "DOCKER|$ACR/bayan-api:$TAG" -o none
+          az webapp config set --name "$WEB_APP" --resource-group "$RESOURCE_GROUP" --linux-fx-version "DOCKER|$ACR/bayan-web:$TAG" -o none
+          az webapp restart --name "$API_APP" --resource-group "$RESOURCE_GROUP"
+          az webapp restart --name "$WEB_APP" --resource-group "$RESOURCE_GROUP"
+
+      - name: Wait until both apps answer
+        timeout-minutes: 12
+        run: |
+          wait_for() {
+            for _ in $(seq 1 70); do
+              if curl --fail --silent --location --output /dev/null "$1"; then echo "$1 answers"; return 0; fi
+              sleep 10
+            done
+            echo "$1 did not answer" >&2
+            return 1
+          }
+          wait_for "https://${API_HOST}/healthz"
+          wait_for "https://${WEB_HOST}/en"
+
+      - name: Smoke test
+        shell: pwsh
+        run: |
+          ./infra/scripts/smoke.ps1 -ApiBaseUrl "https://$env:API_HOST" -BaseUrl "https://$env:WEB_HOST"
+          if ($LASTEXITCODE -ne 0) { exit 1 }

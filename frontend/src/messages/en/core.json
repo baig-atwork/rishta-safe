@@ -1,0 +1,198 @@
+{
+  "meta": {
+    "title": "Rishta Safe: couple-result companion",
+    "brand": "Rishta Safe",
+    "description": "A prototype that explains a reported premarital genetic screening result in plain language, shows who can see what, and follows the real pathway. Synthetic data. Education and decision support, never clinical advice."
+  },
+  "shell": {
+    "skip": "Skip to main content",
+    "brand": "Rishta Safe",
+    "language": "Language",
+    "theme": {
+      "label": "Colour theme: {mode}. Change theme",
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "nav": {
+      "label": "Main",
+      "how": "How it works",
+      "governance": "Governance",
+      "demo": "Case bench",
+      "home": "Home",
+      "evidence": "Evidence",
+      "result": "Result",
+      "sharing": "Who sees what",
+      "practice": "Practice",
+      "closure": "After counselling",
+      "queue": "Queue",
+      "haem": "Haematology aid",
+      "programme": "Programme"
+    },
+    "menu": {
+      "label": "Site menu",
+      "open": "Menu",
+      "close": "Close menu"
+    },
+    "lens": {
+      "label": "Lens",
+      "none": "pick a case",
+      "dialogTitle": "Choose a case and a lens",
+      "signOut": "Leave this lens",
+      "close": "Close",
+      "fallbackHint": "Pick a seeded synthetic persona. The Case bench lists every case against every lens.",
+      "enter": "Enter as {name}"
+    },
+    "rail": {
+      "label": "Prototype status",
+      "synthetic": "Synthetic data",
+      "draft": "Arabic and Urdu: draft translations",
+      "pending": "Clinical rules pending sign-off",
+      "notAdvice": "Not clinical advice",
+      "limits": "Limits",
+      "fixtures": "Fixture mode"
+    },
+    "tape": {
+      "label": "Audit",
+      "region": "Recent audit events",
+      "verified": "hash chain intact, {count, plural, one {# event} other {# events}}",
+      "failed": "chain check failed at #{index}",
+      "notChecked": "chain not checked",
+      "none": "No events yet",
+      "unavailable": "Audit unavailable",
+      "retry": "retry",
+      "open": "Open the audit table"
+    },
+    "footer": {
+      "label": "Footer",
+      "what": "Rishta Safe is a prototype on synthetic data. It is not a medical device.",
+      "simulated": "Every connection to a health service or registry is simulated and labelled as simulated.",
+      "noIntegration": "There is no integration with Emirates Health Services, Malaffi, the Emirati Genome Programme, DoH or DHA.",
+      "dataDeclaration": "Data declaration",
+      "limits": "Limits of this prototype",
+      "how": "How it works"
+    }
+  },
+  "roles": {
+    "couple_member": "Couple member",
+    "counsellor": "Counsellor",
+    "clinician": "Clinician",
+    "programme": "Programme operator",
+    "judge": "Judge",
+    "external": "External"
+  },
+  "needPersona": {
+    "title": "Choose a demo persona to continue",
+    "cta": "Choose a persona",
+    "body": {
+      "couple": "This page shows one person's own journey. Pick a couple member in the demo to see it.",
+      "counsellor": "The counsellor console shows the escalation queue and the one-page brief. Pick the counsellor persona to open it.",
+      "clinician": "The haematology aid is for clinicians. Pick the clinician persona to open it.",
+      "programme": "Programme figures are aggregate and synthetic. Pick the programme operator persona to open them.",
+      "judge": "The scoreboard is a read-only evaluation view. Pick the judge persona to open it."
+    }
+  },
+  "states": {
+    "loading": "Loading",
+    "errorTitle": "This could not be loaded",
+    "errorBody": "Nothing has been lost. You can try again, and if it keeps happening, quote the reference below.",
+    "errorWhat": "What happened:",
+    "correlationId": "Reference:",
+    "retry": "Try again",
+    "partialLabel": "Partly loaded.",
+    "notFoundTitle": "This page does not exist in the prototype",
+    "notFoundBody": "The address may be mistyped, or the page was never part of this prototype. Open the Case bench or go back to the start.",
+    "notFoundCta": "Back to the start",
+    "notFoundBench": "Open the Case bench"
+  },
+  "pathway": {
+    "state": {
+      "registration_consent": "Registration, information and consent",
+      "physician_consult": "Physician consultation",
+      "sample_collection": "Sample collection and requisition",
+      "lab_processing": "Laboratory processing",
+      "joint_report": "Single joint report",
+      "counselling": "Counselling",
+      "declaration": "Declaration of informed results",
+      "certificate": "Certificate issued",
+      "judicial_handoff": "Hand-off to the judicial authority"
+    },
+    "status": {
+      "done": "Done",
+      "current": "You are here",
+      "upcoming": "Coming up",
+      "blocked": "Waiting"
+    },
+    "sla": {
+      "on_track": "On the expected time",
+      "at_risk": "Taking longer than expected",
+      "breached": "Past the expected time"
+    },
+    "expected": "Expected: about {duration}",
+    "simulatedStep": "Simulated step in this demo.",
+    "next": {
+      "generic": "Your next step",
+      "complete_registration": "Complete registration and consent",
+      "attend_physician_consult": "Attend your physician consultation",
+      "collect_samples": "Give your samples and requisition",
+      "await_laboratory_report": "Wait for the laboratory report",
+      "communicate_result": "Your result will be shared with you",
+      "attend_counselling": "Attend your counselling session",
+      "sign_declaration": "Sign the declaration of informed results",
+      "issue_certificate": "Your certificate is being issued",
+      "send_to_judicial_department": "Your report is being sent to the judicial authority",
+      "await_partner_agreement": "Waiting for your partner's agreement to share"
+    },
+    "owner": {
+      "couple": "You",
+      "clinic": "The clinic",
+      "lab": "The laboratory",
+      "counsellor": "A counsellor"
+    },
+    "event": {
+      "consult_completed": "Mark the consent and doctor's visit as done",
+      "sample_collected": "Mark the blood sample as taken",
+      "lab_started": "Record that the laboratory has started",
+      "joint_report_ready": "Record that the joint report is ready",
+      "result_communicated": "Record that the result was explained",
+      "counselling_booked": "Book counselling",
+      "counselling_missed": "Record a missed counselling visit",
+      "counselling_completed": "Record that counselling is done",
+      "counselling_declined": "Record that counselling was declined",
+      "referral_rejected": "Record that a referral was rejected",
+      "partner_declined_to_share": "Record that a partner chose not to share",
+      "declaration_signed": "Record the signed declaration",
+      "certificate_issued": "Record that the certificate was issued",
+      "judicial_handoff_sent": "Record the hand-off to the judicial department",
+      "case_closed": "Close the case",
+      "brief_generated": "Record that the counsellor brief was prepared",
+      "confirmatory_test_ordered": "Order a confirmatory test",
+      "confirmatory_test_resulted": "Record the confirmatory test result",
+      "specialist_referral_requested": "Request a specialist referral",
+      "specialist_referral_completed": "Record the specialist visit"
+    },
+    "nextBy": {
+      "consult_completed": "Next: {who} marks the consent and doctor's visit as done.",
+      "sample_collected": "Next: {who} marks the blood sample as taken.",
+      "lab_started": "Next: {who} records that the laboratory has started.",
+      "joint_report_ready": "Next: {who} records that the joint report is ready.",
+      "result_communicated": "Next: {who} records that the result was explained.",
+      "counselling_booked": "Next: {who} books counselling.",
+      "counselling_missed": "Next: {who} records a missed counselling visit.",
+      "counselling_completed": "Next: {who} records that counselling is done.",
+      "counselling_declined": "Next: {who} records that counselling was declined.",
+      "referral_rejected": "Next: {who} records that a referral was rejected.",
+      "partner_declined_to_share": "Next: {who} records that a partner chose not to share.",
+      "declaration_signed": "Next: {who} records the signed declaration.",
+      "certificate_issued": "Next: {who} records that the certificate was issued.",
+      "judicial_handoff_sent": "Next: {who} records the hand-off to the judicial department.",
+      "case_closed": "Next: {who} closes the case.",
+      "brief_generated": "Next: {who} records that the counsellor brief was prepared.",
+      "confirmatory_test_ordered": "Next: {who} orders a confirmatory test.",
+      "confirmatory_test_resulted": "Next: {who} records the confirmatory test result.",
+      "specialist_referral_requested": "Next: {who} requests a specialist referral.",
+      "specialist_referral_completed": "Next: {who} records the specialist visit."
+    },
+    "nextByGeneric": "Next, for {who}: {action}."
+  }
+}

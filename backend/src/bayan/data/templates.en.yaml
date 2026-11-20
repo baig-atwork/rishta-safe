@@ -1,0 +1,517 @@
+# Explainer templates, English. The single source of truth for wording (Rishta Safe authoring note, pending clinical sign-off).
+#
+# Rules for every template (enforced by tests/explain):
+#   * Slots are written {name}. Allowed slot names: the constants in templates.constants.yaml
+#     plus the engine slots listed under `engine_slots` below. Any other placeholder is an error.
+#   * No digit may be typed into the text. Numbers arrive only through slots.
+#   * No banned word (templates.banned.yaml). No "pass/fail" style verdict language.
+#   * Every locale file defines exactly the same template ids with exactly the same slots.
+#   * English is aimed at about US grade 6 to 8 (Flesch-Kincaid grade, computed by explain/readability.py).
+#
+# Status: needs_clinician_signoff: true. Nobody has reviewed this wording, so language_status is
+# "draft" for English too (spec section 2 rule 2: never claim a review that did not happen).
+# The clinical lead (sign-off pending) flips this field once the sign-off exists.
+meta:
+  schema_version: 1
+  locale: en
+  direction: ltr
+  digit_system: western
+  language_status: draft
+  needs_clinician_signoff: true
+  authoring: >-
+    Static text. Drafted at authoring time with an LLM assistant (no personal or couple data was
+    given to it) and edited by hand. There is no runtime LLM (ADR 0003).
+  wording_basis: >-
+    Non-stigmatising, non-directive. Words the official materials use that this product avoids:
+    compatible, non-compatible, abnormal, positive findings, high-risk marriage (Rishta Safe authoring note, pending clinical sign-off). Official wording kept: carrier, shared genetic change, detection limits.
+
+engine_slots: [gene, genes, per_100, affected, carrier, neither, detection_rate_label, variant, shared_count, rate_num, rate_den]
+
+# Short phrases that identify each result category in rendered text. The polarity checker looks
+# for these (lower case) so that a flipped sentence is caught even when template ids look right.
+polarity_markers:
+  shared:
+    - "a shared result was found"
+    - "both of you carry a change"
+    - "a result that the two of you share"
+    - "chance of a child with an inherited condition"
+  no_shared:
+    - "no shared change was found"
+    - "no change was found in the same gene in both of you"
+  more_info:
+    - "more information is needed"
+    - "cannot give a clear answer yet"
+
+templates:
+  # ---------------------------------------------------------------- notices on every document
+  status.draft_notice:
+    kind: callout
+    tone: info
+    polarity: neutral
+    text: "This explanation is a draft. The clinical lead's sign-off is pending."
+
+  status.synthetic_notice:
+    kind: callout
+    tone: info
+    polarity: neutral
+    text: "This is a prototype that uses made-up (synthetic) data. It is not a medical device and not a medical service."
+
+  boundary.education_decision_support:
+    kind: disclaimer
+    tone: care
+    polarity: neutral
+    source: "Rishta Safe scope rules (docs/spec/00-architecture-and-scope.md, rule 10); Challenge 03 requirement 3 (boundary between education, decision support and clinical advice)"
+    text: "This page is for education and decision support. It is not clinical advice. Complex or high-impact findings are explained by an accredited health professional, such as a genetic counsellor or a trained physician."
+
+  # ---------------------------------------------------------------- result: shared
+  result.shared.heading:
+    kind: heading
+    polarity: shared
+    text: "A shared result was found"
+
+  result.shared.summary:
+    kind: paragraph
+    polarity: shared
+    glossary: [shared_result, carrier]
+    text: "The screening report shows a result that the two of you share. It points to a chance of a child with an inherited condition. This is a statement about chance. It is not a diagnosis of either of you."
+
+  shared.basis.both_carriers:
+    kind: paragraph
+    polarity: shared
+    glossary: [carrier, gene]
+    text: "Both of you carry a change in the {gene} gene. A carrier has one changed copy of a gene. Most carriers have no symptoms."
+
+  shared.basis.affected_partner_and_carrier:
+    kind: paragraph
+    polarity: shared
+    glossary: [carrier, gene, affected]
+    text: "One of you has changes in both copies of the {gene} gene. The other carries one changed copy. A counsellor will explain what this means for each of you."
+
+  shared.basis.both_affected:
+    kind: paragraph
+    polarity: shared
+    glossary: [gene, affected]
+    text: "The report lists changes in both copies of the {gene} gene for each of you. A counsellor will explain what this means for you."
+
+  shared.basis.x_linked_carrier_female:
+    kind: paragraph
+    polarity: shared
+    glossary: [x_linked, carrier, gene]
+    text: "The {gene} gene is on the X chromosome. The female partner carries one changed copy. This can affect sons and daughters in different ways."
+
+  shared.basis.x_linked_affected_male:
+    kind: paragraph
+    polarity: shared
+    glossary: [x_linked, gene, affected]
+    text: "The {gene} gene is on the X chromosome. The male partner has a change in this gene. This can affect daughters and sons in different ways."
+
+  shared.outcomes.intro:
+    kind: paragraph
+    polarity: shared
+    glossary: [natural_frequency]
+    text: "Here is what this result can mean for a pregnancy. Each group below is out of {denominator} pregnancies."
+
+  icon_array.caption.any_child:
+    kind: item
+    polarity: shared
+    text: "On average, out of {denominator} pregnancies with this result, about {affected} would have the condition, about {carrier} would be carriers, and about {neither} would have neither."
+
+  icon_array.caption.son:
+    kind: item
+    polarity: shared
+    text: "Sons: on average, out of {denominator}, about {affected} would have the condition, about {carrier} would be carriers, and about {neither} would have neither."
+
+  icon_array.caption.daughter:
+    kind: item
+    polarity: shared
+    text: "Daughters: on average, out of {denominator}, about {affected} would have the condition, about {carrier} would be carriers, and about {neither} would have neither."
+
+  outcome.affected.any_child:
+    kind: item
+    polarity: shared
+    text: "{per_100} out of {denominator} pregnancies: the child has the condition."
+  outcome.carrier.any_child:
+    kind: item
+    polarity: shared
+    text: "{per_100} out of {denominator} pregnancies: the child is a carrier. Most carriers have no symptoms."
+  outcome.neither.any_child:
+    kind: item
+    polarity: shared
+    text: "{per_100} out of {denominator} pregnancies: the child does not have the condition and is not a carrier."
+  outcome.affected.son:
+    kind: item
+    polarity: shared
+    text: "Sons: {per_100} out of {denominator} would have the condition."
+  outcome.carrier.son:
+    kind: item
+    polarity: shared
+    text: "Sons: {per_100} out of {denominator} would be carriers."
+  outcome.neither.son:
+    kind: item
+    polarity: shared
+    text: "Sons: {per_100} out of {denominator} would have neither."
+  outcome.affected.daughter:
+    kind: item
+    polarity: shared
+    text: "Daughters: {per_100} out of {denominator} would have the condition."
+  outcome.carrier.daughter:
+    kind: item
+    polarity: shared
+    text: "Daughters: {per_100} out of {denominator} would be carriers."
+  outcome.neither.daughter:
+    kind: item
+    polarity: shared
+    text: "Daughters: {per_100} out of {denominator} would have neither."
+
+  shared.outcomes.each_pregnancy:
+    kind: paragraph
+    polarity: shared
+    text: "Each pregnancy has the same chances. Earlier pregnancies do not change them."
+
+  shared.next:
+    kind: paragraph
+    polarity: shared
+    glossary: [genetic_counselling]
+    text: "A next step is to talk with a genetic counsellor or a trained physician. They can explain the result, answer your questions, and describe the choices that exist. What you decide is up to you."
+
+  # ---------------------------------------------------------------- result: no shared change
+  result.no_shared.heading:
+    kind: heading
+    polarity: no_shared
+    text: "No shared change was found on this test"
+
+  result.no_shared.summary:
+    kind: paragraph
+    polarity: no_shared
+    glossary: [panel, detection_rate]
+    text: "On this test, no change was found in the same gene in both of you. This is not a promise. The test looks at a chosen list of genes and cannot find every change. Please read what the test can and cannot find below."
+
+  no_shared.next:
+    kind: paragraph
+    polarity: no_shared
+    glossary: [genetic_counselling]
+    text: "If you have questions, or if a condition runs in your family, a counsellor can talk with you. You can ask for this at any time."
+
+  # ---------------------------------------------------------------- result: more information needed
+  result.more_info.heading:
+    kind: heading
+    polarity: more_info
+    text: "More information is needed"
+
+  result.more_info.summary:
+    kind: paragraph
+    polarity: more_info
+    text: "The report cannot give a clear answer yet. This is not a result in either direction. It does not mean that something was found, and it does not mean that nothing was found. A qualified professional will explain what is needed."
+
+  reason.vus_present:
+    kind: item
+    polarity: more_info
+    glossary: [vus, variant]
+    text: "A change of uncertain meaning was found. Doctors do not yet know if it causes a condition. It is not counted as a result."
+
+  reason.pending_confirmation:
+    kind: item
+    polarity: more_info
+    glossary: [confirmatory_test]
+    text: "A finding still needs to be confirmed by a second test. Until then, it is not counted as a result."
+
+  reason.haem_cbc_only:
+    kind: item
+    polarity: more_info
+    glossary: [cbc, carrier, hplc]
+    text: "Only a basic blood count was done. A basic blood count cannot show whether someone is a carrier. More blood tests are needed."
+
+  reason.panel_mismatch:
+    kind: item
+    polarity: more_info
+    glossary: [panel]
+    text: "The test that was done does not cover the gene or condition in question. A different test may be needed."
+
+  reason.generic:
+    kind: item
+    polarity: more_info
+    text: "Some information is missing or unclear. A qualified professional will go through the report with you."
+
+  reason.specialist_read_needed:
+    kind: item
+    polarity: more_info
+    text: "A specialist needs to read this report before it can be explained. This is a normal step for findings that are hard to interpret."
+
+  more_info.next:
+    kind: paragraph
+    polarity: more_info
+    glossary: [genetic_counselling]
+    text: "A counsellor or physician will tell you which extra test or review is needed, and how long it may take."
+
+  # ---------------------------------------------------------------- withheld
+  withheld.heading:
+    kind: heading
+    polarity: withheld
+    text: "Your result is not shown here yet"
+
+  withheld.counselling_first:
+    kind: paragraph
+    polarity: withheld
+    glossary: [genetic_counselling]
+    text: "Your result will be shared during a counselling visit. This lets a trained professional explain it to you in person and answer your questions."
+
+  withheld.awaiting_partner_consent:
+    kind: paragraph
+    polarity: withheld
+    text: "Part of this result needs your partner's agreement before it can be shown. This is part of the privacy rules that apply. Your counsellor can explain the next step."
+
+  withheld.right_not_to_know:
+    kind: paragraph
+    polarity: withheld
+    glossary: [right_not_to_know]
+    source: "Federal Decree-Law 49/2023, Art. 9(2) and the disclosure exception for a threat to life"
+    text: "You have chosen not to see this result. This is your right under the law (Federal Decree-Law {law_number}/{law_year}, Art. {art_9}({art_9_para})). You can change your mind at any time by asking your counsellor. In rare cases, such as a threat to life, the law requires that information be given."
+
+  withheld.generic:
+    kind: paragraph
+    polarity: withheld
+    text: "Your result is not available to you in this view. Please speak with your counsellor or your screening centre."
+
+  withheld.next:
+    kind: paragraph
+    polarity: withheld
+    text: "No result is shown on this page. This page says nothing about what the result is."
+
+  # ---------------------------------------------------------------- meaning
+  meaning.heading:
+    kind: heading
+    polarity: neutral
+    text: "What a result does and does not mean"
+
+  meaning.risk_not_diagnosis:
+    kind: paragraph
+    polarity: neutral
+    glossary: [risk, diagnosis]
+    text: "A screening result is about chance. It is not a diagnosis. It does not say that a person is ill."
+
+  meaning.carrier_not_illness:
+    kind: paragraph
+    polarity: neutral
+    glossary: [carrier, gene]
+    text: "A carrier has one changed copy of a gene. Being a carrier is not an illness. Most carriers have no symptoms."
+
+  meaning.most_people_carry:
+    kind: paragraph
+    polarity: neutral
+    glossary: [carrier, gene]
+    source: "Rishta Safe authoring note, pending clinical sign-off: AVDB-derived estimate of carried genes (illustrative); no number is shown"
+    text: "Most people carry at least one gene change and never know it. What matters is whether two partners carry changes in the same gene."
+
+  # ---------------------------------------------------------------- limits
+  limits.heading:
+    kind: heading
+    polarity: neutral
+    text: "What this test can and cannot find"
+
+  limits.panel_not_complete:
+    kind: paragraph
+    polarity: neutral
+    glossary: [panel, detection_rate]
+    source: "DoH Abu Dhabi Premarital Screening Standard V3, App. 15 footnote: couples must be informed that the screening does not cover or detect all genetic disorders"
+    text: "This test checks a chosen list of genes. It does not find every change in every gene, and it does not cover every inherited condition."
+
+  limits.detection.generic:
+    kind: paragraph
+    polarity: neutral
+    glossary: [detection_rate]
+    text: "Detection rate of this test: {detection_rate_label}. The detection rate tells how often the test finds a change that is really there. No test finds every change."
+
+  limits.detection.panel_rate_assumed:
+    kind: paragraph
+    polarity: neutral
+    glossary: [detection_rate]
+    source: "genetics/detection.py statement key detection.panel_rate_assumed; the rate is assumed and illustrative (data/panels.yaml)"
+    text: "Detection rate of this test: about {rate_num} in {rate_den} of the known changes in these genes. This rate is assumed and illustrative. It is not a measured rate. No test finds every change."
+
+  limits.detection.alpha_globin_locus_limit:
+    kind: paragraph
+    polarity: neutral
+    glossary: [detection_rate]
+    source: "genetics/detection.py statement key detection.alpha_globin_locus_limit; the rate is assumed and illustrative (data/panels.yaml)"
+    text: "For the alpha-globin genes, the detection rate is about {rate_num} in {rate_den}. This rate is assumed and illustrative. This part of the DNA is technically hard to test."
+
+  limits.detection.related_couple_shared_misses:
+    kind: paragraph
+    polarity: neutral
+    glossary: [detection_rate]
+    source: "genetics/detection.py statement key detection.related_couple_shared_misses; the rate is assumed and illustrative (data/panels.yaml)"
+    text: "The detection rate is about {rate_num} in {rate_den} (assumed). Because you are related, a change that this test misses is likely to be missed in both of you."
+
+  limits.detection.assumed_note:
+    kind: paragraph
+    polarity: neutral
+    text: "This rate is an assumption used in this prototype. The clinical lead's sign-off is pending."
+
+  limits.related_couple:
+    kind: callout
+    tone: care
+    polarity: neutral
+    glossary: [consanguinity, detection_rate]
+    source: "Rishta Safe's own gene-dropping simulation (Rishta Safe authoring note, pending clinical sign-off): the naive independent update understates the chance by about 16 to 60 times for first cousins; ACMG advises reporting the detection rate, not a residual figure"
+    text: "You are related, so a negative test result does not lower the chance in the way it would for partners who are not related. A change can reach both of you from the same ancestor, and a test that misses it would miss it in both of you. For this reason, no smaller number is shown after a negative test."
+
+  # ---------------------------------------------------------------- own and partner views
+  own.heading:
+    kind: heading
+    polarity: neutral
+    text: "Your own report"
+
+  own.finding.carrier:
+    kind: item
+    polarity: neutral
+    glossary: [carrier]
+    text: "Your report lists one changed copy of the {gene} gene. This makes you a carrier of this gene."
+
+  own.finding.affected:
+    kind: item
+    polarity: neutral
+    glossary: [affected]
+    text: "Your report lists changes in the {gene} gene that are linked to a condition. A counsellor will explain what this means for you. This page cannot give a diagnosis."
+
+  own.finding.vus:
+    kind: item
+    polarity: neutral
+    glossary: [vus]
+    text: "Your report lists a change of uncertain meaning in the {gene} gene. It is not counted as a result."
+
+  own.finding.not_detected:
+    kind: item
+    polarity: neutral
+    text: "No change was found in the {gene} gene on this test. Please read the limits of the test below."
+
+  partner.heading:
+    kind: heading
+    polarity: neutral
+    text: "Your partner's report"
+
+  partner.none:
+    kind: paragraph
+    polarity: neutral
+    text: "You can see the couple result. Your partner's own report is not shown to you unless your partner agrees."
+
+  partner.gene_only:
+    kind: item
+    polarity: neutral
+    text: "Your partner's report mentions the {gene} gene."
+
+  partner.variant_unknown:
+    kind: item
+    polarity: neutral
+    text: "no variant name given"
+
+  partner.full.carrier:
+    kind: item
+    polarity: neutral
+    glossary: [carrier]
+    text: "Your partner's report lists one changed copy of the {gene} gene ({variant})."
+
+  partner.full.affected:
+    kind: item
+    polarity: neutral
+    glossary: [affected]
+    text: "Your partner's report lists changes in the {gene} gene that are linked to a condition ({variant})."
+
+  partner.full.vus:
+    kind: item
+    polarity: neutral
+    glossary: [vus]
+    text: "Your partner's report lists a change of uncertain meaning in the {gene} gene ({variant})."
+
+  partner.full.not_detected:
+    kind: item
+    polarity: neutral
+    text: "Your partner's report lists no change in the {gene} gene ({variant})."
+
+  # ---------------------------------------------------------------- privacy, policy, certificate
+  privacy.heading:
+    kind: heading
+    polarity: neutral
+    text: "Who can see this"
+
+  privacy.who_can_see:
+    kind: paragraph
+    polarity: neutral
+    source: "Federal Decree-Law 49/2023, Art. 9(1) and Art. 19 to 21"
+    text: "You can see your own result. Your partner sees details only if you agree. Employers and insurers may not ask for genetic results or use them (Federal Decree-Law {law_number}/{law_year}, Art. {art_19} to {art_21})."
+
+  privacy.state_recipient:
+    kind: paragraph
+    polarity: neutral
+    source: "Federal Decree-Law 49/2023, Art. 26(2)"
+    text: "The law requires screening centres to send screening data to the national genomic database (Art. {art_26}({art_26_para})). This tool does not hide data from the health authorities."
+
+  policy.abu_dhabi:
+    kind: paragraph
+    polarity: neutral
+    source: "DoH Abu Dhabi Premarital Screening Standard V3, App. 2: the doctor meets both partners together after obtaining the consent of the person with the abnormal result"
+    text: "In Abu Dhabi, when a result shows a finding, the doctor first asks the person it belongs to before telling the partner."
+
+  policy.dubai:
+    kind: paragraph
+    polarity: neutral
+    source: "DHA Standards for Premarital Screening Services V1, 9.1.4: disclosed exclusively to the affected individual; the partner only with explicit consent"
+    text: "In Dubai, a result that shows a finding is first told only to the person it belongs to. The partner is told only with that person's clear agreement."
+
+  certificate.refusal_tension:
+    kind: callout
+    tone: care
+    polarity: neutral
+    source: "DoH Abu Dhabi Standard V3, 3.3.12.1; DHA Standard V1, 9.1.10b: the certificate is withheld if a partner refuses to share or sign"
+    text: "In Abu Dhabi and Dubai, the report that is needed for the marriage contract cannot be issued if one partner refuses to share the result or to sign the declaration. Your privacy choices and the certificate are linked in this way. A counsellor can explain what this means for you."
+
+  certificate.generic:
+    kind: callout
+    tone: care
+    polarity: neutral
+    text: "A note about the certificate applies to this case. A counsellor can explain it."
+
+  # ---------------------------------------------------------------- options pane
+  options.heading:
+    kind: heading
+    polarity: neutral
+    text: "Choices that exist"
+
+  options.intro:
+    kind: paragraph
+    polarity: neutral
+    text: "These are choices that exist. They are listed in no order of preference, and the order is the same for everyone. Nobody here is telling you which one to take. A counsellor can explain each one."
+
+  options.item.preimplantation:
+    kind: item
+    polarity: neutral
+    source: "Federal Decree-Law 49/2023, Art. 11"
+    text: "Testing before a pregnancy begins, at licensed reproduction centres, to identify and prevent inherited conditions (Art. {art_11})."
+
+  options.item.prenatal_diagnosis:
+    kind: item
+    polarity: neutral
+    source: "Federal Decree-Law 49/2023, Art. 12"
+    text: "Testing during a pregnancy to see whether a child has a condition. The law allows this (Art. {art_12}). Where a serious condition is shown, the law says medical options are available in line with the legislation in force."
+
+  options.item.specialist_discussion:
+    kind: item
+    polarity: neutral
+    glossary: [genetic_counselling]
+    text: "Talking with a specialist about the result, what it means for your family, and what it means for any pregnancy."
+
+  options.rights:
+    kind: paragraph
+    polarity: neutral
+    glossary: [right_not_to_know]
+    source: "Federal Decree-Law 49/2023, Art. 9(2)"
+    text: "You may choose not to know some or all of your results. This is your right (Federal Decree-Law {law_number}/{law_year}, Art. {art_9}({art_9_para})). You can change your mind later."
+
+  options.closing:
+    kind: paragraph
+    polarity: neutral
+    text: "This tool does not make decisions for you. You can ask for support at any time."
+
+  options.pointer:
+    kind: paragraph
+    polarity: neutral
+    text: "A page called “Choices that exist” explains the choices that the law allows. It lists them in no order of preference."

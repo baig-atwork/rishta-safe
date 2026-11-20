@@ -1,0 +1,518 @@
+# Explainer templates, Arabic (Modern Standard Arabic, simple and warm). Adapted from templates.en.yaml,
+# not translated word for word. Same template ids, same slots, same kind/tone/polarity/glossary/source.
+#
+# Rules (same as the English file, enforced by tests/explain):
+#   * Slots are written {name} and are copied unchanged. Numbers arrive only through slots; no digit is typed.
+#   * No banned word (templates.banned.yaml, Arabic list). No verdict language.
+#   * Couple-level text addresses the two partners in the dual (كما); individual-level text uses forms
+#     that are the same for a woman and a man. X-linked texts name الشريكة / الشريك explicitly.
+#
+# Status: needs_clinician_signoff: true. No native clinical reader has read this wording, so
+# language_status is "draft" (spec section 2 rule 2).
+meta:
+  schema_version: 1
+  locale: ar
+  direction: rtl
+  digit_system: western
+  language_status: draft
+  needs_clinician_signoff: true
+  authoring: >-
+    Static draft text. Drafted at authoring time with an LLM assistant (no personal or couple data was
+    given to it). No native Arabic clinical reader has read it yet. There is no runtime LLM (ADR 0003).
+  wording_basis: >-
+    Non-stigmatising, non-directive. Words the official materials use that this product avoids:
+    compatible, non-compatible, abnormal, positive findings, high-risk marriage (Rishta Safe authoring note, pending clinical sign-off). Official wording kept: carrier, shared genetic change, detection limits.
+
+engine_slots: [gene, genes, per_100, affected, carrier, neither, detection_rate_label, variant, shared_count, rate_num, rate_den]
+
+# Short phrases that identify each result category in rendered text. The polarity checker looks
+# for these so that a flipped sentence is caught even when template ids look right. Each phrase occurs
+# in a template of its own polarity and in no template of another polarity.
+polarity_markers:
+  shared:
+    - "تم العثور على نتيجة مشتركة"
+    - "نتيجة يشترك فيها كلاكما"
+    - "كلاكما يحمل تغيّر"
+    - "يولد لكما طفل لديه حالة وراثية"
+  no_shared:
+    - "لم يُعثر على تغيّر مشترك"
+    - "لم يُعثر على تغيّر في جين يحمله كلاكما"
+    - "وهذا ليس ضمانًا"
+  more_info:
+    - "هناك حاجة إلى مزيد من المعلومات"
+    - "لا يستطيع التقرير أن يعطي إجابة واضحة بعد"
+    - "ليست نتيجة في أي اتجاه"
+
+templates:
+  # ---------------------------------------------------------------- notices on every document
+  status.draft_notice:
+    kind: callout
+    tone: info
+    polarity: neutral
+    text: "هذا الشرح مسودة. وما زلنا ننتظر مصادقة المسؤول السريري."
+
+  status.synthetic_notice:
+    kind: callout
+    tone: info
+    polarity: neutral
+    text: "هذا نموذج تجريبي يعتمد على بيانات مُصطنعة (غير حقيقية). وهو ليس جهازًا طبيًا ولا خدمة طبية."
+
+  boundary.education_decision_support:
+    kind: disclaimer
+    tone: care
+    polarity: neutral
+    source: "Rishta Safe scope rules (docs/spec/00-architecture-and-scope.md, rule 10); Challenge 03 requirement 3 (boundary between education, decision support and clinical advice)"
+    text: "هذه الصفحة للتثقيف ولدعم اتخاذ القرار، وهي ليست نصيحة سريرية. أما النتائج المعقدة أو ذات الأثر الكبير فيشرحها مختص صحي معتمد، مثل المرشد الوراثي أو الطبيب المدرَّب."
+
+  # ---------------------------------------------------------------- result: shared
+  result.shared.heading:
+    kind: heading
+    polarity: shared
+    text: "تم العثور على نتيجة مشتركة"
+
+  result.shared.summary:
+    kind: paragraph
+    polarity: shared
+    glossary: [shared_result, carrier]
+    text: "يُظهر تقرير الفحص نتيجة يشترك فيها كلاكما. وهي تشير إلى احتمال أن يولد لكما طفل لديه حالة وراثية. هذه معلومة عن الاحتمال فقط، وهي ليست تشخيصًا لأي منكما."
+
+  shared.basis.both_carriers:
+    kind: paragraph
+    polarity: shared
+    glossary: [carrier, gene]
+    text: "كلاكما يحمل تغيّرًا في جين {gene}. الحامل للتغيّر لديه نسخة واحدة متغيّرة من الجين. ومعظم الحاملين لا تظهر عليهم أعراض."
+
+  shared.basis.affected_partner_and_carrier:
+    kind: paragraph
+    polarity: shared
+    glossary: [carrier, gene, affected]
+    text: "لدى أحدكما تغيّرات في كلتا نسختي جين {gene}. ولدى الآخر نسخة واحدة متغيّرة. سيشرح لكما المرشد الوراثي ما يعنيه ذلك لكل منكما."
+
+  shared.basis.both_affected:
+    kind: paragraph
+    polarity: shared
+    glossary: [gene, affected]
+    text: "يذكر التقرير تغيّرات في كلتا نسختي جين {gene} لدى كل منكما. سيشرح لكما المرشد الوراثي ما يعنيه ذلك."
+
+  shared.basis.x_linked_carrier_female:
+    kind: paragraph
+    polarity: shared
+    glossary: [x_linked, carrier, gene]
+    text: "جين {gene} موجود على الكروموسوم X. الشريكة تحمل نسخة واحدة متغيّرة. وقد يؤثر ذلك في الأولاد والبنات بطرق مختلفة."
+
+  shared.basis.x_linked_affected_male:
+    kind: paragraph
+    polarity: shared
+    glossary: [x_linked, gene, affected]
+    text: "جين {gene} موجود على الكروموسوم X. لدى الشريك تغيّر في هذا الجين. وقد يؤثر ذلك في البنات والأولاد بطرق مختلفة."
+
+  shared.outcomes.intro:
+    kind: paragraph
+    polarity: shared
+    glossary: [natural_frequency]
+    text: "هذا ما قد تعنيه هذه النتيجة بالنسبة إلى الحمل. كل مجموعة أدناه هي من بين {denominator} حالة حمل."
+
+  icon_array.caption.any_child:
+    kind: item
+    polarity: shared
+    text: "في المتوسط، من بين {denominator} حالة حمل بهذه النتيجة: في نحو {affected} منها يكون لدى الطفل الحالة، وفي نحو {carrier} منها يكون الطفل حاملًا، وفي نحو {neither} منها لا يكون الطفل حاملًا ولا لديه الحالة."
+
+  icon_array.caption.son:
+    kind: item
+    polarity: shared
+    text: "الأولاد: في المتوسط، من كل {denominator}، في نحو {affected} يكون لدى الولد الحالة، وفي نحو {carrier} يكون حاملًا، وفي نحو {neither} لا يكون حاملًا ولا لديه الحالة."
+
+  icon_array.caption.daughter:
+    kind: item
+    polarity: shared
+    text: "البنات: في المتوسط، من كل {denominator}، في نحو {affected} يكون لدى البنت الحالة، وفي نحو {carrier} تكون حاملة، وفي نحو {neither} لا تكون حاملة ولا لديها الحالة."
+
+  outcome.affected.any_child:
+    kind: item
+    polarity: shared
+    text: "{per_100} من كل {denominator} حالة حمل: يكون لدى الطفل الحالة."
+  outcome.carrier.any_child:
+    kind: item
+    polarity: shared
+    text: "{per_100} من كل {denominator} حالة حمل: يكون الطفل حاملًا للتغيّر. ومعظم الحاملين لا تظهر عليهم أعراض."
+  outcome.neither.any_child:
+    kind: item
+    polarity: shared
+    text: "{per_100} من كل {denominator} حالة حمل: لا يكون لدى الطفل الحالة ولا يكون حاملًا."
+  outcome.affected.son:
+    kind: item
+    polarity: shared
+    text: "الأولاد: لدى {per_100} من كل {denominator} الحالة."
+  outcome.carrier.son:
+    kind: item
+    polarity: shared
+    text: "الأولاد: {per_100} من كل {denominator} حاملون للتغيّر."
+  outcome.neither.son:
+    kind: item
+    polarity: shared
+    text: "الأولاد: {per_100} من كل {denominator} ليس لديهم الحالة وليسوا حاملين."
+  outcome.affected.daughter:
+    kind: item
+    polarity: shared
+    text: "البنات: لدى {per_100} من كل {denominator} الحالة."
+  outcome.carrier.daughter:
+    kind: item
+    polarity: shared
+    text: "البنات: {per_100} من كل {denominator} حاملات للتغيّر."
+  outcome.neither.daughter:
+    kind: item
+    polarity: shared
+    text: "البنات: {per_100} من كل {denominator} ليس لديهن الحالة وليسن حاملات."
+
+  shared.outcomes.each_pregnancy:
+    kind: paragraph
+    polarity: shared
+    text: "لكل حمل الاحتمالات نفسها. ولا تتغير بسبب حالات الحمل السابقة."
+
+  shared.next:
+    kind: paragraph
+    polarity: shared
+    glossary: [genetic_counselling]
+    text: "من الخطوات التالية الممكنة أن تتحدثا مع مرشد وراثي أو طبيب مدرَّب. يستطيع أن يشرح لكما النتيجة، ويجيب عن أسئلتكما، ويصف الخيارات المتاحة. وما تقرّرانه يعود إليكما."
+
+  # ---------------------------------------------------------------- result: no shared change
+  result.no_shared.heading:
+    kind: heading
+    polarity: no_shared
+    text: "لم يُعثر على تغيّر مشترك في هذا الفحص"
+
+  result.no_shared.summary:
+    kind: paragraph
+    polarity: no_shared
+    glossary: [panel, detection_rate]
+    text: "في هذا الفحص، لم يُعثر على تغيّر في جين يحمله كلاكما. وهذا ليس ضمانًا. فالفحص ينظر في قائمة محددة من الجينات، ولا يستطيع اكتشاف كل التغيّرات. وتجدان أدناه ما يستطيع الفحص اكتشافه وما لا يستطيع."
+
+  no_shared.next:
+    kind: paragraph
+    polarity: no_shared
+    glossary: [genetic_counselling]
+    text: "إذا كانت لديكما أسئلة، أو إذا كانت هناك حالة وراثية تتكرر في عائلتكما، يمكن لمرشد وراثي أن يتحدث معكما. وبإمكانكما طلب ذلك في أي وقت."
+
+  # ---------------------------------------------------------------- result: more information needed
+  result.more_info.heading:
+    kind: heading
+    polarity: more_info
+    text: "هناك حاجة إلى مزيد من المعلومات"
+
+  result.more_info.summary:
+    kind: paragraph
+    polarity: more_info
+    text: "لا يستطيع التقرير أن يعطي إجابة واضحة بعد. وهذه ليست نتيجة في أي اتجاه. فهي لا تعني أنه تم العثور على شيء، ولا تعني أنه لم يتم العثور على شيء. وسيوضح لكما مختص مؤهل ما هو مطلوب."
+
+  reason.vus_present:
+    kind: item
+    polarity: more_info
+    glossary: [vus, variant]
+    text: "عُثر على تغيّر غير واضح المعنى. لا يعرف الأطباء حتى الآن إن كان يسبب حالة وراثية. ولا يُحتسب هذا التغيّر نتيجة."
+
+  reason.pending_confirmation:
+    kind: item
+    polarity: more_info
+    glossary: [confirmatory_test]
+    text: "ما زال هناك ما ظهر في الفحص ويحتاج إلى تأكيد بفحص ثانٍ. وإلى أن يتأكد، لا يُحتسب نتيجة."
+
+  reason.haem_cbc_only:
+    kind: item
+    polarity: more_info
+    glossary: [cbc, carrier, hplc]
+    text: "أُجري فقط فحص أساسي لتعداد الدم. والفحص الأساسي لتعداد الدم لا يستطيع أن يبيّن ما إذا كان الشخص حاملًا. ويلزم إجراء المزيد من فحوص الدم."
+
+  reason.panel_mismatch:
+    kind: item
+    polarity: more_info
+    glossary: [panel]
+    text: "الفحص الذي أُجري لا يشمل الجين أو الحالة المعنية. وقد يلزم إجراء فحص مختلف."
+
+  reason.generic:
+    kind: item
+    polarity: more_info
+    text: "بعض المعلومات ناقصة أو غير واضحة. وسيراجع معكما مختص مؤهل التقرير."
+
+  reason.specialist_read_needed:
+    kind: item
+    polarity: more_info
+    text: "يحتاج هذا التقرير إلى أن يقرأه أخصائي قبل أن يمكن شرحه. هذه خطوة معتادة للنتائج التي يصعب تفسيرها."
+
+  more_info.next:
+    kind: paragraph
+    polarity: more_info
+    glossary: [genetic_counselling]
+    text: "سيخبركما المرشد الوراثي أو الطبيب بالفحص الإضافي أو المراجعة اللازمة، وبالمدة التي قد يستغرقها ذلك."
+
+  # ---------------------------------------------------------------- withheld
+  withheld.heading:
+    kind: heading
+    polarity: withheld
+    text: "نتيجتك غير معروضة هنا بعد"
+
+  withheld.counselling_first:
+    kind: paragraph
+    polarity: withheld
+    glossary: [genetic_counselling]
+    text: "ستُعرض عليك نتيجتك خلال زيارة إرشاد وراثي. وهذا يتيح لمختص مدرَّب أن يشرحها لك وجهًا لوجه ويجيب عن أسئلتك."
+
+  withheld.awaiting_partner_consent:
+    kind: paragraph
+    polarity: withheld
+    text: "يحتاج جزء من هذه النتيجة إلى موافقة شريك حياتك قبل أن يمكن عرضه. وهذا جزء من قواعد الخصوصية المعمول بها. ويستطيع المرشد الوراثي أن يشرح لك الخطوة التالية."
+
+  withheld.right_not_to_know:
+    kind: paragraph
+    polarity: withheld
+    glossary: [right_not_to_know]
+    source: "Federal Decree-Law 49/2023, Art. 9(2) and the disclosure exception for a threat to life"
+    text: "لقد اخترت عدم الاطّلاع على هذه النتيجة. وهذا حقك بموجب القانون (المرسوم بقانون اتحادي رقم {law_number} لسنة {law_year}، المادة {art_9}({art_9_para})). ويمكنك تغيير رأيك في أي وقت بسؤال المرشد الوراثي. وفي حالات نادرة، مثل وجود تهديد للحياة، يُلزم القانون بإعطاء هذه المعلومة."
+
+  withheld.generic:
+    kind: paragraph
+    polarity: withheld
+    text: "نتيجتك غير متاحة لك في هذه الصفحة. يمكنك التحدث مع مرشدك الوراثي أو مع مركز الفحص."
+
+  withheld.next:
+    kind: paragraph
+    polarity: withheld
+    text: "لا تُعرض أي نتيجة في هذه الصفحة. وهذه الصفحة لا تقول شيئًا عمّا تكون عليه النتيجة."
+
+  # ---------------------------------------------------------------- meaning
+  meaning.heading:
+    kind: heading
+    polarity: neutral
+    text: "ما تعنيه النتيجة وما لا تعنيه"
+
+  meaning.risk_not_diagnosis:
+    kind: paragraph
+    polarity: neutral
+    glossary: [risk, diagnosis]
+    text: "نتيجة الفحص تتحدث عن الاحتمال، وهي ليست تشخيصًا. ولا تقول إن أحدًا مريض."
+
+  meaning.carrier_not_illness:
+    kind: paragraph
+    polarity: neutral
+    glossary: [carrier, gene]
+    text: "الحامل للتغيّر لديه نسخة واحدة متغيّرة من الجين. وكون الشخص حاملًا ليس مرضًا. ومعظم الحاملين لا تظهر عليهم أعراض."
+
+  meaning.most_people_carry:
+    kind: paragraph
+    polarity: neutral
+    glossary: [carrier, gene]
+    source: "Rishta Safe authoring note, pending clinical sign-off: AVDB-derived estimate of carried genes (illustrative); no number is shown"
+    text: "معظم الناس يحملون تغيّرًا جينيًا واحدًا على الأقل دون أن يعرفوا ذلك. والمهم هو ما إذا كان الشريكان يحملان تغيّرين في الجين نفسه."
+
+  # ---------------------------------------------------------------- limits
+  limits.heading:
+    kind: heading
+    polarity: neutral
+    text: "ما يستطيع هذا الفحص كشفه وما لا يستطيع"
+
+  limits.panel_not_complete:
+    kind: paragraph
+    polarity: neutral
+    glossary: [panel, detection_rate]
+    source: "DoH Abu Dhabi Premarital Screening Standard V3, App. 15 footnote: couples must be informed that the screening does not cover or detect all genetic disorders"
+    text: "يتحقق هذا الفحص من قائمة محددة من الجينات. وهو لا يكشف كل تغيّر في كل جين، ولا يشمل كل الحالات الوراثية."
+
+  limits.detection.generic:
+    kind: paragraph
+    polarity: neutral
+    glossary: [detection_rate]
+    text: "معدل الكشف في هذا الفحص: {detection_rate_label}. يبيّن معدل الكشف عدد المرات التي يجد فيها الفحص تغيّرًا موجودًا فعلًا. ولا يكشف أي فحص كل التغيّرات."
+
+  limits.detection.panel_rate_assumed:
+    kind: paragraph
+    polarity: neutral
+    glossary: [detection_rate]
+    source: "genetics/detection.py statement key detection.panel_rate_assumed; the rate is assumed and illustrative (data/panels.yaml)"
+    text: "معدل الكشف في هذا الفحص: حوالي {rate_num} من كل {rate_den} من التغيّرات المعروفة في هذه الجينات. هذا المعدل افتراضي وتوضيحي، وليس معدلًا تم قياسه. لا يوجد فحص يكشف كل التغيّرات."
+
+  limits.detection.alpha_globin_locus_limit:
+    kind: paragraph
+    polarity: neutral
+    glossary: [detection_rate]
+    source: "genetics/detection.py statement key detection.alpha_globin_locus_limit; the rate is assumed and illustrative (data/panels.yaml)"
+    text: "بالنسبة لجينات الألفا غلوبين، معدل الكشف حوالي {rate_num} من كل {rate_den}. هذا المعدل افتراضي وتوضيحي، وليس معدلًا تم قياسه. هذا الجزء من الحمض النووي يصعب فحصه تقنيًا."
+
+  limits.detection.related_couple_shared_misses:
+    kind: paragraph
+    polarity: neutral
+    glossary: [detection_rate]
+    source: "genetics/detection.py statement key detection.related_couple_shared_misses; the rate is assumed and illustrative (data/panels.yaml)"
+    text: "معدل الكشف حوالي {rate_num} من كل {rate_den} (افتراضي). وبما أنكما قريبان، فمن المرجح أن أي تغيّر يفوته هذا الفحص سيفوته عند كليكما."
+
+  limits.detection.assumed_note:
+    kind: paragraph
+    polarity: neutral
+    text: "هذا المعدل افتراض مستخدم في هذا النموذج التجريبي. ومصادقة المسؤول السريري ما زالت في الانتظار."
+
+  limits.related_couple:
+    kind: callout
+    tone: care
+    polarity: neutral
+    glossary: [consanguinity, detection_rate]
+    source: "Rishta Safe's own gene-dropping simulation (Rishta Safe authoring note, pending clinical sign-off): the naive independent update understates the chance by about 16 to 60 times for first cousins; ACMG advises reporting the detection rate, not a residual figure"
+    text: "بما أن بينكما صلة قرابة، فإن نتيجة الفحص التي لا تُظهر تغيّرًا لا تخفض الاحتمال بالطريقة التي تخفضه بها لدى شريكين لا تربط بينهما قرابة. فقد يصل التغيّر إلى كليكما من سلف مشترك، والفحص الذي يفوّته سيفوّته لدى كليكما. ولهذا السبب لا يُعرض رقم أصغر بعد فحص لا يُظهر تغيّرًا."
+
+  # ---------------------------------------------------------------- own and partner views
+  own.heading:
+    kind: heading
+    polarity: neutral
+    text: "تقريرك الخاص"
+
+  own.finding.carrier:
+    kind: item
+    polarity: neutral
+    glossary: [carrier]
+    text: "يُظهر تقريرك نسخة واحدة متغيّرة من جين {gene}. ويُسمّى الشخص في هذه الحالة «حاملًا» لهذا الجين."
+
+  own.finding.affected:
+    kind: item
+    polarity: neutral
+    glossary: [affected]
+    text: "يذكر تقريرك تغيّرات في جين {gene} مرتبطة بحالة صحية. سيشرح لك المرشد الوراثي ما يعنيه ذلك. وهذه الصفحة لا تستطيع إعطاء تشخيص."
+
+  own.finding.vus:
+    kind: item
+    polarity: neutral
+    glossary: [vus]
+    text: "يذكر تقريرك تغيّرًا غير واضح المعنى في جين {gene}. ولا يُحتسب نتيجة."
+
+  own.finding.not_detected:
+    kind: item
+    polarity: neutral
+    text: "لم يُعثر على أي تغيّر في جين {gene} في هذا الفحص. وتجد أدناه حدود هذا الفحص."
+
+  partner.heading:
+    kind: heading
+    polarity: neutral
+    text: "تقرير شريك حياتك"
+
+  partner.none:
+    kind: paragraph
+    polarity: neutral
+    text: "يمكنك الاطّلاع على نتيجتكما معًا. أما تقرير شريك حياتك الخاص فلا يُعرض عليك إلا بموافقته."
+
+  partner.gene_only:
+    kind: item
+    polarity: neutral
+    text: "يشير تقرير شريك حياتك إلى جين {gene}."
+
+  partner.variant_unknown:
+    kind: item
+    polarity: neutral
+    text: "لم يُذكر اسم للتغيّر"
+
+  partner.full.carrier:
+    kind: item
+    polarity: neutral
+    glossary: [carrier]
+    text: "يذكر تقرير شريك حياتك نسخة واحدة متغيّرة من جين {gene} ({variant})."
+
+  partner.full.affected:
+    kind: item
+    polarity: neutral
+    glossary: [affected]
+    text: "يذكر تقرير شريك حياتك تغيّرات في جين {gene} مرتبطة بحالة صحية ({variant})."
+
+  partner.full.vus:
+    kind: item
+    polarity: neutral
+    glossary: [vus]
+    text: "يذكر تقرير شريك حياتك تغيّرًا غير واضح المعنى في جين {gene} ({variant})."
+
+  partner.full.not_detected:
+    kind: item
+    polarity: neutral
+    text: "لا يذكر تقرير شريك حياتك أي تغيّر في جين {gene} ({variant})."
+
+  # ---------------------------------------------------------------- privacy, policy, certificate
+  privacy.heading:
+    kind: heading
+    polarity: neutral
+    text: "من يمكنه الاطّلاع على هذه المعلومات"
+
+  privacy.who_can_see:
+    kind: paragraph
+    polarity: neutral
+    source: "Federal Decree-Law 49/2023, Art. 9(1) and Art. 19 to 21"
+    text: "يمكنك الاطّلاع على نتيجتك. ولا يطّلع شريك حياتك على التفاصيل إلا إذا وافقت أنت. ولا يحق لأصحاب العمل ولا لشركات التأمين أن يطلبوا النتائج الجينية أو يستخدموها (المرسوم بقانون اتحادي رقم {law_number} لسنة {law_year}، المواد من {art_19} إلى {art_21})."
+
+  privacy.state_recipient:
+    kind: paragraph
+    polarity: neutral
+    source: "Federal Decree-Law 49/2023, Art. 26(2)"
+    text: "يُلزم القانون مراكز الفحص بإرسال بيانات الفحص إلى قاعدة البيانات الوطنية للجينوم (المادة {art_26}({art_26_para})). وهذه الأداة لا تُخفي البيانات عن الجهات الصحية."
+
+  policy.abu_dhabi:
+    kind: paragraph
+    polarity: neutral
+    source: "DoH Abu Dhabi Premarital Screening Standard V3, App. 2: the doctor meets both partners together after obtaining the consent of the person with the abnormal result"
+    text: "في أبوظبي، عندما تتضمن النتيجة تغيّرًا، يسأل الطبيب أولًا الشخص الذي تخصه النتيجة قبل أن يخبر شريك حياته."
+
+  policy.dubai:
+    kind: paragraph
+    polarity: neutral
+    source: "DHA Standards for Premarital Screening Services V1, 9.1.4: disclosed exclusively to the affected individual; the partner only with explicit consent"
+    text: "في دبي، تُبلَّغ النتيجة التي تتضمن تغيّرًا أولًا إلى الشخص الذي تخصه وحده. ولا يُبلَّغ شريك حياته إلا بموافقة هذا الشخص الصريحة."
+
+  certificate.refusal_tension:
+    kind: callout
+    tone: care
+    polarity: neutral
+    source: "DoH Abu Dhabi Standard V3, 3.3.12.1; DHA Standard V1, 9.1.10b: the certificate is withheld if a partner refuses to share or sign"
+    text: "في أبوظبي ودبي، لا يمكن إصدار التقرير المطلوب لعقد الزواج إذا رفض أحد الشريكين مشاركة النتيجة أو توقيع الإقرار. وبهذه الطريقة ترتبط خيارات الخصوصية بالشهادة. ويستطيع المرشد الوراثي أن يشرح لكما ما يعنيه ذلك."
+
+  certificate.generic:
+    kind: callout
+    tone: care
+    polarity: neutral
+    text: "هناك ملاحظة بشأن الشهادة تنطبق على هذه الحالة. ويستطيع المرشد الوراثي أن يشرحها لكما."
+
+  # ---------------------------------------------------------------- options pane
+  options.heading:
+    kind: heading
+    polarity: neutral
+    text: "الخيارات المتاحة"
+
+  options.intro:
+    kind: paragraph
+    polarity: neutral
+    text: "هذه خيارات متاحة. وهي مذكورة دون ترتيب أفضلية، والترتيب نفسه للجميع. ولا أحد هنا يحدد لكما الخيار. ويستطيع المرشد الوراثي أن يشرح لكما كل خيار منها."
+
+  options.item.preimplantation:
+    kind: item
+    polarity: neutral
+    source: "Federal Decree-Law 49/2023, Art. 11"
+    text: "فحص قبل بدء الحمل، في مراكز الإنجاب المرخّصة، للتعرف على الحالات الوراثية والوقاية منها (المادة {art_11})."
+
+  options.item.prenatal_diagnosis:
+    kind: item
+    polarity: neutral
+    source: "Federal Decree-Law 49/2023, Art. 12"
+    text: "فحص أثناء الحمل لمعرفة ما إذا كان لدى الطفل حالة ما. ويسمح القانون بذلك (المادة {art_12}). وعند ثبوت حالة خطيرة، ينص القانون على أن الخيارات الطبية متاحة وفق التشريعات المعمول بها."
+
+  options.item.specialist_discussion:
+    kind: item
+    polarity: neutral
+    glossary: [genetic_counselling]
+    text: "التحدث مع مختص عن النتيجة، وعمّا تعنيه لعائلتكما، وعمّا تعنيه لأي حمل."
+
+  options.rights:
+    kind: paragraph
+    polarity: neutral
+    glossary: [right_not_to_know]
+    source: "Federal Decree-Law 49/2023, Art. 9(2)"
+    text: "يمكنك اختيار عدم معرفة بعض نتائجك أو كلها. وهذا حقك (المرسوم بقانون اتحادي رقم {law_number} لسنة {law_year}، المادة {art_9}({art_9_para})). ويمكنك تغيير رأيك لاحقًا."
+
+  options.closing:
+    kind: paragraph
+    polarity: neutral
+    text: "هذه الأداة لا تتخذ القرارات نيابةً عنكما. وبإمكانكما طلب الدعم في أي وقت."
+
+  options.pointer:
+    kind: paragraph
+    polarity: neutral
+    text: "توجد صفحة بعنوان «الخيارات المتاحة» تشرح الخيارات التي يسمح بها القانون. وهي تعرضها دون ترتيب أفضلية."

@@ -1,0 +1,7 @@
+# Single-package project (not a workspace). pnpm 11 policy:
+# - Build scripts are deny-by-default; only packages listed in allowBuilds may run them. Both packages below
+#   are optional native helpers that nothing in this app needs (no file watching in production, no SWC
+#   transform: Next compiles with its own bundled SWC), so they are explicitly denied.
+allowBuilds:
+  "@parcel/watcher": false
+  "@swc/core": false

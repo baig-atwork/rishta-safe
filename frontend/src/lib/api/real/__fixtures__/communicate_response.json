@@ -1,0 +1,233 @@
+{
+  "pathway": {
+    "couple_id": "cpl-fixture-01",
+    "state": "counselling_pending",
+    "locale": "en",
+    "language_status": "draft",
+    "steps": [
+      {
+        "id": "registered",
+        "label": "Book a screening visit",
+        "description": "Choose a licensed screening centre and a time. In this prototype the booking is simulated and nothing is booked.",
+        "status": "done",
+        "completed_at": "2026-11-20T07:27:38.257641Z",
+        "external_system": "Licensed screening centre (simulated)",
+        "simulated": true,
+        "planning_minutes": null,
+        "timer": null
+      },
+      {
+        "id": "consult_completed",
+        "label": "Consent and doctor's visit",
+        "description": "You sign the agreement and meet a doctor, each partner on their own. The doctor asks about your health and family.",
+        "status": "done",
+        "completed_at": "2026-11-20T07:27:38.268148Z",
+        "external_system": "Licensed screening centre (simulated)",
+        "simulated": true,
+        "planning_minutes": 15,
+        "timer": null
+      },
+      {
+        "id": "sample_collected",
+        "label": "Blood sample",
+        "description": "A trained person takes blood at the centre, during the same visit. Samples go to the laboratories.",
+        "status": "done",
+        "completed_at": "2026-11-20T07:27:38.270605Z",
+        "external_system": "Licensed screening centre (simulated)",
+        "simulated": true,
+        "planning_minutes": 15,
+        "timer": null
+      },
+      {
+        "id": "lab_started",
+        "label": "Laboratory work starts",
+        "description": "The laboratory receives the sample and starts the tests.",
+        "status": "done",
+        "completed_at": "2026-11-20T07:27:38.272978Z",
+        "external_system": "Laboratory for the standard tests (simulated)",
+        "simulated": true,
+        "planning_minutes": null,
+        "timer": {
+          "id": "lab_start",
+          "standard_hours": 24,
+          "elapsed_hours": 0,
+          "sla": "on_time",
+          "illustrative": false,
+          "source": "D1 3.8 and D2 11.5.1: laboratory work starts within 24 hours",
+          "illustrative_notice": null
+        }
+      },
+      {
+        "id": "joint_report_ready",
+        "label": "Joint report is ready",
+        "description": "One joint report is prepared for the couple and sent to the doctor. The genetic part takes longer than the other tests.",
+        "status": "done",
+        "completed_at": "2026-11-20T07:27:38.275837Z",
+        "external_system": "Genomic laboratory (simulated)",
+        "simulated": true,
+        "planning_minutes": null,
+        "timer": {
+          "id": "genetic_result",
+          "standard_hours": 504,
+          "elapsed_hours": 0,
+          "sla": "on_time",
+          "illustrative": false,
+          "source": "Abu Dhabi: not more than 21 days in more than 90 percent of cases (D1 3.8.6). Dubai: around 4 weeks from receiving both samples (D2 11.5.6). Typical: 14 days in the Abu Dhabi workflow image (D1 App. 15, least reliable row set). The standards disagree with each other and with press figures; the value is parameterised per emirate policy, never hard-coded.",
+          "illustrative_notice": null
+        }
+      },
+      {
+        "id": "result_communicated",
+        "label": "Result is explained",
+        "description": "The doctor shares the result. Partners may be contacted separately.",
+        "status": "done",
+        "completed_at": "2026-11-20T07:27:38.279956Z",
+        "external_system": "Report feed between laboratory and doctor (simulated)",
+        "simulated": true,
+        "planning_minutes": null,
+        "timer": null
+      },
+      {
+        "id": "counselling_booked",
+        "label": "Counselling is booked",
+        "description": "If the result needs it, a counselling visit is booked. You can also say no thank you.",
+        "status": "current",
+        "completed_at": null,
+        "external_system": null,
+        "simulated": false,
+        "planning_minutes": null,
+        "timer": {
+          "id": "referral",
+          "standard_hours": 336,
+          "elapsed_hours": 0,
+          "sla": "on_time",
+          "illustrative": true,
+          "source": "ILLUSTRATIVE. No standard states a time limit for the referral. The Abu Dhabi KPI is a share (90 percent, D1 section 5 Table 1), not a time. No primary figure for time from result to counselling was found; the scenario values of 7, 14, 30, 60 and 90 days are a Rishta Safe authoring note, pending clinical sign-off. 14 is one scenario.",
+          "illustrative_notice": "This time limit is illustrative. No published standard states one."
+        }
+      },
+      {
+        "id": "counselling_completed",
+        "label": "Counselling is done",
+        "description": "A trained professional explains the result and the choices that exist. They do not tell you what to decide.",
+        "status": "upcoming",
+        "completed_at": null,
+        "external_system": null,
+        "simulated": false,
+        "planning_minutes": null,
+        "timer": null
+      },
+      {
+        "id": "declaration_signed",
+        "label": "Declaration is signed",
+        "description": "You sign a statement that the result was explained to you.",
+        "status": "upcoming",
+        "completed_at": null,
+        "external_system": "Licensed screening centre (simulated)",
+        "simulated": true,
+        "planning_minutes": null,
+        "timer": null
+      },
+      {
+        "id": "certificate_issued",
+        "label": "Certificate is issued",
+        "description": "The screening report that is needed for the marriage contract is issued. It is valid for a limited time.",
+        "status": "upcoming",
+        "completed_at": null,
+        "external_system": "Digital certificate service (simulated)",
+        "simulated": true,
+        "planning_minutes": null,
+        "timer": null
+      },
+      {
+        "id": "judicial_handoff_sent",
+        "label": "Report goes to the judicial department",
+        "description": "The report is made available to the judicial department. In this prototype the hand-off is simulated.",
+        "status": "upcoming",
+        "completed_at": null,
+        "external_system": "Judicial department hand-off (simulated)",
+        "simulated": true,
+        "planning_minutes": null,
+        "timer": null
+      },
+      {
+        "id": "case_closed",
+        "label": "Case is closed",
+        "description": "The follow-up steps are finished or have been declined, and the case is closed.",
+        "status": "upcoming",
+        "completed_at": null,
+        "external_system": null,
+        "simulated": false,
+        "planning_minutes": null,
+        "timer": null
+      }
+    ],
+    "next_actions": [
+      {
+        "event": "counselling_booked",
+        "label": "Book counselling",
+        "roles": [
+          "clinician",
+          "counsellor",
+          "couple_member"
+        ]
+      },
+      {
+        "event": "counselling_declined",
+        "label": "Record that counselling was declined",
+        "roles": [
+          "clinician",
+          "counsellor",
+          "couple_member"
+        ]
+      },
+      {
+        "event": "referral_rejected",
+        "label": "Record that a referral was rejected",
+        "roles": [
+          "clinician",
+          "counsellor",
+          "programme"
+        ]
+      },
+      {
+        "event": "brief_generated",
+        "label": "Record that the counsellor brief was prepared",
+        "roles": [
+          "clinician",
+          "counsellor",
+          "programme"
+        ]
+      }
+    ],
+    "open_referral_tasks": 1,
+    "certificate": null,
+    "kpi": {
+      "time_to_result_hours": 0,
+      "time_to_referral_hours": null,
+      "counselling": "pending"
+    },
+    "notices": [
+      "Every outside system shown on this page is simulated. Nothing is booked, sent or issued.",
+      "All people and results in this prototype are made up (synthetic).",
+      "These labels are a draft. The clinical lead's sign-off is pending."
+    ],
+    "simulated": true,
+    "synthetic": true
+  },
+  "escalations": [
+    {
+      "couple_id": "cpl-fixture-01",
+      "trigger_id": "shared_result",
+      "tier": "accredited_geneticist",
+      "reason_keys": [
+        "escalation.shared_result"
+      ],
+      "due_by_hint": "fast_track",
+      "needs_clinician_signoff": true,
+      "needs_legal_read": false,
+      "source": "NHS handbook: known carrier couples are fast-tracked and offered counselling straight away. EHS (Gulf News, 1 Nov 2026): an appointment is arranged for both partners with a genetics specialist."
+    }
+  ],
+  "category": "shared_result_found"
+}

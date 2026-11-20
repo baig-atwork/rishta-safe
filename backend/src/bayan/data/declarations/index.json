@@ -1,0 +1,32 @@
+[
+  {
+    "id": "data_declaration",
+    "title": "Data declaration",
+    "file": "data_declaration.md",
+    "summary": "Every data source and licence used, every source deliberately not used and why, the synthetic-data statement, the authoring-time language model declaration, and where the dependency list is."
+  },
+  {
+    "id": "limitations",
+    "title": "Limitations",
+    "file": "limitations.md",
+    "summary": "A plain list of what this prototype does not do or cannot prove: no clinical review, draft Arabic and Urdu, assumed detection rates, simulated adapters, hosting, and what the synthetic measurements do not show."
+  },
+  {
+    "id": "regulatory_posture",
+    "title": "Regulatory posture",
+    "file": "regulatory_posture.md",
+    "summary": "How Federal Decree-Law 49/2023, the Abu Dhabi and Dubai premarital screening standards and data-localisation rules shape the design, and why this is education and decision support rather than a device or counselling."
+  },
+  {
+    "id": "prior_art",
+    "title": "Prior art and positioning",
+    "file": "prior_art.md",
+    "summary": "What Rishta Safe does and does not claim to be first at, why private set intersection was cut, and our three differentiators."
+  },
+  {
+    "id": "open_risks",
+    "title": "Open risks",
+    "file": "open_risks.md",
+    "summary": "Five open risks to read before submitting: no clinical review, the unreviewed correlated-miss derivation, outstanding legal reads, hosting, and the comprehension test not run."
+  }
+]

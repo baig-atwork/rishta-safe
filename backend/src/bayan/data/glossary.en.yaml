@@ -1,0 +1,118 @@
+# Plain-language glossary, English. Same term keys in glossary.ar.yaml and glossary.ur.yaml.
+#
+# Rules (enforced by tests/explain): no digits; no banned word; every locale has the same keys;
+# every entry has a definition and a source note.
+# Definitions are written for this prototype from general medical knowledge. No third-party
+# glossary text is copied (spec section 2 rule 8). They carry needs_clinician_signoff: true.
+meta:
+  schema_version: 1
+  locale: en
+  direction: ltr
+  language_status: draft
+  needs_clinician_signoff: true
+  authoring: "Static text drafted at authoring time with an LLM assistant (no personal data); no runtime LLM."
+  default_source: "Authored for this prototype from general medical knowledge; no third-party text copied; clinical sign-off pending."
+
+terms:
+  gene:
+    term: "gene"
+    definition: "A gene is a set of instructions in your cells. Genes help the body grow and work. You get one copy of each gene from each parent."
+  variant:
+    term: "gene change (variant)"
+    definition: "A variant is a difference in the spelling of a gene. Many variants are harmless. Some change how a gene works."
+  carrier:
+    term: "carrier"
+    definition: "A carrier has one changed copy of a gene and one usual copy. For most inherited conditions that need two changed copies, a carrier has no symptoms."
+  recessive:
+    term: "recessive inheritance"
+    definition: "A recessive condition appears only when a child receives a changed copy of the gene from both parents. Each parent is usually a carrier and is usually well."
+  dominant:
+    term: "dominant inheritance"
+    definition: "A dominant condition can appear when a child receives just one changed copy of a gene from one parent."
+  x_linked:
+    term: "X-linked inheritance"
+    definition: "An X-linked gene is on the X chromosome. Females have two X chromosomes and males have one X and one Y. So these conditions can affect sons and daughters in different ways."
+  chromosome:
+    term: "chromosome"
+    definition: "A chromosome is a long thread of genes inside each cell. Genes are arranged along chromosomes."
+  inheritance:
+    term: "inheritance"
+    definition: "Inheritance is the way genes are handed from parents to children."
+  panel:
+    term: "gene panel"
+    definition: "A gene panel is a test that looks at a chosen list of genes. It does not look at every gene."
+  vus:
+    term: "variant of uncertain significance (VUS)"
+    definition: "A VUS is a gene change that doctors cannot yet call harmful or harmless. It is not counted as a result. Its meaning may become clear later."
+  haemoglobin:
+    term: "haemoglobin"
+    definition: "Haemoglobin is the part of red blood cells that carries oxygen around the body."
+  thalassaemia:
+    term: "thalassaemia"
+    definition: "Thalassaemia is a group of inherited blood conditions in which the body makes less haemoglobin than usual."
+  alpha_thalassaemia:
+    term: "alpha-thalassaemia"
+    definition: "Alpha-thalassaemia is a type of thalassaemia linked to the alpha-globin genes."
+  beta_thalassaemia:
+    term: "beta-thalassaemia"
+    definition: "Beta-thalassaemia is a type of thalassaemia linked to the beta-globin gene."
+  sickle_cell_disease:
+    term: "sickle cell disease"
+    definition: "Sickle cell disease is an inherited blood condition. It changes the shape of some red blood cells."
+  iron_deficiency:
+    term: "iron deficiency"
+    definition: "Iron deficiency means the body does not have enough iron. It can make red blood cells small and pale. It is common and is not inherited."
+  hplc:
+    term: "HPLC (haemoglobin test)"
+    definition: "HPLC is a blood test that separates the different kinds of haemoglobin. It helps tell whether someone may be a carrier of a blood condition."
+  cbc:
+    term: "complete blood count (CBC)"
+    definition: "A complete blood count is a basic blood test. It counts blood cells and measures their size. On its own it cannot show whether someone is a carrier."
+  detection_rate:
+    term: "detection rate"
+    definition: "The detection rate tells how often a test finds a change that is really there. No test finds every change."
+  confirmatory_test:
+    term: "confirmatory test"
+    definition: "A confirmatory test is a second test, done in a different way, to check a first finding."
+  screening:
+    term: "screening"
+    definition: "Screening looks for a chance of a condition in people who feel well. A screening test is not a diagnosis."
+  consanguinity:
+    term: "consanguinity (marriage between relatives)"
+    definition: "Consanguinity means that two partners are related by blood, for example cousins. Related partners are more likely to carry the same gene change, because they can both receive it from a shared ancestor."
+  family_history:
+    term: "family history"
+    definition: "Your family history is what you know about health conditions in your relatives."
+  genetic_counselling:
+    term: "genetic counselling"
+    definition: "Genetic counselling is a conversation with a trained professional. They explain results, answer questions and describe the choices that exist. They do not tell you what to decide."
+  genetic_counsellor:
+    term: "genetic counsellor"
+    definition: "A genetic counsellor is a health professional trained to explain genetic results and help families understand them."
+  affected:
+    term: "affected (has the condition)"
+    definition: "A person is called affected when a gene change leads to the condition itself. A carrier is not affected."
+  shared_result:
+    term: "shared result"
+    definition: "A shared result means that both partners carry a change in the same gene, or that the result of one partner matches the other. It points to a chance of a child with the condition. It is not a diagnosis of either partner."
+  natural_frequency:
+    term: "chance out of one hundred pregnancies"
+    definition: "We describe a chance as a number out of one hundred pregnancies. A bigger number means a bigger chance. The same chance applies to every pregnancy."
+  risk:
+    term: "risk (chance)"
+    definition: "Risk here means chance: how likely something is. A chance is not a certainty."
+  diagnosis:
+    term: "diagnosis"
+    definition: "A diagnosis is a doctor's finding that a person has a condition. A screening result is not a diagnosis."
+  right_not_to_know:
+    term: "right not to know"
+    definition: "You may choose not to be told some or all of your genetic results. You can change your mind later."
+  prenatal_diagnosis:
+    term: "prenatal diagnosis"
+    definition: "Prenatal diagnosis is testing during a pregnancy to see whether the child has a certain condition."
+  preimplantation_testing:
+    term: "preimplantation testing"
+    definition: "Preimplantation testing checks embryos made by in vitro fertilisation before a pregnancy begins. It is done at licensed centres."
+  certificate:
+    term: "screening certificate (report)"
+    definition: "The screening certificate is the signed report from the licensed screening centre that is needed for the marriage contract. It is valid for a limited time."

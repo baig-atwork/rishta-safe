@@ -1,0 +1,63 @@
+# Pre-commit hooks for Rishta Safe. NOT installed by the infra lane: the controller or Ali installs them once with
+#
+#   uv tool install pre-commit            (or: pipx install pre-commit)
+#   pre-commit install                    (installs the pre-commit, commit-msg and pre-push hooks, see default_install_hook_types)
+#
+# Every `rev` is a release tag looked up on 2026-11-20 (GitHub releases API). Bump them together, deliberately. The gitleaks
+# version is the same one CI downloads (.github/workflows/ci.yml, job `secrets`); change both. ruff-pre-commit v0.17.6 is the
+# ruff in backend/uv.lock (0.17.6): a different version formats differently.
+minimum_pre_commit_version: "4.0.0"
+
+default_install_hook_types: [pre-commit, commit-msg, pre-push]
+
+# Lock files, generated files and binary assets are never rewritten by the whitespace hooks.
+exclude: |
+  (?x)^(
+    backend/uv\.lock|
+    backend/openapi\.json|
+    frontend/pnpm-lock\.yaml|
+    frontend/public/.*|
+    infra/\.secrets/.*
+  )$
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0 # 2025-08-09
+    hooks:
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+        # Next.js tsconfig files allow comments; they are not strict JSON.
+        exclude: ^frontend/tsconfig.*\.json$
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  # Scans the staged changes. The same tool, at the same version, scans the whole history in CI.
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1 # 2026-03-21
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.6 # 2026-11-19; matches backend/uv.lock
+    hooks:
+      - id: ruff-check
+        files: ^backend/
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+        files: ^backend/
+
+  # Conventional Commits: the message at commit time, and every commit being pushed (commitizen-branch checks the
+  # PRE_COMMIT_FROM_REF..PRE_COMMIT_TO_REF range that pre-commit sets for a push).
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.19.3 # 2026-10-24; v4.19.4 is from 2026-11-19 and is left for the dependency sweep
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+      - id: commitizen-branch
+        stages: [pre-push]
